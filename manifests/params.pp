@@ -15,6 +15,8 @@
 
 class koji::params {
 
+    $admin_user = 'kojiadmin'
+
     case $::operatingsystem {
         'CentOS', 'Fedora': {
 
