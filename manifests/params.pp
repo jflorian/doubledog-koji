@@ -21,6 +21,13 @@ class koji::params {
         'CentOS', 'Fedora': {
 
             $cli_packages = 'koji'
+            $hub_packages = [
+                'koji-hub',
+                'koji-hub-plugins',
+                # Work-around for
+                # https://bugzilla.redhat.com/show_bug.cgi?id=1301765
+                'python-simplejson',
+            ]
 
         }
 
