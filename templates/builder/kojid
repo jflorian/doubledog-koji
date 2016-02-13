@@ -1,0 +1,11 @@
+# This file is managed by Puppet via the "<%= @module_name %>" module.
+#
+# vim: filetype=sh
+
+FORCE_LOCK=Y
+<% if @debug -%>
+KOJID_DEBUG=Y
+<% else -%>
+KOJID_DEBUG=N
+<% end -%>
+KOJID_VERBOSE=Y

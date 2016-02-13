@@ -20,6 +20,10 @@ class koji::params {
     case $::operatingsystem {
         'CentOS', 'Fedora': {
 
+            $builder_packages = [
+                'createrepo',
+                'koji-builder',
+            ]
             $cli_packages = 'koji'
             $hub_packages = [
                 'koji-hub',
@@ -31,6 +35,7 @@ class koji::params {
             $kojira_packages = 'koji-utils'
             $web_packages = 'koji-web'
 
+            $builder_services = 'kojid'
             $kojira_services = 'kojira'
 
         }
