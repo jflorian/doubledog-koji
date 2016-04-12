@@ -37,6 +37,10 @@ class koji::params {
 
             $builder_services = 'kojid'
             $kojira_services = 'kojira'
+            $helpers_bin = '/usr/local/libexec/_shared_koji_helpers'
+            $regen_repos_bin = '/usr/local/bin/regen-repos'
+            $regen_repos_conf = '/etc/regen-repos.conf'
+            $regen_repos_states = '/var/lib/regen-repos'
 
         }
 
