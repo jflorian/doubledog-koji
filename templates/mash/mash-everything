@@ -1,0 +1,109 @@
+#!/bin/sh
+#
+# This file is managed by Puppet via the "<%= @module_name %>" module.
+#
+# === Authors
+#
+#   John Florian <jflorian@doubledog.org>
+#
+# === Copyright
+#
+# Copyright 2016 John Florian
+
+# Constants defined in part or wholly by Puppet resources:
+TOP_DIR='<%= @top_dir %>'
+REPO_DIR='<%= @repo_dir %>'
+CONF='<%= @mash_everything_conf %>'
+
+# Other constants which may be derived from those from Puppet:
+SELF=$(basename $0)
+MASH_DIR="/tmp/mash"
+COMPOSITE_DIR="${MASH_DIR}/composite"
+
+source '<%= @helpers_bin %>'
+
+ensure_composite_dir() {
+    # Ensure the repository composition directory exists and is as expected.
+    local dir="$1"
+    local wipe="${2:-do_not_wipe}"
+    local what="repository composition directory '${dir}'"
+    if [ "$wipe" = wipe ]
+    then
+        rm -rf "$dir" \
+                && crit "Wiped ${what}." \
+                || fail "Could not wipe ${what}."
+    fi
+    if [ ! -d "$dir" ]
+    then
+        mkdir -p "$dir" \
+                && crit "Created ${what}." \
+                || fail "Could not create ${what}."
+    fi
+}
+
+clone_into_composite_dir() {
+    # Composite one repository directory.
+    local repo="$1"
+    local clone="$2"
+    [ -L $clone ] && return
+    [ -e $clone ] \
+            && fail "Composite clone '${clone}' exists, but is not a symlink."
+    ensure_composite_dir "$(dirname "$clone")"
+    ln -s ${MASH_DIR}/${repo} $clone \
+            && info "Created composite clone '${clone}'." \
+            || fail "Could not create composite clone '${clone}'."
+}
+
+mash_all_repositories() {
+    # Iterate over each listed mash configuration and composite them.
+    local repo comp_dir clone
+    info 'Started mashing all repositories.'
+    config_lines $CONF | while IFS=: read repo comp_dir
+    do
+        info "Mashing '${repo}'."
+        mash -o $MASH_DIR $repo \
+                || fail 'mash failed; aborting'
+        clone="${COMPOSITE_DIR}/${comp_dir}"
+        info "Cloning into '${clone}'."
+        clone_into_composite_dir "$repo" "$clone"
+    done
+    info 'Finished mashing all repositories.'
+}
+
+sync_repo_tree() {
+    # rsync the repository composition directory to the public area.  This
+    # actually accomplishes several non-obvious goals:
+    #   - Symlinks at the source are expanded and normalized so that whatever
+    #   may be exposing the public area needn't traverse any links.
+    #   - Owner/group attributes can be adjusted to be appropriate for
+    #   exposing which may differ from what Koji presents.
+    #   - Disruption to the public area is minimized.  Remember that mash
+    #   itself completely erases a repository and its meta-data before
+    #   rebuilding it.
+    info 'Started synchronizing repository tree.'
+    # It is critical that origin and target end with a slash.
+    local origin="${COMPOSITE_DIR}/"
+    local target="${REPO_DIR}/"
+    rsync \
+        --archive \
+        --copy-links \
+        --delay-updates \
+        --delete \
+        --delete-delay \
+        --exclude=lost+found/ \
+        --exclude=/*/repoview/ \
+        --no-group \
+        --no-owner \
+        --stats \
+        "$origin" "$target" \
+            || fail "Could not synchronize repository tree from '${origin}' to '${target}'."
+    info 'Finished synchronizing repository tree.'
+}
+
+main() {
+    ensure_composite_dir "$COMPOSITE_DIR" wipe
+    mash_all_repositories
+    sync_repo_tree
+}
+
+main "$@"
