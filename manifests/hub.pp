@@ -44,7 +44,11 @@
 #   Directory containing the "repos/" directory.
 #
 # [*web_cn*]
-#   Common Name (CN) of the web client for SSL authentication.
+#   TODO: Make this accept an array so that the caller needn't join values
+#   with a '|'.  See the conf template for more details.
+#
+#   Common Name (CN) of the clients allowed to proxy SSL authentication
+#   requests.
 #
 # ==== Optional
 #
