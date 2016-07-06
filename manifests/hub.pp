@@ -44,11 +44,8 @@
 #   Directory containing the "repos/" directory.
 #
 # [*web_cn*]
-#   TODO: Make this accept an array so that the caller needn't join values
-#   with a '|'.  See the conf template for more details.
-#
-#   Common Name (CN) of the clients allowed to proxy SSL authentication
-#   requests.
+#   An array of Common Names (CN) of the clients allowed to proxy SSL
+#   authentication requests.
 #
 # ==== Optional
 #
@@ -90,6 +87,7 @@ class koji::hub (
     ) inherits ::koji::params {
 
     validate_bool($debug)
+    validate_array($web_cn)
 
     package { $::koji::params::hub_packages:
         ensure  => installed,
