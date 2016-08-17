@@ -12,7 +12,7 @@ multilib_method = <%= @multilib_method %>
 tag = <%= @dist_tag %>
 inherit = <%= @inherit %>
 strict_keys = <%= @strict_keys %>
-keys = <%= @keys.values().join(', ') %>
+keys = <%= @keys.join(', ') %>
 repoviewurl = <%= @repoview_url %>
 repoviewtitle = <%= @repoview_title %>
 arches = <%= @arches.join(' ') %>

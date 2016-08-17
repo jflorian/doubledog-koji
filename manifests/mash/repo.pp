@@ -48,8 +48,8 @@
 #   Undocumented.  Defaults to false.
 #
 # [*keys*]
-#   GPG key IDs that were used to sign packages, as a map.  Defaults to {}.
-#   E.g., { 'fedora-gold' => '4F2A6FD2', 'fedora-test' => '30C9ECF8' }
+#   A list of GPG key IDs that were used to sign packages.  Defaults to [].
+#   E.g., [ '4F2A6FD2', '30C9ECF8' ]
 #
 # [*max_delta_rpm_age*]
 #   Skip the delta-RPM for any package where the base package is more than
@@ -117,7 +117,7 @@ define koji::mash::repo (
         $distro_tags=undef,
         $hash_packages=true,
         $inherit=false,
-        $keys={},
+        $keys=[],
         $max_delta_rpm_age=604800,
         $max_delta_rpm_size=800000000,
         $multilib=false,
