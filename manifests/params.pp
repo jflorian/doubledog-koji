@@ -32,7 +32,7 @@ class koji::params {
                 # https://bugzilla.redhat.com/show_bug.cgi?id=1301765
                 'python-simplejson',
             ]
-            $kojira_packages = 'koji-utils'
+            $utils_packages = 'koji-utils'
             $mash_packages = [
                 'mash',
                 'repoview',

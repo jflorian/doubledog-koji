@@ -55,7 +55,7 @@ class koji::kojira (
         $enable=true,
     ) inherits ::koji::params {
 
-    package { $::koji::params::kojira_packages:
+    package { $::koji::params::utils_packages:
         ensure => installed,
         notify => Service[$::koji::params::kojira_services],
     }
@@ -98,7 +98,7 @@ class koji::kojira (
         content   => template('koji/kojira/kojira.conf'),
         before    => Service[$::koji::params::kojira_services],
         notify    => Service[$::koji::params::kojira_services],
-        subscribe => Package[$::koji::params::kojira_packages],
+        subscribe => Package[$::koji::params::utils_packages],
     }
 
     service { $::koji::params::kojira_services:
