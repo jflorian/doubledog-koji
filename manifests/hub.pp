@@ -158,6 +158,7 @@ class koji::hub (
             "${top_dir}/images",
             "${top_dir}/packages",
             "${top_dir}/repos",
+            "${top_dir}/repos/signed",
             "${top_dir}/scratch",
             "${top_dir}/work",
         ]:
