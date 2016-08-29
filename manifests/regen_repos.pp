@@ -16,19 +16,25 @@
 #   Ideally, this is the longest path possible without getting specific about
 #   any particular distribution release.
 #
-# [*owner*]
-#   User name or number that is to own the persistent state files.  You must
-#   manually do the following for this user:
-#
-#       1. Create the Koji user account.
-#       2. Grant them the "repo" permission within Koji.
-#       3. Provide them with a Koji configuration and authentication
-#       credentials.
-#
 # ==== Optional
 #
-# [*group*]
-#   Group name or number to which the persistent state files are members.
+# [*enable*]
+#   Instance is to be started at boot.  Either true (default) or false.
+#
+# [*ensure*]
+#   Instance is to be 'running' (default) or 'stopped'.
+#
+# [*rest_secs*]
+#   The number seconds to rest after all of Koji's internal repositories have
+#   been regenerated and before the external repositories are checked again.
+#   The default is 1,800 seconds (30 minutes).
+#
+# [*wait_repo*]
+#   The maximum number of minutes to wait for Koji to finish its internal
+#   repository regeneration.  Expiration does not kill the job, but does allow
+#   job concurrency.  When set high, this can be used to avoid high loads from
+#   concurrent jobs.  When set low, job concurrency is permitted.
+#   The default is 120 minutes (2 hours).
 #
 # === See Also
 #
@@ -45,9 +51,20 @@
 
 class koji::regen_repos (
         $ext_repo_root,
-        $owner,
-        $group='root',
+        $enable=true,
+        $ensure='running',
+        $rest_secs=1800,
+        $wait_repo=120,
     ) inherits ::koji::params {
+
+    validate_re($ext_repo_root, '^.+$', "ext_repo_root cannot be null")
+    validate_integer($rest_secs, undef, -1)
+    validate_integer($wait_repo, undef, -1)
+
+    package { $::koji::params::helpers_package:
+        ensure => installed,
+        notify => Service[$::koji::params::regen_repos_service],
+    }
 
     File {
         owner   => 'root',
@@ -56,19 +73,14 @@ class koji::regen_repos (
         seluser => 'system_u',
         selrole => 'object_r',
         seltype => 'etc_t',
+        before    => Service[$::koji::params::regen_repos_service],
+        notify    => Service[$::koji::params::regen_repos_service],
+        subscribe => Package[$::koji::params::helpers_package],
     }
 
     file {
-        $::koji::params::regen_repos_states:
-            ensure => directory,
-            owner  => $owner,
-            group  => $group,
-            mode   => '0755',
-            ;
-
-        $::koji::params::regen_repos_bin:
-            mode    => '0755',
-            content => template('koji/regen-repos/regen-repos'),
+        '/etc/koji-helpers/regen-repos.conf':
+            content => template('koji/regen-repos/regen-repos.conf.erb'),
             ;
     }
 
@@ -78,8 +90,15 @@ class koji::regen_repos (
 
     concat::fragment { 'header':
         target  => $::koji::params::regen_repos_conf,
-        content => template('koji/regen-repos/regen-repos.conf'),
+        content => template('koji/regen-repos/repos.conf.erb'),
         order   => '01',
+    }
+
+    service { $::koji::params::regen_repos_service:
+        ensure     => $ensure,
+        enable     => $enable,
+        hasrestart => true,
+        hasstatus  => true,
     }
 
 }

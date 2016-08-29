@@ -25,6 +25,7 @@ class koji::params {
                 'koji-builder',
             ]
             $cli_packages = 'koji'
+            $helpers_package = 'koji-helpers'
             $hub_packages = [
                 'koji-hub',
                 'koji-hub-plugins',
@@ -46,9 +47,8 @@ class koji::params {
             $mash_work_dir = '/var/cache/mash'
             $mash_everything_bin = '/usr/local/bin/mash-everything'
             $mash_everything_conf = '/etc/mash/mash-everything.conf'
-            $regen_repos_bin = '/usr/local/bin/regen-repos'
-            $regen_repos_conf = '/etc/regen-repos.conf'
-            $regen_repos_states = '/var/lib/regen-repos'
+            $regen_repos_conf = '/etc/koji-helpers/repos.conf'
+            $regen_repos_service = 'regen-repos'
 
         }
 
