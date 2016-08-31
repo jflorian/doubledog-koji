@@ -1,0 +1,20 @@
+# This file is managed by Puppet via the "<%= @module_name %>" module.
+#
+# /etc/koji-helpers/mash-everything.conf
+#
+# Configuration for the mash-everything tool.
+
+#   TOP_DIR is the name of Koji's directory that contains the "repos/"
+#   directory.
+#
+TOP_DIR='<%= @top_dir %>'
+
+#   REPO_DIR is the name the target directory to receive the mashed
+#   repositories.
+#
+REPO_DIR='<%= @repo_dir %>'
+
+#   REST_SECS is the number seconds to rest after all of the repositories have
+#   been mashed before starting all over again.
+#
+REST_SECS=<%= @rest_secs %>

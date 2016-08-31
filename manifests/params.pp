@@ -34,19 +34,14 @@ class koji::params {
                 'python-simplejson',
             ]
             $utils_packages = 'koji-utils'
-            $mash_packages = [
-                'mash',
-                'repoview',
-            ]
             $web_packages = 'koji-web'
 
             $builder_services = 'kojid'
-            $helpers_bin = '/usr/local/libexec/_shared_koji_helpers'
             $kojira_services = 'kojira'
             $mash_conf_dir = '/etc/mash'
             $mash_work_dir = '/var/cache/mash'
-            $mash_everything_bin = '/usr/local/bin/mash-everything'
-            $mash_everything_conf = '/etc/mash/mash-everything.conf'
+            $mash_everything_conf = '/etc/koji-helpers/mashes.conf'
+            $mash_everything_service = 'mash-everything'
             $regen_repos_conf = '/etc/koji-helpers/repos.conf'
             $regen_repos_service = 'regen-repos'
 

@@ -1,13 +1,16 @@
 # This file is managed by Puppet via the "<%= @module_name %>" module.
 #
+# /etc/koji-helpers/mashes.conf
+#
 # The following entries will be included in the repository composition
 # produced by the mash-everything script.  The format is as follows:
 #   - One entry per line.
 #   - Each entry consists of two fields, separated by a colon (":").
 #   - The first field is the mash configuration name.
 #   - The second field is the name of the directory into which that repository
-#   will be composited, relative to "<%= @repo_dir %>".
+#     will be composited, relative to REPO_DIR (see
+#     /etc/koji-helpers/mash-everything.conf).
 #   - Lines beginning with any amount of whitespace and hash ("#") are treated
-#   as comments and ignored.
+#     as comments and ignored.
 
 # MASH_CONFIG_NAME:COMPOSITE_DIR_NAME

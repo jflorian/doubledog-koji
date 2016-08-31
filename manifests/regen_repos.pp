@@ -61,18 +61,15 @@ class koji::regen_repos (
     validate_integer($rest_secs, undef, -1)
     validate_integer($wait_repo, undef, -1)
 
-    package { $::koji::params::helpers_package:
-        ensure => installed,
-        notify => Service[$::koji::params::regen_repos_service],
-    }
+    include '::koji::helpers'
 
     File {
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0644',
-        seluser => 'system_u',
-        selrole => 'object_r',
-        seltype => 'etc_t',
+        owner     => 'root',
+        group     => 'root',
+        mode      => '0644',
+        seluser   => 'system_u',
+        selrole   => 'object_r',
+        seltype   => 'etc_t',
         before    => Service[$::koji::params::regen_repos_service],
         notify    => Service[$::koji::params::regen_repos_service],
         subscribe => Package[$::koji::params::helpers_package],
@@ -88,7 +85,7 @@ class koji::regen_repos (
         ensure => 'present',
     }
 
-    concat::fragment { 'header':
+    concat::fragment { 'repos-header':
         target  => $::koji::params::regen_repos_conf,
         content => template('koji/regen-repos/repos.conf.erb'),
         order   => '01',
@@ -99,6 +96,7 @@ class koji::regen_repos (
         enable     => $enable,
         hasrestart => true,
         hasstatus  => true,
+        subscribe => Package[$::koji::params::helpers_package],
     }
 
 }
