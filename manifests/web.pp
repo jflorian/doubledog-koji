@@ -20,10 +20,16 @@
 #   This must be in PEM format and include all intermediate CA certificates,
 #   sorted and concatenated from the leaf CA to the root CA.
 #
+# [*files_url*]
+#   URL for accessing Koji's file resources.
+#
 # [*hub_ca_cert*]
 #   Puppet source URI providing the CA certificate which signed the Koji Hub
 #   certificate.  This must be in PEM format and include all intermediate CA
 #   certificates, sorted and concatenated from the leaf CA to the root CA.
+#
+# [*hub_url*]
+#   URL for accessing the Koji Hub's RPC services.
 #
 # [*web_cert*]
 #   Puppet source URI providing the Koji Web's certificate.  This must be in
@@ -62,7 +68,9 @@
 
 class koji::web (
         $client_ca_cert,
+        $files_url,
         $hub_ca_cert,
+        $hub_url,
         $secret,
         $web_cert,
         $debug=false,
