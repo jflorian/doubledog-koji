@@ -115,11 +115,9 @@ class koji::gc (
         owner     => 'root',
         group     => 'root',
         mode      => '0644',
-        # Awaiting SEL support from puppetlabs-concat; see:
-        #   https://tickets.puppetlabs.com/browse/MODULES-2303
-        # seluser   => 'system_u',
-        # selrole   => 'object_r',
-        # seltype   => 'etc_t',
+        seluser   => 'system_u',
+        selrole   => 'object_r',
+        seltype   => 'etc_t',
         subscribe => Class['::koji::packages::utils'],
     }
 
