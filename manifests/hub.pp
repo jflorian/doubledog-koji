@@ -43,9 +43,9 @@
 # [*top_dir*]
 #   Directory containing the "repos/" directory.
 #
-# [*web_cn*]
-#   An array of Common Names (CN) of the clients allowed to proxy SSL
-#   authentication requests.
+# [*proxy_auth_dns*]
+#   An array of Distinguished Names (DN) of the clients allowed to proxy SSL
+#   authentication requests through the Koji Hub.
 #
 # ==== Optional
 #
@@ -80,14 +80,14 @@ class koji::hub (
         $hub_cert,
         $hub_key,
         $top_dir,
-        $web_cn,
+        $proxy_auth_dns,
         $debug=false,
         $email_domain=$::domain,
         $plugins=[],
     ) inherits ::koji::params {
 
     validate_bool($debug)
-    validate_array($web_cn)
+    validate_array($proxy_auth_dns)
 
     package { $::koji::params::hub_packages:
         ensure  => installed,
