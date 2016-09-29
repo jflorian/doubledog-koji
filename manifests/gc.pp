@@ -12,7 +12,7 @@
 # ==== Required
 #
 # [*client_ca_cert*]
-#   Puppet source URI providing the CA certificate which signed "web_cert".
+#   Puppet source URI providing the CA certificate which signed "client_cert".
 #   This must be in PEM format and include all intermediate CA certificates,
 #   sorted and concatenated from the leaf CA to the root CA.
 #
