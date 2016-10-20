@@ -36,7 +36,7 @@
 # [*debug_info_path*]
 #   Directory name where the debug RPMs are to land.  The default is a dynamic
 #   value that matches the package architecture and is relative to the
-#   directory named "repo_name" which itself is relative to the "top_dir"
+#   directory named "repo_name" which itself is relative to the "repo_dir"
 #   specified for Class[koji::mash].
 #
 # [*delta*]
@@ -79,7 +79,7 @@
 # [*repodata_path*]
 #   Directory name where the repodata files are to land.  The default is
 #   a dynamic value that matches the package architecture and is relative to
-#   the directory named "repo_name" which itself is relative to the "top_dir"
+#   the directory named "repo_name" which itself is relative to the "repo_dir"
 #   specified for Class[koji::mash].
 #
 # [*repoview_title*]
@@ -92,13 +92,13 @@
 # [*rpm_path*]
 #   Directory name where the binary RPMs are to land.  The default is
 #   a dynamic value that matches the package architecture and is relative to
-#   the directory named "repo_name" which itself is relative to the "top_dir"
+#   the directory named "repo_name" which itself is relative to the "repo_dir"
 #   specified for Class[koji::mash].
 #
 # [*source_path*]
 #   Directory name where the source RPMs are to land.  The default is
 #   "SRPMS" and is relative to the directory named "repo_name" which itself is
-#   relative to the "top_dir" specified for Class[koji::mash].
+#   relative to the "repo_dir" specified for Class[koji::mash].
 #
 # [*strict_keys*]
 #   If true, the mash job will fail if any of the builds has not be signed
