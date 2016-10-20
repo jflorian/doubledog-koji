@@ -6,6 +6,7 @@
 rpm_path = <%= @rpm_path %>
 repodata_path = <%= @repodata_path %>
 source_path = <%= @source_path %>
+debuginfo_path = <%= @debug_info_path %>
 debuginfo = <%= @debug_info %>
 multilib = <%= @multilib %>
 multilib_method = <%= @multilib_method %>

@@ -33,6 +33,12 @@
 #   If true, the debug-info files will be copied into the mashed repository;
 #   otherwise they will be skipped.
 #
+# [*debug_info_path*]
+#   Directory name where the debug RPMs are to land.  The default is a dynamic
+#   value that matches the package architecture and is relative to the
+#   directory named "repo_name" which itself is relative to the "top_dir"
+#   specified for Class[koji::mash].
+#
 # [*delta*]
 #   Should delta-RPMs be produced for the repository?  Defaults to false.
 #
@@ -113,6 +119,7 @@ define koji::mash::repo (
         $arches=['i386', 'x86_64'],
         $comp_dir=undef,
         $debug_info=true,
+        $debug_info_path='%(arch)s/debug',
         $delta=false,
         $distro_tags=undef,
         $hash_packages=true,
