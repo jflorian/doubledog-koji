@@ -40,10 +40,10 @@ class koji::params {
             $kojira_services = 'kojira'
             $mash_conf_dir = '/etc/mash'
             $mash_work_dir = '/var/cache/mash'
-            $mash_everything_conf = '/etc/koji-helpers/mashes.conf'
-            $mash_everything_service = 'mash-everything'
             $regen_repos_conf = '/etc/koji-helpers/repos.conf'
             $regen_repos_service = 'regen-repos'
+            $smashd_mashes_conf='/etc/koji-helpers/mashes.conf'
+            $smashd_service = 'smashd'
 
         }
 

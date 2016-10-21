@@ -27,7 +27,7 @@
 #
 # [*comp_dir*]
 #   Name of the directory into which this repository is to be composited by
-#   mash-everything.  Defaults to the value set by "repo_name".
+#   smashd.  Defaults to the value set by "repo_name".
 #
 # [*debug_info*]
 #   If true, the debug-info files will be copied into the mashed repository;
@@ -164,9 +164,9 @@ define koji::mash::repo (
         content => template('koji/mash/template.mash'),
     }
 
-    concat::fragment { "include mash of ${repo_name}":
-        target  => $::koji::params::mash_everything_conf,
-        content => "${repo_name}:${comp_dir_}\n",
+    concat::fragment { "mash dir mapping for ${repo_name}":
+        target  => $::koji::params::smashd_mashes_conf,
+        content => "${repo_name} : ${comp_dir_}\n",
         order   => '02',
     }
 

@@ -19,9 +19,6 @@
 # [*repo_owner*]
 #   User to own the "repo_dir" and the content therein.
 #
-# [*top_dir*]
-#   Name of the directory containing the "repos/" directory.
-#
 # ==== Optional
 #
 # [*enable*]
@@ -52,7 +49,6 @@ class koji::mash (
         $hub,
         $repo_dir,
         $repo_owner,
-        $top_dir,
         $enable=true,
         $ensure='running',
         $rest_secs=300,
@@ -61,7 +57,6 @@ class koji::mash (
     validate_re($hub, '^.+$', 'hub cannot be null')
     validate_re($repo_dir, '^.+$', 'repo_dir cannot be null')
     validate_re($repo_owner, '^.+$', 'repo_owner cannot be null')
-    validate_re($top_dir, '^.+$', 'top_dir cannot be null')
     validate_integer($rest_secs, undef, -1)
 
     include '::koji::helpers'
@@ -73,14 +68,14 @@ class koji::mash (
         seluser   => 'system_u',
         selrole   => 'object_r',
         seltype   => 'etc_t',
-        before    => Service[$::koji::params::mash_everything_service],
-        notify    => Service[$::koji::params::mash_everything_service],
+        before    => Service[$::koji::params::smashd_service],
+        notify    => Service[$::koji::params::smashd_service],
         subscribe => Package[$::koji::params::helpers_package],
     }
 
     file {
-        '/etc/koji-helpers/mash-everything.conf':
-            content => template('koji/mash/mash-everything.conf.erb'),
+        '/etc/koji-helpers/smashd.conf':
+            content => template('koji/mash/smashd.conf.erb'),
             ;
 
         $::koji::params::mash_work_dir:
@@ -92,22 +87,22 @@ class koji::mash (
             ;
     }
 
-    concat { $::koji::params::mash_everything_conf:
+    concat { $::koji::params::smashd_mashes_conf:
         ensure => 'present',
     }
 
     concat::fragment { 'mashes-header':
-        target  => $::koji::params::mash_everything_conf,
+        target  => $::koji::params::smashd_mashes_conf,
         content => template('koji/mash/mashes.conf.erb'),
         order   => '01',
     }
 
-    service { $::koji::params::mash_everything_service:
+    service { $::koji::params::smashd_service:
         ensure     => $ensure,
         enable     => $enable,
         hasrestart => true,
         hasstatus  => true,
-        subscribe => Package[$::koji::params::helpers_package],
+        subscribe  => Package[$::koji::params::helpers_package],
     }
 
 }

@@ -2,15 +2,9 @@
 #
 # /etc/koji-helpers/mashes.conf
 #
-# The following entries will be included in the repository composition
-# produced by the mash-everything script.  The format is as follows:
-#   - One entry per line.
-#   - Each entry consists of two fields, separated by a colon (":").
-#   - The first field is the mash configuration name.
-#   - The second field is the name of the directory into which that repository
-#     will be composited, relative to REPO_DIR (see
-#     /etc/koji-helpers/mash-everything.conf).
-#   - Lines beginning with any amount of whitespace and hash ("#") are treated
-#     as comments and ignored.
+# The following provides a mapping between mash configuration names (which the
+# Puppet module establishes to match the dist-tag) and a relative path name.
+# This relative path name can be found in the mash output directory and in the
+# public repositories that get syhcronized from the mash ouptut.
 
-# MASH_CONFIG_NAME:COMPOSITE_DIR_NAME
+# MASH_CONFIG_NAME:RELATIVE_PATH_NAME
