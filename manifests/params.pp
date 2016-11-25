@@ -25,7 +25,6 @@ class koji::params {
                 'koji-builder',
             ]
             $cli_packages = 'koji'
-            $helpers_package = 'koji-helpers'
             $hub_packages = [
                 'koji-hub',
                 'koji-hub-plugins',
@@ -38,12 +37,6 @@ class koji::params {
 
             $builder_services = 'kojid'
             $kojira_services = 'kojira'
-            $mash_conf_dir = '/etc/mash'
-            $mash_work_dir = '/var/cache/mash'
-            $regen_repos_conf = '/etc/koji-helpers/repos.conf'
-            $regen_repos_service = 'regen-repos'
-            $smashd_mashes_conf='/etc/koji-helpers/mashes.conf'
-            $smashd_service = 'smashd'
 
         }
 
