@@ -8,46 +8,12 @@
 #
 # ==== Required
 #
-# [*downloads*]
-#   URL of your package download site.
-#
-# [*hub*]
-#   URL of your Koji-Hub server.
-#
-# [*top_dir*]
-#   Directory containing the "repos/" directory.
-#
-# [*web*]
-#   URL of your Koji-Web server.
-#
 # ==== Optional
 #
-# [*auth_type*]
-#   The method the client should use to authenticate itself to the Koji-Hub.
-#   Must be one of: 'noauth', 'ssl', 'password', or 'kerberos'.  The default
-#   is 'ssl'.
-#
-# [*max_retries*]
-#   When making Koji calls, if the Koji Hub reports a temporary failure, how
-#   many times should the call be retried?  The default is 30.
-#
-# [*offline_retry*]
-#   When making Koji calls, if the Koji Hub reports itself as offline, should
-#   the call be retried automatically?  The default is false.
-#
-#   Note that offline failures are treated specially from other temporary
-#   failures.  These are not constrained by other failure handling options,
-#   most notably "max_retries".
-#
-# [*offline_retry_interval*]
-#   When making Koji calls, if the Koji Hub reports itself as offline and
-#   "offline_retry" is true, this determines how many seconds the Koji Client
-#   will wait before attempting the call again.  The default is 20 seconds.
-#
-# [*retry_interval*]
-#   When making Koji calls, if the Koji Hub reports a temporary failure, this
-#   determines how many seconds the Koji Client will wait before attempting
-#   the call again.  The default is 20 seconds.
+# [*profiles*]
+#   A hash whose keys are profile  names and whose values are hashes
+#   comprising the same parameters you would otherwise pass to
+#   Define[koji::cli::profile].
 #
 # === Authors
 #
@@ -59,27 +25,14 @@
 
 
 class koji::cli (
-        $downloads,
-        $hub,
-        $top_dir,
-        $web,
-        Enum['noauth', 'ssl', 'password', 'kerberos'] $auth_type='ssl',
-        $max_retries=30,
-        $offline_retry=false,
-        $offline_retry_interval=20,
-        $retry_interval=20,
+        Hash $profiles={},
     ) inherits ::koji::params {
-
-    validate_bool($offline_retry)
-    validate_integer($max_retries)
-    validate_integer($offline_retry_interval)
-    validate_integer($retry_interval)
 
     package { $::koji::params::cli_packages:
         ensure  => installed,
     }
 
-    File {
+    concat { '/etc/koji.conf':
         owner     => 'root',
         group     => 'root',
         mode      => '0644',
@@ -89,8 +42,12 @@ class koji::cli (
         subscribe => Package[$::koji::params::cli_packages],
     }
 
-    file { '/etc/koji.conf':
-        content => template('koji/cli/koji.conf'),
+    concat::fragment { "koji CLI configuration header":
+        target  => '/etc/koji.conf',
+        content => template('koji/cli/koji.conf.erb'),
+        order   => '01',
     }
+
+    create_resources(::koji::cli::profile, $profiles)
 
 }

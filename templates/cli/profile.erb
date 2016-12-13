@@ -1,15 +1,15 @@
-# This file is managed by Puppet via the "<%= @module_name %>" module.
-#
-# vim: filetype=configparser
 
-[koji]
+<% if @title == 'koji' -%>
+# Default Profile {{{1
+<% else -%>
+# '<%= @title %>' Profile {{{1
+<% end -%>
+[<%= @title %>]
 
-# configuration for koji cli tool
-
-# url of XMLRPC server
+# url of the Koji-Hub
 server = <%= @hub %>
 
-# url of web interface
+# url of the Koji-Web
 weburl = <%= @web %>
 
 # url of package download site
@@ -18,8 +18,7 @@ topurl = <%= @downloads %>
 # path to the koji top directory
 topdir = <%= @top_dir %>
 
-# configuration for authentication
-
+## authentication {{{2
 authtype = <%= @auth_type %>
 
 <% if @auth_type == 'kerberos' -%>
@@ -35,7 +34,7 @@ ca = ~/.koji/clientca.crt
 serverca = ~/.koji/serverca.crt
 <% end -%>
 
-# configuration for failure handling when making calls to the Koji Hub
+## failure handling when making calls to the Koji-Hub {{{2
 
 # How many times should a failed call be retried if the Hub reports
 # a temporary failure?
@@ -49,3 +48,5 @@ offline_retry = <%= @offline_retry %>
 
 # ... and if so, wait how many seconds between attempts?
 offline_retry_interval = <%= @offline_retry_interval %>
+
+# 1}}}
