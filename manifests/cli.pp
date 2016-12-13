@@ -22,6 +22,11 @@
 #
 # ==== Optional
 #
+# [*auth_type*]
+#   The method the client should use to authenticate itself to the Koji-Hub.
+#   Must be one of: 'noauth', 'ssl', 'password', or 'kerberos'.  The default
+#   is 'ssl'.
+#
 # [*max_retries*]
 #   When making Koji calls, if the Koji Hub reports a temporary failure, how
 #   many times should the call be retried?  The default is 30.
@@ -58,6 +63,7 @@ class koji::cli (
         $hub,
         $top_dir,
         $web,
+        Enum['noauth', 'ssl', 'password', 'kerberos'] $auth_type='ssl',
         $max_retries=30,
         $offline_retry=false,
         $offline_retry_interval=20,
