@@ -93,13 +93,12 @@ class koji::database (
         listen_addresses => $listen_addresses,
     }
 
-    Postgresql::Server::Pg_hba_rule {
-        auth_method => 'trust',
-        database    => $dbname,
-        order       => '001',
-    }
-
     ::postgresql::server::pg_hba_rule {
+        default:
+            auth_method => 'trust',
+            database    => $dbname,
+            order       => '001',
+            ;
         'allow Koji-Hub via local IPv4 connection':
             type    => 'host',
             user    => $username,

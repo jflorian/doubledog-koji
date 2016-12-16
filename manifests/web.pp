@@ -128,19 +128,18 @@ class koji::web (
             ;
     }
 
-    File {
-        owner     => 'root',
-        group     => 'root',
-        mode      => '0644',
-        seluser   => 'system_u',
-        selrole   => 'object_r',
-        seltype   => 'etc_t',
-        before    => Class['::apache::service'],
-        notify    => Class['::apache::service'],
-        subscribe => Package[$::koji::params::web_packages],
-    }
-
     file {
+        default:
+            owner     => 'root',
+            group     => 'root',
+            mode      => '0644',
+            seluser   => 'system_u',
+            selrole   => 'object_r',
+            seltype   => 'etc_t',
+            before    => Class['::apache::service'],
+            notify    => Class['::apache::service'],
+            subscribe => Package[$::koji::params::web_packages],
+            ;
         '/etc/kojiweb/web.conf':
             content => template('koji/web/web.conf'),
             ;

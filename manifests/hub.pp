@@ -141,19 +141,18 @@ class koji::hub (
             ;
     }
 
-    File {
-        owner     => 'root',
-        group     => 'root',
-        mode      => '0644',
-        seluser   => 'system_u',
-        selrole   => 'object_r',
-        seltype   => 'etc_t',
-        before    => Class['::apache::service'],
-        notify    => Class['::apache::service'],
-        subscribe => Package[$::koji::params::hub_packages],
-    }
-
     file {
+        default:
+            owner     => 'root',
+            group     => 'root',
+            mode      => '0644',
+            seluser   => 'system_u',
+            selrole   => 'object_r',
+            seltype   => 'etc_t',
+            before    => Class['::apache::service'],
+            notify    => Class['::apache::service'],
+            subscribe => Package[$::koji::params::hub_packages],
+            ;
         [
             "${top_dir}/images",
             "${top_dir}/packages",

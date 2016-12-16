@@ -88,17 +88,16 @@ class koji::gc (
 
     include '::koji::packages::utils'
 
-    File {
-        owner     => 'root',
-        group     => 'root',
-        mode      => '0644',
-        seluser   => 'system_u',
-        selrole   => 'object_r',
-        seltype   => 'etc_t',
-        subscribe => Class['::koji::packages::utils'],
-    }
-
     file {
+        default:
+            owner     => 'root',
+            group     => 'root',
+            mode      => '0644',
+            seluser   => 'system_u',
+            selrole   => 'object_r',
+            seltype   => 'etc_t',
+            subscribe => Class['::koji::packages::utils'],
+            ;
         '/etc/koji-gc/client.pem':
             source  => $client_cert,
             ;

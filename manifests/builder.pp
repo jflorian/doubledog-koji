@@ -150,19 +150,18 @@ class koji::builder (
             ;
     }
 
-    File {
-        owner     => 'root',
-        group     => 'root',
-        mode      => '0644',
-        seluser   => 'system_u',
-        selrole   => 'object_r',
-        seltype   => 'etc_t',
-        before    => Service[$::koji::params::builder_services],
-        notify    => Service[$::koji::params::builder_services],
-        subscribe => Package[$::koji::params::builder_packages],
-    }
-
     file {
+        default:
+            owner     => 'root',
+            group     => 'root',
+            mode      => '0644',
+            seluser   => 'system_u',
+            selrole   => 'object_r',
+            seltype   => 'etc_t',
+            before    => Service[$::koji::params::builder_services],
+            notify    => Service[$::koji::params::builder_services],
+            subscribe => Package[$::koji::params::builder_packages],
+            ;
         '/etc/kojid/kojid.conf':
             content => template('koji/builder/kojid.conf'),
             ;
