@@ -11,7 +11,7 @@
 # ==== Optional
 #
 # [*profiles*]
-#   A hash whose keys are profile  names and whose values are hashes
+#   A hash whose keys are profile names and whose values are hashes
 #   comprising the same parameters you would otherwise pass to
 #   Define[koji::cli::profile].
 #
@@ -25,11 +25,11 @@
 
 
 class koji::cli (
-        Hash $profiles={},
+        Hash[String[1], Hash] $profiles={},
     ) inherits ::koji::params {
 
     package { $::koji::params::cli_packages:
-        ensure  => installed,
+        ensure => installed,
     }
 
     concat { '/etc/koji.conf':

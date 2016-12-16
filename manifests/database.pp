@@ -72,12 +72,12 @@
 
 
 class koji::database (
-        $password,
-        $dbname='koji',
-        $listen_addresses='localhost',
-        $schema_source='/usr/share/doc/koji/docs/schema.sql',
-        $username='koji',
-        $web_username='apache',
+        String[1] $password,
+        String[1] $dbname='koji',
+        String[1] $listen_addresses='localhost',
+        String[1] $schema_source='/usr/share/doc/koji/docs/schema.sql',
+        String[1] $username='koji',
+        String[1] $web_username='apache',
     ) inherits ::koji::params {
 
     # Class[koji::cli] provides the schema.sql file required by the bootstrap

@@ -24,7 +24,7 @@
 #   URL of your Koji-Hub server.
 #
 # [*keys*]
-#   GPG key IDs that were used to sign packages, as a map.  E.g.,
+#   GPG key IDs that were used to sign packages, as a hash.  E.g.,
 #   { 'fedora-gold' => '4F2A6FD2', 'fedora-test' => '30C9ECF8' }
 #
 # [*top_dir*]
@@ -59,7 +59,7 @@
 #   default is 'localhost'.
 #
 # [*unprotected_keys*]
-#   A list of names in "keys" which are to be considered unprotected by the
+#   An array of names in "keys" which are to be considered unprotected by the
 #   garbage collector.  Any key not listed here is considered a protected key.
 #
 # === Authors
@@ -72,18 +72,18 @@
 
 
 class koji::gc (
-        $client_ca_cert,
-        $client_cert,
-        $hub,
-        $keys,
-        $top_dir,
-        $web,
-        $web_ca_cert,
-        $email_domain=$::domain,
-        $grace_period='4 weeks',
-        $oldest_scratch=90,
-        $smtp_host='localhost',
-        $unprotected_keys=[],
+        String[1] $client_ca_cert,
+        String[1] $client_cert,
+        String[1] $hub,
+        Hash[String, Pattern[/[0-9A-F]{8}/], 1] $keys,
+        String[1] $top_dir,
+        String[1] $web,
+        String[1] $web_ca_cert,
+        String[1] $email_domain=$::domain,
+        String[1] $grace_period='4 weeks',
+        Integer $oldest_scratch=90,
+        String[1] $smtp_host='localhost',
+        Array[Pattern[/[0-9A-F]{8}/]] $unprotected_keys=[],
     ) inherits ::koji::params {
 
     include '::koji::packages::utils'

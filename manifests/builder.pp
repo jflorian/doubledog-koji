@@ -58,7 +58,9 @@
 #   Instance is to be started at boot.  Either true (default) or false.
 #
 # [*ensure*]
-#   Instance is to be 'running' (default) or 'stopped'.
+#   Instance is to be 'running' (default) or 'stopped'.  Alternatively,
+#   a Boolean value may also be used with true equivalent to 'running' and
+#   false equivalent to 'stopped'.
 #
 # [*failed_buildroot_lifetime*]
 #   The number of seconds a buildroot should be retained by kojid after
@@ -102,24 +104,22 @@
 
 
 class koji::builder (
-        $client_ca_cert,
-        $downloads,
-        $hub,
-        $hub_ca_cert,
-        $kojid_cert,
-        $top_dir,
-        $allowed_scms=undef,
-        $debug=false,
-        $enable=true,
-        $ensure='running',
-        $failed_buildroot_lifetime=60 * 60 * 4,
-        $min_space=8192,
-        $mock_dir='/var/lib/mock',
-        $smtp_host='localhost',
-        $work_dir='/tmp/koji',
+        String[1] $client_ca_cert,
+        String[1] $downloads,
+        String[1] $hub,
+        String[1] $hub_ca_cert,
+        String[1] $kojid_cert,
+        String[1] $top_dir,
+        Optional[String[1]] $allowed_scms=undef,
+        Boolean $debug=false,
+        Boolean $enable=true,
+        Variant[Boolean, Enum['running', 'stopped']] $ensure='running',
+        Integer $failed_buildroot_lifetime=60 * 60 * 4,
+        Integer $min_space=8192,
+        String[1] $mock_dir='/var/lib/mock',
+        String[1] $smtp_host='localhost',
+        String[1] $work_dir='/tmp/koji',
     ) inherits ::koji::params {
-
-    validate_bool($debug)
 
     package { $::koji::params::builder_packages:
         ensure => installed,

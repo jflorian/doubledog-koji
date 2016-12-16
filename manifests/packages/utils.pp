@@ -11,8 +11,9 @@
 # ==== Optional
 #
 # [*ensure*]
-#   Identical to the ensure parameter of the standard File resource type.
-#   The default is 'present'.
+#   Instance is to be 'present' (default) or 'absent'.  Alternatively,
+#   a Boolean value may also be used with true equivalent to 'present' and
+#   false equivalent to 'absent'.
 #
 # === Authors
 #
@@ -24,7 +25,7 @@
 
 
 class koji::packages::utils (
-        $ensure='present',
+        Variant[Boolean, Enum['present', 'absent']] $ensure='present',
     ) inherits ::koji::params {
 
     package { $::koji::params::utils_packages:

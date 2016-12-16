@@ -58,9 +58,8 @@
 #   notifications.  Defaults to the $domain fact.
 #
 # [*plugins*]
-#   A list of Koji Hub plugins that are to be enabled.  This should be an
-#   array of strings, each representing one plugin.  The default is for no
-#   plugins to be enabled.
+#   An array of strings, each naming a Koji Hub plugin that is to be enabled.
+#   The default is for no plugins to be enabled.
 #
 # === Authors
 #
@@ -72,22 +71,19 @@
 
 
 class koji::hub (
-        $client_ca_cert,
-        $db_host,
-        $db_passwd,
-        $db_user,
-        $hub_ca_cert,
-        $hub_cert,
-        $hub_key,
-        $top_dir,
-        $proxy_auth_dns,
-        $debug=false,
-        $email_domain=$::domain,
-        $plugins=[],
+        String[1] $client_ca_cert,
+        String[1] $db_host,
+        String[1] $db_passwd,
+        String[1] $db_user,
+        String[1] $hub_ca_cert,
+        String[1] $hub_cert,
+        String[1] $hub_key,
+        String[1] $top_dir,
+        Array[String[1]] $proxy_auth_dns,
+        Boolean $debug=false,
+        String[1] $email_domain=$::domain,
+        Array[String[1]] $plugins=[],
     ) inherits ::koji::params {
-
-    validate_bool($debug)
-    validate_array($proxy_auth_dns)
 
     package { $::koji::params::hub_packages:
         ensure  => installed,

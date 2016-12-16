@@ -77,8 +77,8 @@
 
 
 define koji::gc::policy (
-        $rule,
-        $seq,
+        String[1] $rule,
+        Pattern[/[1-9][0-9]{2}/, /[0-9][1-9][0-9]/, /[0-9]{2}[1-9]/] $seq,
     ) {
 
     include '::koji::params'

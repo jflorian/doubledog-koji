@@ -67,15 +67,15 @@
 
 
 class koji::web (
-        $client_ca_cert,
-        $files_url,
-        $hub_ca_cert,
-        $hub_url,
-        $secret,
-        $web_cert,
-        $debug=false,
-        $theme='default',
-        $theme_source=undef,
+        String[1] $client_ca_cert,
+        String[1] $files_url,
+        String[1] $hub_ca_cert,
+        String[1] $hub_url,
+        String[1] $secret,
+        String[1] $web_cert,
+        Boolean $debug=false,
+        String[1] $theme='default',
+        Optional[String[1]] $theme_source=undef,
     ) inherits ::koji::params {
 
     package { $::koji::params::web_packages:

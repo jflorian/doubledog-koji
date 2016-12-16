@@ -31,7 +31,9 @@
 # ==== Optional
 #
 # [*ensure*]
-#   Instance is to be 'running' (default) or 'stopped'.
+#   Instance is to be 'running' (default) or 'stopped'.  Alternatively,
+#   a Boolean value may also be used with true equivalent to 'running' and
+#   false equivalent to 'stopped'.
 #
 # [*enable*]
 #   Instance is to be started at boot.  Either true (default) or false.
@@ -46,13 +48,13 @@
 
 
 class koji::kojira (
-        $client_ca_cert,
-        $hub,
-        $hub_ca_cert,
-        $kojira_cert,
-        $top_dir,
-        $ensure='running',
-        $enable=true,
+        String[1] $client_ca_cert,
+        String[1] $hub,
+        String[1] $hub_ca_cert,
+        String[1] $kojira_cert,
+        String[1] $top_dir,
+        Variant[Boolean, Enum['running', 'stopped']] $ensure='running',
+        Boolean $enable=true,
     ) inherits ::koji::params {
 
     include '::koji::packages::utils'
