@@ -21,6 +21,18 @@ class koji::params {
         'CentOS', 'Fedora': {
 
             $builder_packages = 'koji-builder'
+            $builder_imaging_packages = $::operatingsystem ? {
+                'CentOS' => [
+                    'lorax',
+                    'pycdio',
+                    'pykickstart',
+                ],
+                'Fedora' => [
+                    'lorax',
+                    'pycdio',
+                    'python-kickstart',
+                ],
+            }
             $cli_packages = 'koji'
             $hub_packages = [
                 'koji-hub',

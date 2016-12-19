@@ -78,6 +78,10 @@
 #   of a day or more, but keep in mind you might then exhaust the storage
 #   capacity of the "mock_dir".
 #
+# [*image_building*]
+#   If true, additional packages will be installed to permit this host to
+#   perform image building tasks.  The default is false.
+#
 # [*min_space*]
 #   The minimum amount of free space (in MiB) required for each build root.
 #
@@ -115,6 +119,7 @@ class koji::builder (
         Boolean $enable=true,
         Variant[Boolean, Enum['running', 'stopped']] $ensure='running',
         Integer $failed_buildroot_lifetime=60 * 60 * 4,
+        Boolean $image_building=false,
         Integer $min_space=8192,
         String[1] $mock_dir='/var/lib/mock',
         String[1] $smtp_host='localhost',
@@ -124,6 +129,13 @@ class koji::builder (
     package { $::koji::params::builder_packages:
         ensure => installed,
         notify => Service[$::koji::params::builder_services],
+    }
+
+    if $image_building {
+        package { $::koji::params::builder_imaging_packages:
+            ensure => installed,
+            notify => Service[$::koji::params::builder_services],
+        }
     }
 
     # The CA certificates are correct to use openssl::tls_certificate instead
