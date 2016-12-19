@@ -62,28 +62,22 @@ class koji::kojira (
     # The CA certificates are correct to use openssl::tls_certificate instead
     # of openssl::tls_ca_certificate because they don't need to be general
     # trust anchors.
-    #
-    # Also note that attempting to move common values into a default resource
-    # type is problematic due to Puppet's bizzare scoping which looks to
-    # conflict/share with type defaults from Class[koji::hub].
     ::openssl::tls_certificate {
+        default:
+            cert_path   => '/etc/kojira',
+            notify      => Service[$::koji::params::kojira_services],
+            ;
         'kojira-client-ca-chain':
             cert_name   => 'client-ca-chain',
-            cert_path   => '/etc/kojira',
             cert_source => $client_ca_cert,
-            notify      => Service[$::koji::params::kojira_services],
             ;
         'kojira-hub-ca-chain':
             cert_name   => 'hub-ca-chain',
-            cert_path   => '/etc/kojira',
             cert_source => $hub_ca_cert,
-            notify      => Service[$::koji::params::kojira_services],
             ;
         'kojira':
             cert_name   => 'kojira',
-            cert_path   => '/etc/kojira',
             cert_source => $kojira_cert,
-            notify      => Service[$::koji::params::kojira_services],
             ;
     }
 

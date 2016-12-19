@@ -103,28 +103,22 @@ class koji::web (
     # The CA certificates are correct to use openssl::tls_certificate instead
     # of openssl::tls_ca_certificate because they don't need to be general
     # trust anchors.
-    #
-    # Also note that attempting to move common values into a default resource
-    # type is problematic due to Puppet's bizzare scoping which looks to
-    # conflict/share with type defaults from Class[koji::hub].
     ::openssl::tls_certificate {
+        default:
+            cert_path => '/etc/kojiweb',
+            notify    => Class['::apache::service'],
+            ;
         'kojiweb-client-ca-chain':
             cert_name   => 'client-ca-chain',
-            cert_path   => '/etc/kojiweb',
             cert_source => $client_ca_cert,
-            notify      => Class['::apache::service'],
             ;
         'kojiweb-hub-ca-chain':
             cert_name   => 'hub-ca-chain',
-            cert_path   => '/etc/kojiweb',
             cert_source => $hub_ca_cert,
-            notify      => Class['::apache::service'],
             ;
         'kojiweb':
             cert_name   => 'web',
-            cert_path   => '/etc/kojiweb',
             cert_source => $web_cert,
-            notify      => Class['::apache::service'],
             ;
     }
 

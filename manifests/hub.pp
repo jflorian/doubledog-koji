@@ -117,14 +117,13 @@ class koji::hub (
             ;
     }
 
-    ::Openssl::Tls_certificate {
-        notify => Class['::apache::service'],
-    }
-
     # The CA certificates are correct to use openssl::tls_certificate instead
     # of openssl::tls_ca_certificate because they don't need to be general
     # trust anchors.
     ::openssl::tls_certificate {
+        default:
+            notify => Class['::apache::service'],
+            ;
         'koji-client-ca-chain':
             cert_source => $client_ca_cert,
             ;
