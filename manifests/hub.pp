@@ -149,6 +149,7 @@ class koji::hub (
             subscribe => Package[$::koji::params::hub_packages],
             ;
         [
+            $top_dir,
             "${top_dir}/images",
             "${top_dir}/packages",
             "${top_dir}/repos",
