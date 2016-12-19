@@ -8,6 +8,23 @@
 #
 # ==== Required
 #
+# [*allowed_scms*]
+#   An array of tuples from which kojid is allowed to checkout.  The format of
+#   each tuple is:
+#
+#       host:repository[:use_common[:source_cmd]]
+#
+#   Incorrectly-formatted tuples will be ignored.
+#
+#   If use_common is not present, kojid will attempt to checkout a common/
+#   directory from the repository.  If use_common is set to no, off, false, or
+#   0, it will not attempt to checkout a common/ directory.
+#
+#   source_cmd is a shell command (args separated with commas instead of
+#   spaces) to run before building the srpm.  It is generally used to retrieve
+#   source files from a remote location.  If no source_cmd is specified, "make
+#   sources" is run by default.
+#
 # [*client_ca_cert*]
 #   Puppet source URI providing the CA certificate which signed "kojid_cert".
 #   This must be in PEM format and include all intermediate CA certificates,
@@ -32,23 +49,6 @@
 #   Name of the directory containing the "repos/" directory.
 #
 # ==== Optional
-#
-# [*allowed_scms*]
-#   A space-separated list of tuples from which kojid is allowed to checkout.
-#   The format of those tuples is:
-#
-#       host:repository[:use_common[:source_cmd]]
-#
-#   Incorrectly-formatted tuples will be ignored.
-#
-#   If use_common is not present, kojid will attempt to checkout a common/
-#   directory from the repository.  If use_common is set to no, off, false, or
-#   0, it will not attempt to checkout a common/ directory.
-#
-#   source_cmd is a shell command (args separated with commas instead of
-#   spaces) to run before building the srpm.  It is generally used to retrieve
-#   source files from a remote location.  If no source_cmd is specified, "make
-#   sources" is run by default.
 #
 # [*debug*]
 #   Enable verbose debugging for the Koji Builder.
@@ -110,7 +110,7 @@ class koji::builder (
         String[1] $hub_ca_cert,
         String[1] $kojid_cert,
         String[1] $top_dir,
-        Optional[String[1]] $allowed_scms=undef,
+        Array[String[1], 1] $allowed_scms,
         Boolean $debug=false,
         Boolean $enable=true,
         Variant[Boolean, Enum['running', 'stopped']] $ensure='running',
