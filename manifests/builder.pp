@@ -142,23 +142,21 @@ class koji::builder (
     # of openssl::tls_ca_certificate because they don't need to be general
     # trust anchors.
     ::openssl::tls_certificate {
+        default:
+            cert_path => '/etc/kojid',
+            notify    => Service[$::koji::params::builder_services],
+            ;
         'kojid-client-ca-chain':
             cert_name   => 'client-ca-chain',
-            cert_path   => '/etc/kojid',
             cert_source => $client_ca_cert,
-            notify      => Service[$::koji::params::builder_services],
             ;
         'kojid-hub-ca-chain':
             cert_name   => 'hub-ca-chain',
-            cert_path   => '/etc/kojid',
             cert_source => $hub_ca_cert,
-            notify      => Service[$::koji::params::builder_services],
             ;
         'kojid':
             cert_name   => 'kojid',
-            cert_path   => '/etc/kojid',
             cert_source => $kojid_cert,
-            notify      => Service[$::koji::params::builder_services],
             ;
     }
 
