@@ -43,6 +43,12 @@
 #   will be shown to the client for unhandled exceptions.
 #   One of: true or false (default).
 #
+# [*hidden_users*]
+#   An array of the numeric IDs of users that you want to hide from tasks
+#   listed on the front page.  You might want to, for instance, hide the
+#   activity of an account used for continuous integration.  The default is to
+#   not hide any user's tasks.
+#
 # [*theme*]
 #   Name of the web theme that Koji is to use.  Content under
 #   /usr/share/koji-web/static/themes/$theme will be used instead of the
@@ -70,6 +76,7 @@ class koji::web (
         String[1] $secret,
         String[1] $web_cert,
         Boolean $debug=false,
+        Array[Integer] $hidden_users=[],
         String[1] $theme='default',
         Optional[String[1]] $theme_source=undef,
     ) inherits ::koji::params {
