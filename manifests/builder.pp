@@ -50,6 +50,14 @@
 #
 # ==== Optional
 #
+# [*build_arch_can_fail*]
+#   Don't cancel subtask when other fails.  In some cases it makes sense to
+#   continue with sibling task even if some of them already failed.  E.g.,
+#   with a kernel build it could be of use if submitter knows for which archs
+#   it succeed and for which it fails.  Repeated builds could take a lot of
+#   time and resources.  Note, that this shouldn't be enabled ordinarily as it
+#   could result in unnecessary resource consumption.  The default is false.
+#
 # [*debug*]
 #   Enable verbose debugging for the Koji Builder.
 #   One of: true or false (default).
@@ -118,6 +126,7 @@ class koji::builder (
         String[1] $kojid_cert,
         String[1] $top_dir,
         Array[String[1], 1] $allowed_scms,
+        Boolean $build_arch_can_fail=false,
         Boolean $debug=false,
         Boolean $enable=true,
         Variant[Boolean, Enum['running', 'stopped']] $ensure='running',
