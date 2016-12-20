@@ -49,6 +49,10 @@
 #   activity of an account used for continuous integration.  The default is to
 #   not hide any user's tasks.
 #
+# [*login_timeout*]
+#   Automatically logout users after this many hours.  The default is 72
+#   hours.
+#
 # [*theme*]
 #   Name of the web theme that Koji is to use.  Content under
 #   /usr/share/koji-web/static/themes/$theme will be used instead of the
@@ -77,6 +81,7 @@ class koji::web (
         String[1] $web_cert,
         Boolean $debug=false,
         Array[Integer] $hidden_users=[],
+        Integer $login_timeout=72,
         String[1] $theme='default',
         Optional[String[1]] $theme_source=undef,
     ) inherits ::koji::params {
