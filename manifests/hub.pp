@@ -5,7 +5,8 @@
 # Manages the Koji Hub component on a host.
 #
 # This manages the Koji Hub, an XML-RPC server running under mod_wsgi in
-# Apache's httpd.  It also manages Koji's skeleton file system.
+# Apache's httpd.  It also manages Koji's skeleton file system.  The Koji Hub
+# may be run on the same host as the Koji Web, but that's not required.
 #
 # === Parameters
 #
@@ -89,13 +90,7 @@ class koji::hub (
         ensure  => installed,
     }
 
-    class { '::apache':
-        anon_write         => true,
-        network_connect_db => true,
-        use_nfs            => true,
-    }
-
-    include '::apache::mod_ssl'
+    include '::koji::httpd'
 
     ::apache::module_config {
         '99-prefork':
@@ -107,10 +102,6 @@ class koji::hub (
     }
 
     ::apache::site_config {
-        'ssl':
-            content   => template("koji/hub/ssl.conf.${::operatingsystem}.${::operatingsystemmajrelease}"),
-            subscribe => Class['::apache::mod_ssl'],
-            ;
         'kojihub':
             content   => template('koji/hub/kojihub.conf'),
             subscribe => Package[$::koji::params::hub_packages],

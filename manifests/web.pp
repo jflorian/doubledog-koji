@@ -4,12 +4,8 @@
 #
 # Manages the Koji Web component on a host.
 #
-# === Assumptions
-#
-# This class presently assumes that the Koji Web component is deployed on the
-# same host as the Koji Hub component.  Additional work in the Puppet
-# resources would be required to allow these to be split apart since both
-# components require Apache httpd and mod_ssl support.
+# The Koji Web may be run on the same host as the Koji Hub, but that's not
+# required.
 #
 # === Parameters
 #
@@ -82,22 +78,13 @@ class koji::web (
         ensure => installed,
     }
 
-    # Duplicates that in koji::hub.  See assumptions note above.
-    #   class { '::apache':
-    #       network_connect_db => true,
-    #       anon_write         => true,
-    #   }
-
-    include '::apache::mod_ssl'
+    include '::koji::httpd'
 
     ::apache::site_config {
-        # Duplicates that in koji::hub.  See assumptions note above.
-        #   'ssl':
-        #       source    => 'puppet:///modules/koji/httpd/ssl.conf',
-        #       subscribe => Class['apache::mod_ssl'];
         'kojiweb':
             content   => template('koji/web/kojiweb.conf'),
-            subscribe => Package[$::koji::params::web_packages];
+            subscribe => Package[$::koji::params::web_packages],
+            ;
     }
 
     # The CA certificates are correct to use openssl::tls_certificate instead
