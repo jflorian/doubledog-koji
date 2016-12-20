@@ -94,6 +94,9 @@
 #   must be able to connect to this host via TCP on port 25.  The default is
 #   'localhost'.
 #
+# [*use_createrepo_c*]
+#   Enable using createrepo_c instread of createrepo.  The default is false.
+#
 # [*work_dir*]
 #   Name of the directory where temporary work will be performed.  The default
 #   is '/tmp/koji'.
@@ -123,6 +126,7 @@ class koji::builder (
         Integer $min_space=8192,
         String[1] $mock_dir='/var/lib/mock',
         String[1] $smtp_host='localhost',
+        Boolean $use_createrepo_c=false,
         String[1] $work_dir='/tmp/koji',
     ) inherits ::koji::params {
 
