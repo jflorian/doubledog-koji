@@ -11,11 +11,6 @@
 #
 # ==== Required
 #
-# [*client_ca_cert*]
-#   Puppet source URI providing the CA certificate which signed "web_cert".
-#   This must be in PEM format and include all intermediate CA certificates,
-#   sorted and concatenated from the leaf CA to the root CA.
-#
 # [*files_url*]
 #   URL for accessing Koji's file resources.
 #
@@ -73,7 +68,6 @@
 
 
 class koji::web (
-        String[1] $client_ca_cert,
         String[1] $files_url,
         String[1] $hub_ca_cert,
         String[1] $hub_url,
@@ -106,10 +100,6 @@ class koji::web (
         default:
             cert_path => '/etc/kojiweb',
             notify    => Class['::apache::service'],
-            ;
-        'kojiweb-client-ca-chain':
-            cert_name   => 'client-ca-chain',
-            cert_source => $client_ca_cert,
             ;
         'kojiweb-hub-ca-chain':
             cert_name   => 'hub-ca-chain',

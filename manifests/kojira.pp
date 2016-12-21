@@ -8,11 +8,6 @@
 #
 # ==== Required
 #
-# [*client_ca_cert*]
-#   Puppet source URI providing the CA certificate which signed "kojira_cert".
-#   This must be in PEM format and include all intermediate CA certificates,
-#   sorted and concatenated from the leaf CA to the root CA.
-#
 # [*hub*]
 #   URL of your Koji Hub service.
 #
@@ -48,7 +43,6 @@
 
 
 class koji::kojira (
-        String[1] $client_ca_cert,
         String[1] $hub,
         String[1] $hub_ca_cert,
         String[1] $kojira_cert,
@@ -66,10 +60,6 @@ class koji::kojira (
         default:
             cert_path   => '/etc/kojira',
             notify      => Service[$::koji::params::kojira_services],
-            ;
-        'kojira-client-ca-chain':
-            cert_name   => 'client-ca-chain',
-            cert_source => $client_ca_cert,
             ;
         'kojira-hub-ca-chain':
             cert_name   => 'hub-ca-chain',

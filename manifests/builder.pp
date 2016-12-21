@@ -25,11 +25,6 @@
 #   source files from a remote location.  If no source_cmd is specified, "make
 #   sources" is run by default.
 #
-# [*client_ca_cert*]
-#   Puppet source URI providing the CA certificate which signed "kojid_cert".
-#   This must be in PEM format and include all intermediate CA certificates,
-#   sorted and concatenated from the leaf CA to the root CA.
-#
 # [*downloads*]
 #   URL of your package download site.
 #
@@ -119,7 +114,6 @@
 
 
 class koji::builder (
-        String[1] $client_ca_cert,
         String[1] $downloads,
         String[1] $hub,
         String[1] $hub_ca_cert,
@@ -158,10 +152,6 @@ class koji::builder (
         default:
             cert_path => '/etc/kojid',
             notify    => Service[$::koji::params::builder_services],
-            ;
-        'kojid-client-ca-chain':
-            cert_name   => 'client-ca-chain',
-            cert_source => $client_ca_cert,
             ;
         'kojid-hub-ca-chain':
             cert_name   => 'hub-ca-chain',

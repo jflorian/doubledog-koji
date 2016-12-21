@@ -11,11 +11,6 @@
 #
 # ==== Required
 #
-# [*client_ca_cert*]
-#   Puppet source URI providing the CA certificate which signed "client_cert".
-#   This must be in PEM format and include all intermediate CA certificates,
-#   sorted and concatenated from the leaf CA to the root CA.
-#
 # [*client_cert*]
 #   Puppet source URI providing the Koji garbage collector's certificate.
 #   This must be in PEM format.
@@ -72,7 +67,6 @@
 
 
 class koji::gc (
-        String[1] $client_ca_cert,
         String[1] $client_cert,
         String[1] $hub,
         String[1] $hub_ca_cert,
@@ -100,9 +94,6 @@ class koji::gc (
             ;
         '/etc/koji-gc/client.pem':
             source  => $client_cert,
-            ;
-        '/etc/koji-gc/clientca.crt':
-            source  => $client_ca_cert,
             ;
         '/etc/koji-gc/serverca.crt':
             source  => $hub_ca_cert,
