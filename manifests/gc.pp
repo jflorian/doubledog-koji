@@ -23,6 +23,11 @@
 # [*hub*]
 #   URL of your Koji-Hub server.
 #
+# [*hub_ca_cert*]
+#   Puppet source URI providing the CA certificate which signed Koji-Hub.
+#   This must be in PEM format and include all intermediate CA certificates,
+#   sorted and concatenated from the leaf CA to the root CA.
+#
 # [*keys*]
 #   GPG key IDs that were used to sign packages, as a hash.  E.g.,
 #   { 'fedora-gold' => '4F2A6FD2', 'fedora-test' => '30C9ECF8' }
@@ -32,11 +37,6 @@
 #
 # [*web*]
 #   URL of your Koji-Web server.
-#
-# [*web_ca_cert*]
-#   Puppet source URI providing the CA certificate which signed Koji-Web.
-#   This must be in PEM format and include all intermediate CA certificates,
-#   sorted and concatenated from the leaf CA to the root CA.
 #
 # ==== Optional
 #
@@ -75,10 +75,10 @@ class koji::gc (
         String[1] $client_ca_cert,
         String[1] $client_cert,
         String[1] $hub,
+        String[1] $hub_ca_cert,
         Hash[String, Pattern[/[0-9A-F]{8}/], 1] $keys,
         String[1] $top_dir,
         String[1] $web,
-        String[1] $web_ca_cert,
         String[1] $email_domain=$::domain,
         String[1] $grace_period='4 weeks',
         Integer $oldest_scratch=90,
@@ -105,7 +105,7 @@ class koji::gc (
             source  => $client_ca_cert,
             ;
         '/etc/koji-gc/serverca.crt':
-            source  => $web_ca_cert,
+            source  => $hub_ca_cert,
             ;
     }
 
