@@ -39,7 +39,7 @@ class koji::params {
                 'koji-hub-plugins',
                 # Work-around for
                 # https://bugzilla.redhat.com/show_bug.cgi?id=1301765
-                'python-simplejson',
+                'python2-simplejson',
             ]
             $utils_packages = 'koji-utils'
             $web_packages = 'koji-web'
