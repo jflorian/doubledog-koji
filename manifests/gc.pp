@@ -96,7 +96,7 @@ class koji::gc (
         default:
             owner     => $owner,
             group     => $group,
-            mode      => '0644',
+            mode      => '0640',
             seluser   => 'system_u',
             selrole   => 'object_r',
             seltype   => 'etc_t',
