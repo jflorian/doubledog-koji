@@ -27,6 +27,10 @@
 #   GPG key IDs that were used to sign packages, as a hash.  E.g.,
 #   { 'fedora-gold' => '4F2A6FD2', 'fedora-test' => '30C9ECF8' }
 #
+# [*owner*]
+#   Name of the OS user account under which the garbage collection process
+#   will run.
+#
 # [*top_dir*]
 #   Directory containing the "repos/" directory.
 #
@@ -42,6 +46,10 @@
 # [*grace_period*]
 #   Determines the length of time that builds are held in the trash can before
 #   their ultimate demise.  The default is "4 weeks".
+#
+# [*group*]
+#   Name of the OS group account under which the garbage collection process
+#   will run.  The default is to be the same as "owner".
 #
 # [*oldest_scratch*]
 #   Any scratch builds that were last modified more than this number of days
@@ -63,7 +71,7 @@
 #
 # === Copyright
 #
-# Copyright 2016 John Florian
+# Copyright 2016-2017 John Florian
 
 
 class koji::gc (
@@ -71,10 +79,12 @@ class koji::gc (
         String[1] $hub,
         String[1] $hub_ca_cert,
         Hash[String, Pattern[/[0-9A-F]{8}/], 1] $keys,
+        String[1] $owner,
         String[1] $top_dir,
         String[1] $web,
         String[1] $email_domain=$::domain,
         String[1] $grace_period='4 weeks',
+        String[1] $group=$owner,
         Integer $oldest_scratch=90,
         String[1] $smtp_host='localhost',
         Array[Pattern[/[0-9A-F]{8}/]] $unprotected_keys=[],
@@ -84,8 +94,8 @@ class koji::gc (
 
     file {
         default:
-            owner     => 'root',
-            group     => 'root',
+            owner     => $owner,
+            group     => $group,
             mode      => '0644',
             seluser   => 'system_u',
             selrole   => 'object_r',
@@ -120,7 +130,7 @@ class koji::gc (
     ::cron::job {
         'koji-gc':
             command => 'koji-gc',
-            user    => 'koji',
+            user    => $owner,
             hour    => '4',
             minute  => '42',
             ;
