@@ -85,7 +85,7 @@ class koji::kojira (
         content   => template('koji/kojira/kojira.conf'),
         before    => Service[$service],
         notify    => Service[$service],
-        subscribe => Package[$::koji::utils::packages],
+        subscribe => Class['::koji::utils'],
     }
 
     service { $service:
