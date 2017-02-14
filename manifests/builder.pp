@@ -44,7 +44,7 @@
 # ==== Optional
 #
 # [*build_arch_can_fail*]
-#   Don't cancel subtask when other fails.  In some cases it makes sense to
+#   Don't cancel sub-task when other fails.  In some cases it makes sense to
 #   continue with sibling task even if some of them already failed.  E.g.,
 #   with a kernel build it could be of use if submitter knows for which archs
 #   it succeed and for which it fails.  Repeated builds could take a lot of
@@ -69,7 +69,7 @@
 #   the buildroot to determine exactly why a build failed and what might done
 #   to resolve the issue.  The default is 4 hours (or 14,400 seconds).
 #
-#   It must be noted here that this feature is somewhat flakey because Koji
+#   It must be noted here that this feature is somewhat flaky because Koji
 #   seems to set the expiration time based not on when the build started but
 #   on some other event, likely when the buildroot was created.  This might
 #   not sound all that different but bear in mind that kojid doesn't fully
@@ -106,7 +106,7 @@
 #   'localhost'.
 #
 # [*use_createrepo_c*]
-#   Enable using createrepo_c instread of createrepo.  The default is false.
+#   Enable using createrepo_c instead of createrepo.  The default is false.
 #
 # [*work_dir*]
 #   Name of the directory where temporary work will be performed.  The default
