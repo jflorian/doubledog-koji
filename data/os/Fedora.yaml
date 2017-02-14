@@ -1,0 +1,5 @@
+---
+koji::builder::imaging_packages:
+    - lorax
+    - pycdio
+    - python-kickstart

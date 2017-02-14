@@ -82,13 +82,13 @@ class koji::gc (
         String[1]                               $owner,
         String[1]                               $top_dir,
         String[1]                               $web,
-        String[1]                               $email_domain=$::domain,
-        String[1]                               $grace_period='4 weeks',
+        String[1]                               $email_domain,
+        String[1]                               $grace_period,
         String[1]                               $group=$owner,
-        Integer                                 $oldest_scratch=90,
-        String[1]                               $smtp_host='localhost',
-        Array[Pattern[/[0-9A-F]{8}/]]           $unprotected_keys=[],
-    ) inherits ::koji::params {
+        Integer                                 $oldest_scratch,
+        String[1]                               $smtp_host,
+        Array[Pattern[/[0-9A-F]{8}/]]           $unprotected_keys,
+    ) {
 
     include '::koji::utils'
 

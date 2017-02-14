@@ -80,8 +80,6 @@ define koji::cli::profile (
         Integer     $retry_interval=20,
     ) {
 
-    include '::koji::params'
-
     # Force the default profile to be first.  It looks better and may be
     # more robust.
     $order = $title ? {

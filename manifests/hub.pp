@@ -58,6 +58,9 @@
 #   The domain name that will be append to Koji user names when creating email
 #   notifications.  Defaults to the $domain fact.
 #
+# [*packages*]
+#   An array of package names needed for the Koji Hub installation.
+#
 # [*plugins*]
 #   An array of strings, each naming a Koji Hub plugin that is to be enabled.
 #   The default is for no plugins to be enabled.
@@ -80,13 +83,14 @@ class koji::hub (
         String[1]           $hub_cert,
         String[1]           $hub_key,
         String[1]           $top_dir,
+        Array[String[1], 1] $packages,
         Array[String[1]]    $proxy_auth_dns,
-        Boolean             $debug=false,
-        String[1]           $email_domain=$::domain,
-        Array[String[1]]    $plugins=[],
-    ) inherits ::koji::params {
+        Boolean             $debug,
+        String[1]           $email_domain,
+        Array[String[1]]    $plugins,
+    ) {
 
-    package { $::koji::params::hub_packages:
+    package { $packages:
         ensure  => installed,
     }
 
@@ -104,7 +108,7 @@ class koji::hub (
     ::apache::site_config {
         'kojihub':
             content   => template('koji/hub/kojihub.conf'),
-            subscribe => Package[$::koji::params::hub_packages],
+            subscribe => Package[$packages],
             ;
     }
 
@@ -137,7 +141,7 @@ class koji::hub (
             seltype   => 'etc_t',
             before    => Class['::apache::service'],
             notify    => Class['::apache::service'],
-            subscribe => Package[$::koji::params::hub_packages],
+            subscribe => Package[$packages],
             ;
         [
             $top_dir,

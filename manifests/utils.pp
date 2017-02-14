@@ -15,6 +15,9 @@
 #   a Boolean value may also be used with true equivalent to 'present' and
 #   false equivalent to 'absent'.
 #
+# [*packages*]
+#   An array of package names needed for the Koji utilities installation.
+#
 # === Authors
 #
 #   John Florian <jflorian@doubledog.org>
@@ -25,11 +28,12 @@
 
 
 class koji::utils (
-        Variant[Boolean, Enum['present', 'absent']] $ensure='present',
-    ) inherits ::koji::params {
+        Variant[Boolean, Enum['present', 'absent']] $ensure,
+        Array[String[1], 1]     $packages,
+    ) {
 
-    package { $::koji::params::utils_packages:
-        ensure => $ensure,
+    package { $packages:
+        ensure => installed,
     }
 
 }

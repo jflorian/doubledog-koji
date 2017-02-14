@@ -48,6 +48,9 @@
 #   Automatically logout users after this many hours.  The default is 72
 #   hours.
 #
+# [*packages*]
+#   An array of package names needed for the Koji Web installation.
+#
 # [*theme*]
 #   Name of the web theme that Koji is to use.  Content under
 #   /usr/share/koji-web/static/themes/$theme will be used instead of the
@@ -73,14 +76,15 @@ class koji::web (
         String[1]           $hub_url,
         String[1]           $secret,
         String[1]           $web_cert,
-        Boolean             $debug=false,
-        Array[Integer]      $hidden_users=[],
-        Integer             $login_timeout=72,
-        String[1]           $theme='default',
+        Boolean             $debug,
+        Array[Integer]      $hidden_users,
+        Integer             $login_timeout,
+        Array[String[1], 1] $packages,
+        String[1]           $theme,
         Optional[String[1]] $theme_source=undef,
-    ) inherits ::koji::params {
+    ) {
 
-    package { $::koji::params::web_packages:
+    package { $packages:
         ensure => installed,
     }
 
@@ -89,7 +93,7 @@ class koji::web (
     ::apache::site_config {
         'kojiweb':
             content   => template('koji/web/kojiweb.conf'),
-            subscribe => Package[$::koji::params::web_packages],
+            subscribe => Package[$packages],
             ;
     }
 
@@ -121,7 +125,7 @@ class koji::web (
             seltype   => 'etc_t',
             before    => Class['::apache::service'],
             notify    => Class['::apache::service'],
-            subscribe => Package[$::koji::params::web_packages],
+            subscribe => Package[$packages],
             ;
         '/etc/kojiweb/web.conf':
             content => template('koji/web/web.conf'),

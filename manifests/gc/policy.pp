@@ -81,8 +81,6 @@ define koji::gc::policy (
         Pattern[/[1-9][0-9]{2}/, /[0-9][1-9][0-9]/, /[0-9]{2}[1-9]/] $seq,
     ) {
 
-    include '::koji::params'
-
     ::concat::fragment { "koji-gc.conf-${title}":
         target  => 'koji-gc.conf',
         order   => $seq,
