@@ -90,7 +90,7 @@ class koji::gc (
         Array[Pattern[/[0-9A-F]{8}/]]           $unprotected_keys=[],
     ) inherits ::koji::params {
 
-    include '::koji::packages::utils'
+    include '::koji::utils'
 
     file {
         default:
@@ -100,7 +100,7 @@ class koji::gc (
             seluser   => 'system_u',
             selrole   => 'object_r',
             seltype   => 'etc_t',
-            subscribe => Class['::koji::packages::utils'],
+            subscribe => Class['::koji::utils'],
             ;
         '/etc/koji-gc/client.pem':
             source  => $client_cert,
@@ -118,7 +118,7 @@ class koji::gc (
         seluser   => 'system_u',
         selrole   => 'object_r',
         seltype   => 'etc_t',
-        subscribe => Class['::koji::packages::utils'],
+        subscribe => Class['::koji::utils'],
     }
 
     ::concat::fragment { 'koji-gc.conf-top':

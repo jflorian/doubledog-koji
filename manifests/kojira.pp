@@ -51,7 +51,7 @@ class koji::kojira (
         Boolean     $enable=true,
     ) inherits ::koji::params {
 
-    include '::koji::packages::utils'
+    include '::koji::utils'
 
     # The CA certificates are correct to use openssl::tls_certificate instead
     # of openssl::tls_ca_certificate because they don't need to be general
@@ -89,7 +89,7 @@ class koji::kojira (
         enable     => $enable,
         hasrestart => true,
         hasstatus  => true,
-        subscribe  => Class['::koji::packages::utils'],
+        subscribe  => Class['::koji::utils'],
     }
 
 }

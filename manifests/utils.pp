@@ -1,6 +1,6 @@
-# modules/koji/manifests/packages/utils.pp
+# modules/koji/manifests/utils.pp
 #
-# == Class: koji::packages::utils
+# == Class: koji::utils
 #
 # Manages the Koji utilities package.
 #
@@ -21,10 +21,10 @@
 #
 # === Copyright
 #
-# Copyright 2016 John Florian
+# Copyright 2016-2017 John Florian
 
 
-class koji::packages::utils (
+class koji::utils (
         Variant[Boolean, Enum['present', 'absent']] $ensure='present',
     ) inherits ::koji::params {
 
