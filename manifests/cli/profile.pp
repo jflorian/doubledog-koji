@@ -1,5 +1,3 @@
-# modules/koji/manifests/cli/profile.pp
-#
 # == Define: koji::cli::profile
 #
 # Manages a Koji CLI configuration profile.

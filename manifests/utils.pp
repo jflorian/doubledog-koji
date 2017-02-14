@@ -1,5 +1,3 @@
-# modules/koji/manifests/utils.pp
-#
 # == Class: koji::utils
 #
 # Manages the Koji utilities package.

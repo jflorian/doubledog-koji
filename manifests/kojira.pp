@@ -1,5 +1,3 @@
-# modules/koji/manifests/kojira.pp
-#
 # == Class: koji::kojira
 #
 # Manages the Koji Kojira component on a host.

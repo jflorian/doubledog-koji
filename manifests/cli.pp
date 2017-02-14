@@ -1,5 +1,3 @@
-# modules/koji/manifests/cli.pp
-#
 # == Class: koji::cli
 #
 # Manages the Koji CLI on a host.

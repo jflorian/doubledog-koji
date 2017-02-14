@@ -1,5 +1,3 @@
-# modules/koji/manifests/builder.pp
-#
 # == Class: koji::builder
 #
 # Manages a host as a Koji Builder.

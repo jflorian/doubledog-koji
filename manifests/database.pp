@@ -1,5 +1,3 @@
-# modules/koji/manifests/database.pp
-#
 # == Class: koji::database
 #
 # Manages the Koji database on a host.

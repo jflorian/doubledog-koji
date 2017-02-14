@@ -1,5 +1,3 @@
-# modules/koji/manifests/gc.pp
-#
 # == Class: koji::gc
 #
 # Manages the Koji garbage collector on a host.

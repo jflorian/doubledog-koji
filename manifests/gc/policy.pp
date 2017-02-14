@@ -1,5 +1,3 @@
-# modules/koji/manifests/gc/policy.pp
-#
 # == Define: koji::gc::policy
 #
 # Manages a policy rule for the Koji garbage collector.

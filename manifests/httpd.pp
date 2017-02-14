@@ -1,5 +1,3 @@
-# modules/koji/manifests/httpd.pp
-#
 # == Class: koji::httpd
 #
 # Manages Apache httpd for the needs of the Koji Hub/Web components.

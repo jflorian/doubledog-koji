@@ -1,5 +1,3 @@
-# modules/koji/manifests/hub.pp
-#
 # == Class: koji::hub
 #
 # Manages the Koji Hub component on a host.

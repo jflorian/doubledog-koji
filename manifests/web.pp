@@ -1,5 +1,3 @@
-# modules/koji/manifests/web.pp
-#
 # == Class: koji::web
 #
 # Manages the Koji Web component on a host.
