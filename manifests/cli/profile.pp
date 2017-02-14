@@ -1,5 +1,3 @@
-# modules/koji/manifests/cli/profile.pp
-#
 # == Define: koji::cli::profile
 #
 # Manages a Koji CLI configuration profile.
@@ -65,22 +63,20 @@
 #
 # === Copyright
 #
-# Copyright 2016 John Florian
+# Copyright 2016-2017 John Florian
 
 
 define koji::cli::profile (
-        String[1] $downloads,
-        String[1] $hub,
-        String[1] $top_dir,
-        String[1] $web,
+        String[1]   $downloads,
+        String[1]   $hub,
+        String[1]   $top_dir,
+        String[1]   $web,
         Enum['noauth', 'ssl', 'password', 'kerberos'] $auth_type='ssl',
-        Integer $max_retries=30,
-        Boolean $offline_retry=false,
-        Integer $offline_retry_interval=20,
-        Integer $retry_interval=20,
+        Integer     $max_retries=30,
+        Boolean     $offline_retry=false,
+        Integer     $offline_retry_interval=20,
+        Integer     $retry_interval=20,
     ) {
-
-    include '::koji::params'
 
     # Force the default profile to be first.  It looks better and may be
     # more robust.

@@ -1,5 +1,3 @@
-# modules/koji/manifests/gc.pp
-#
 # == Class: koji::gc
 #
 # Manages the Koji garbage collector on a host.
@@ -75,22 +73,22 @@
 
 
 class koji::gc (
-        String[1] $client_cert,
-        String[1] $hub,
-        String[1] $hub_ca_cert,
+        String[1]                               $client_cert,
+        String[1]                               $hub,
+        String[1]                               $hub_ca_cert,
         Hash[String, Pattern[/[0-9A-F]{8}/], 1] $keys,
-        String[1] $owner,
-        String[1] $top_dir,
-        String[1] $web,
-        String[1] $email_domain=$::domain,
-        String[1] $grace_period='4 weeks',
-        String[1] $group=$owner,
-        Integer $oldest_scratch=90,
-        String[1] $smtp_host='localhost',
-        Array[Pattern[/[0-9A-F]{8}/]] $unprotected_keys=[],
-    ) inherits ::koji::params {
+        String[1]                               $owner,
+        String[1]                               $top_dir,
+        String[1]                               $web,
+        String[1]                               $email_domain,
+        String[1]                               $grace_period,
+        String[1]                               $group=$owner,
+        Integer                                 $oldest_scratch,
+        String[1]                               $smtp_host,
+        Array[Pattern[/[0-9A-F]{8}/]]           $unprotected_keys,
+    ) {
 
-    include '::koji::packages::utils'
+    include '::koji::utils'
 
     file {
         default:
@@ -100,7 +98,7 @@ class koji::gc (
             seluser   => 'system_u',
             selrole   => 'object_r',
             seltype   => 'etc_t',
-            subscribe => Class['::koji::packages::utils'],
+            subscribe => Class['::koji::utils'],
             ;
         '/etc/koji-gc/client.pem':
             source  => $client_cert,
@@ -118,7 +116,7 @@ class koji::gc (
         seluser   => 'system_u',
         selrole   => 'object_r',
         seltype   => 'etc_t',
-        subscribe => Class['::koji::packages::utils'],
+        subscribe => Class['::koji::utils'],
     }
 
     ::concat::fragment { 'koji-gc.conf-top':

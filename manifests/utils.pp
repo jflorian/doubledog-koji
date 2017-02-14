@@ -1,6 +1,4 @@
-# modules/koji/manifests/packages/utils.pp
-#
-# == Class: koji::packages::utils
+# == Class: koji::utils
 #
 # Manages the Koji utilities package.
 #
@@ -15,21 +13,25 @@
 #   a Boolean value may also be used with true equivalent to 'present' and
 #   false equivalent to 'absent'.
 #
+# [*packages*]
+#   An array of package names needed for the Koji utilities installation.
+#
 # === Authors
 #
 #   John Florian <jflorian@doubledog.org>
 #
 # === Copyright
 #
-# Copyright 2016 John Florian
+# Copyright 2016-2017 John Florian
 
 
-class koji::packages::utils (
-        Variant[Boolean, Enum['present', 'absent']] $ensure='present',
-    ) inherits ::koji::params {
+class koji::utils (
+        Variant[Boolean, Enum['present', 'absent']] $ensure,
+        Array[String[1], 1]     $packages,
+    ) {
 
-    package { $::koji::params::utils_packages:
-        ensure => $ensure,
+    package { $packages:
+        ensure => installed,
     }
 
 }

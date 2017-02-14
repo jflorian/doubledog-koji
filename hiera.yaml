@@ -1,0 +1,9 @@
+---
+version: 4
+datadir: data
+hierarchy:
+    - name: "Operating System"
+      backend: yaml
+      path: "os/%{facts.os.name}"
+    - name: "common"
+      backend: yaml

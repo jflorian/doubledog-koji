@@ -1,5 +1,3 @@
-# modules/koji/manifests/kojira.pp
-#
 # == Class: koji::kojira
 #
 # Manages the Koji Kojira component on a host.
@@ -33,25 +31,29 @@
 # [*enable*]
 #   Instance is to be started at boot.  Either true (default) or false.
 #
+# [*service*]
+#   The service name of the Kojira daemon.
+#
 # === Authors
 #
 #   John Florian <jflorian@doubledog.org>
 #
 # === Copyright
 #
-# Copyright 2016 John Florian
+# Copyright 2016-2017 John Florian
 
 
 class koji::kojira (
-        String[1] $hub,
-        String[1] $hub_ca_cert,
-        String[1] $kojira_cert,
-        String[1] $top_dir,
-        Variant[Boolean, Enum['running', 'stopped']] $ensure='running',
-        Boolean $enable=true,
-    ) inherits ::koji::params {
+        String[1]   $hub,
+        String[1]   $hub_ca_cert,
+        String[1]   $kojira_cert,
+        String[1]   $top_dir,
+        Variant[Boolean, Enum['running', 'stopped']] $ensure,
+        Boolean     $enable,
+        String[1]   $service,
+    ) {
 
-    include '::koji::packages::utils'
+    include '::koji::utils'
 
     # The CA certificates are correct to use openssl::tls_certificate instead
     # of openssl::tls_ca_certificate because they don't need to be general
@@ -59,7 +61,7 @@ class koji::kojira (
     ::openssl::tls_certificate {
         default:
             cert_path   => '/etc/kojira',
-            notify      => Service[$::koji::params::kojira_services],
+            notify      => Service[$service],
             ;
         'kojira-hub-ca-chain':
             cert_name   => 'hub-ca-chain',
@@ -79,17 +81,17 @@ class koji::kojira (
         selrole   => 'object_r',
         seltype   => 'etc_t',
         content   => template('koji/kojira/kojira.conf'),
-        before    => Service[$::koji::params::kojira_services],
-        notify    => Service[$::koji::params::kojira_services],
-        subscribe => Package[$::koji::params::utils_packages],
+        before    => Service[$service],
+        notify    => Service[$service],
+        subscribe => Class['::koji::utils'],
     }
 
-    service { $::koji::params::kojira_services:
+    service { $service:
         ensure     => $ensure,
         enable     => $enable,
         hasrestart => true,
         hasstatus  => true,
-        subscribe  => Class['::koji::packages::utils'],
+        subscribe  => Class['::koji::utils'],
     }
 
 }

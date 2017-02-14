@@ -1,5 +1,3 @@
-# modules/koji/manifests/httpd.pp
-#
 # == Class: koji::httpd
 #
 # Manages Apache httpd for the needs of the Koji Hub/Web components.
@@ -19,11 +17,11 @@
 #
 # === Copyright
 #
-# Copyright 2016 John Florian
+# Copyright 2016-2017 John Florian
 
 
 class koji::httpd (
-    ) inherits ::koji::params {
+    ) {
 
     class { '::apache':
         anon_write         => true,

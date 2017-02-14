@@ -1,5 +1,3 @@
-# modules/koji/manifests/cli.pp
-#
 # == Class: koji::cli
 #
 # Manages the Koji CLI on a host.
@@ -9,6 +7,9 @@
 # ==== Required
 #
 # ==== Optional
+#
+# [*packages*]
+#   An array of package names needed for the Koji CLI installation.
 #
 # [*profiles*]
 #   A hash whose keys are profile names and whose values are hashes
@@ -21,14 +22,15 @@
 #
 # === Copyright
 #
-# Copyright 2016 John Florian
+# Copyright 2016-2017 John Florian
 
 
 class koji::cli (
-        Hash[String[1], Hash] $profiles={},
-    ) inherits ::koji::params {
+        Array[String[1], 1]     $packages,
+        Hash[String[1], Hash]   $profiles,
+    ) {
 
-    package { $::koji::params::cli_packages:
+    package { $packages:
         ensure => installed,
     }
 
@@ -39,7 +41,7 @@ class koji::cli (
         seluser   => 'system_u',
         selrole   => 'object_r',
         seltype   => 'etc_t',
-        subscribe => Package[$::koji::params::cli_packages],
+        subscribe => Package[$packages],
     }
 
     concat::fragment { "koji CLI configuration header":

@@ -1,5 +1,3 @@
-# modules/koji/manifests/database.pp
-#
 # == Class: koji::database
 #
 # Manages the Koji database on a host.
@@ -38,6 +36,9 @@
 #
 # ==== Optional
 #
+# [*admin*]
+#   Name of the of the Koji administrator.  Defaults to "kojiadmin".
+#
 # [*dbname*]
 #   Name of the database.  Defaults to "koji".
 #
@@ -68,23 +69,23 @@
 #
 # === Copyright
 #
-# Copyright 2016 John Florian
+# Copyright 2016-2017 John Florian
 
 
 class koji::database (
-        String[1] $password,
-        String[1] $dbname='koji',
-        String[1] $listen_addresses='localhost',
-        String[1] $schema_source='/usr/share/doc/koji/docs/schema.sql',
-        String[1] $username='koji',
-        String[1] $web_username='apache',
-    ) inherits ::koji::params {
+        String[1]   $admin,
+        String[1]   $password,
+        String[1]   $dbname,
+        String[1]   $listen_addresses,
+        String[1]   $schema_source,
+        String[1]   $username,
+        String[1]   $web_username,
+    ) {
 
     # Class[koji::cli] provides the schema.sql file required by the bootstrap
     # script.
     include '::koji::cli'
 
-    $admin = $::koji::params::admin_user
     $bstrap_cmd = "/var/lib/pgsql/data/bootstrap-${dbname}-database"
     $bstrap_flag = "${bstrap_cmd}.flag"
     $bstrap_log = "${bstrap_cmd}.log"

@@ -1,5 +1,3 @@
-# modules/koji/manifests/builder.pp
-#
 # == Class: koji::builder
 #
 # Manages a host as a Koji Builder.
@@ -46,7 +44,7 @@
 # ==== Optional
 #
 # [*build_arch_can_fail*]
-#   Don't cancel subtask when other fails.  In some cases it makes sense to
+#   Don't cancel sub-task when other fails.  In some cases it makes sense to
 #   continue with sibling task even if some of them already failed.  E.g.,
 #   with a kernel build it could be of use if submitter knows for which archs
 #   it succeed and for which it fails.  Repeated builds could take a lot of
@@ -71,7 +69,7 @@
 #   the buildroot to determine exactly why a build failed and what might done
 #   to resolve the issue.  The default is 4 hours (or 14,400 seconds).
 #
-#   It must be noted here that this feature is somewhat flakey because Koji
+#   It must be noted here that this feature is somewhat flaky because Koji
 #   seems to set the expiration time based not on when the build started but
 #   on some other event, likely when the buildroot was created.  This might
 #   not sound all that different but bear in mind that kojid doesn't fully
@@ -85,6 +83,10 @@
 #   If true, additional packages will be installed to permit this host to
 #   perform image building tasks.  The default is false.
 #
+# [*imaging_packages*]
+#   An array of extra package names needed for the Koji Builder installation
+#   when "image_building" is true.
+#
 # [*min_space*]
 #   The minimum amount of free space (in MiB) required for each build root.
 #
@@ -92,13 +94,19 @@
 #   The directory under which mock will do its work and create buildroots.
 #   The default is '/var/lib/mock'.
 #
+# [*packages*]
+#   An array of package names needed for the Koji Builder installation.
+#
+# [*service*]
+#   The service name of the Koji Builder daemon.
+#
 # [*smtp_host*]
 #   The mail host to use for sending email notifications.  The Koji Builder
 #   must be able to connect to this host via TCP on port 25.  The default is
 #   'localhost'.
 #
 # [*use_createrepo_c*]
-#   Enable using createrepo_c instread of createrepo.  The default is false.
+#   Enable using createrepo_c instead of createrepo.  The default is false.
 #
 # [*work_dir*]
 #   Name of the directory where temporary work will be performed.  The default
@@ -110,38 +118,41 @@
 #
 # === Copyright
 #
-# Copyright 2016 John Florian
+# Copyright 2016-2017 John Florian
 
 
 class koji::builder (
-        String[1] $downloads,
-        String[1] $hub,
-        String[1] $hub_ca_cert,
-        String[1] $kojid_cert,
-        String[1] $top_dir,
+        String[1]           $downloads,
+        String[1]           $hub,
+        String[1]           $hub_ca_cert,
+        String[1]           $kojid_cert,
+        String[1]           $top_dir,
         Array[String[1], 1] $allowed_scms,
-        Boolean $build_arch_can_fail=false,
-        Boolean $debug=false,
-        Boolean $enable=true,
-        Variant[Boolean, Enum['running', 'stopped']] $ensure='running',
-        Integer $failed_buildroot_lifetime=60 * 60 * 4,
-        Boolean $image_building=false,
-        Integer $min_space=8192,
-        String[1] $mock_dir='/var/lib/mock',
-        String[1] $smtp_host='localhost',
-        Boolean $use_createrepo_c=false,
-        String[1] $work_dir='/tmp/koji',
-    ) inherits ::koji::params {
+        Boolean             $build_arch_can_fail,
+        Boolean             $debug,
+        Boolean             $enable,
+        Variant[Boolean, Enum['running', 'stopped']] $ensure,
+        Integer[0]          $failed_buildroot_lifetime,
+        Boolean             $image_building,
+        Array[String[1], 1] $imaging_packages,
+        Integer[0]          $min_space,
+        String[1]           $mock_dir,
+        Array[String[1], 1] $packages,
+        String[1]           $service,
+        String[1]           $smtp_host,
+        Boolean             $use_createrepo_c,
+        String[1]           $work_dir,
+    ) {
 
-    package { $::koji::params::builder_packages:
+    package { $packages:
         ensure => installed,
-        notify => Service[$::koji::params::builder_services],
+        notify => Service[$service],
     }
 
     if $image_building {
-        package { $::koji::params::builder_imaging_packages:
+        package { $imaging_packages:
             ensure => installed,
-            notify => Service[$::koji::params::builder_services],
+            notify => Service[$service],
         }
     }
 
@@ -151,7 +162,7 @@ class koji::builder (
     ::openssl::tls_certificate {
         default:
             cert_path => '/etc/kojid',
-            notify    => Service[$::koji::params::builder_services],
+            notify    => Service[$service],
             ;
         'kojid-hub-ca-chain':
             cert_name   => 'hub-ca-chain',
@@ -171,9 +182,9 @@ class koji::builder (
             seluser   => 'system_u',
             selrole   => 'object_r',
             seltype   => 'etc_t',
-            before    => Service[$::koji::params::builder_services],
-            notify    => Service[$::koji::params::builder_services],
-            subscribe => Package[$::koji::params::builder_packages],
+            before    => Service[$service],
+            notify    => Service[$service],
+            subscribe => Package[$packages],
             ;
         '/etc/kojid/kojid.conf':
             content => template('koji/builder/kojid.conf'),
@@ -183,7 +194,7 @@ class koji::builder (
             ;
     }
 
-    service { $::koji::params::builder_services:
+    service { $service:
         ensure     => $ensure,
         enable     => $enable,
         hasrestart => true,

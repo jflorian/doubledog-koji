@@ -1,0 +1,56 @@
+---
+koji::builder::build_arch_can_fail:         false
+koji::builder::debug:                       false
+koji::builder::enable:                      true
+koji::builder::ensure:                      running
+koji::builder::failed_buildroot_lifetime:   14400   # 4 hours
+koji::builder::image_building:              false
+koji::builder::min_space:                   8192    # MiB
+koji::builder::mock_dir:                    /var/lib/mock
+koji::builder::packages:
+    - koji-builder
+koji::builder::service:                     kojid
+koji::builder::smtp_host:                   localhost
+koji::builder::use_createrepo_c:            false
+koji::builder::work_dir:                    /tmp/koji
+
+koji::cli::packages:
+    - koji
+koji::cli::profiles:        {}
+
+koji::database::admin:              kojiadmin
+koji::database::dbname:             koji
+koji::database::listen_addresses:   localhost
+koji::database::schema_source:      /usr/share/doc/koji/docs/schema.sql
+koji::database::username:           koji
+koji::database::web_username:       apache
+
+koji::gc::email_domain:             "%{facts.domain}"
+koji::gc::grace_period:             '4 weeks'
+koji::gc::oldest_scratch:           90  # days
+koji::gc::smtp_host:                localhost
+koji::gc::unprotected_keys:         []
+
+koji::hub::debug:                   false
+koji::hub::email_domain:            "%{facts.domain}"
+koji::hub::packages:
+    - koji-hub
+    - koji-hub-plugins
+    # Work-around for https://bugzilla.redhat.com/show_bug.cgi?id=1301765
+    - python2-simplejson
+koji::hub::plugins:                 []
+
+koji::kojira::enable:               true
+koji::kojira::ensure:               running
+koji::kojira::service:              kojira
+
+koji::utils::packages:
+    - koji-utils
+koji::utils::ensure:                present
+
+koji::web::debug:                   false
+koji::web::hidden_users:            []
+koji::web::login_timeout:           72  # hours
+koji::web::packages:
+    - koji-web
+koji::web::theme:                   default
