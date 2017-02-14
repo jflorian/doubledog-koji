@@ -75,19 +75,19 @@
 
 
 class koji::gc (
-        String[1] $client_cert,
-        String[1] $hub,
-        String[1] $hub_ca_cert,
+        String[1]                               $client_cert,
+        String[1]                               $hub,
+        String[1]                               $hub_ca_cert,
         Hash[String, Pattern[/[0-9A-F]{8}/], 1] $keys,
-        String[1] $owner,
-        String[1] $top_dir,
-        String[1] $web,
-        String[1] $email_domain=$::domain,
-        String[1] $grace_period='4 weeks',
-        String[1] $group=$owner,
-        Integer $oldest_scratch=90,
-        String[1] $smtp_host='localhost',
-        Array[Pattern[/[0-9A-F]{8}/]] $unprotected_keys=[],
+        String[1]                               $owner,
+        String[1]                               $top_dir,
+        String[1]                               $web,
+        String[1]                               $email_domain=$::domain,
+        String[1]                               $grace_period='4 weeks',
+        String[1]                               $group=$owner,
+        Integer                                 $oldest_scratch=90,
+        String[1]                               $smtp_host='localhost',
+        Array[Pattern[/[0-9A-F]{8}/]]           $unprotected_keys=[],
     ) inherits ::koji::params {
 
     include '::koji::packages::utils'

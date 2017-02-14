@@ -39,16 +39,16 @@
 #
 # === Copyright
 #
-# Copyright 2016 John Florian
+# Copyright 2016-2017 John Florian
 
 
 class koji::kojira (
-        String[1] $hub,
-        String[1] $hub_ca_cert,
-        String[1] $kojira_cert,
-        String[1] $top_dir,
+        String[1]   $hub,
+        String[1]   $hub_ca_cert,
+        String[1]   $kojira_cert,
+        String[1]   $top_dir,
         Variant[Boolean, Enum['running', 'stopped']] $ensure='running',
-        Boolean $enable=true,
+        Boolean     $enable=true,
     ) inherits ::koji::params {
 
     include '::koji::packages::utils'

@@ -110,27 +110,27 @@
 #
 # === Copyright
 #
-# Copyright 2016 John Florian
+# Copyright 2016-2017 John Florian
 
 
 class koji::builder (
-        String[1] $downloads,
-        String[1] $hub,
-        String[1] $hub_ca_cert,
-        String[1] $kojid_cert,
-        String[1] $top_dir,
+        String[1]           $downloads,
+        String[1]           $hub,
+        String[1]           $hub_ca_cert,
+        String[1]           $kojid_cert,
+        String[1]           $top_dir,
         Array[String[1], 1] $allowed_scms,
-        Boolean $build_arch_can_fail=false,
-        Boolean $debug=false,
-        Boolean $enable=true,
+        Boolean             $build_arch_can_fail=false,
+        Boolean             $debug=false,
+        Boolean             $enable=true,
         Variant[Boolean, Enum['running', 'stopped']] $ensure='running',
-        Integer $failed_buildroot_lifetime=60 * 60 * 4,
-        Boolean $image_building=false,
-        Integer $min_space=8192,
-        String[1] $mock_dir='/var/lib/mock',
-        String[1] $smtp_host='localhost',
-        Boolean $use_createrepo_c=false,
-        String[1] $work_dir='/tmp/koji',
+        Integer             $failed_buildroot_lifetime=60 * 60 * 4,
+        Boolean             $image_building=false,
+        Integer             $min_space=8192,
+        String[1]           $mock_dir='/var/lib/mock',
+        String[1]           $smtp_host='localhost',
+        Boolean             $use_createrepo_c=false,
+        String[1]           $work_dir='/tmp/koji',
     ) inherits ::koji::params {
 
     package { $::koji::params::builder_packages:

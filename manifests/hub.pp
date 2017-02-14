@@ -68,22 +68,22 @@
 #
 # === Copyright
 #
-# Copyright 2016 John Florian
+# Copyright 2016-2017 John Florian
 
 
 class koji::hub (
-        String[1] $client_ca_cert,
-        String[1] $db_host,
-        String[1] $db_passwd,
-        String[1] $db_user,
-        String[1] $hub_ca_cert,
-        String[1] $hub_cert,
-        String[1] $hub_key,
-        String[1] $top_dir,
-        Array[String[1]] $proxy_auth_dns,
-        Boolean $debug=false,
-        String[1] $email_domain=$::domain,
-        Array[String[1]] $plugins=[],
+        String[1]           $client_ca_cert,
+        String[1]           $db_host,
+        String[1]           $db_passwd,
+        String[1]           $db_user,
+        String[1]           $hub_ca_cert,
+        String[1]           $hub_cert,
+        String[1]           $hub_key,
+        String[1]           $top_dir,
+        Array[String[1]]    $proxy_auth_dns,
+        Boolean             $debug=false,
+        String[1]           $email_domain=$::domain,
+        Array[String[1]]    $plugins=[],
     ) inherits ::koji::params {
 
     package { $::koji::params::hub_packages:

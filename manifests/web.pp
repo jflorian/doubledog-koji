@@ -64,19 +64,19 @@
 #
 # === Copyright
 #
-# Copyright 2016 John Florian
+# Copyright 2016-2017 John Florian
 
 
 class koji::web (
-        String[1] $files_url,
-        String[1] $hub_ca_cert,
-        String[1] $hub_url,
-        String[1] $secret,
-        String[1] $web_cert,
-        Boolean $debug=false,
-        Array[Integer] $hidden_users=[],
-        Integer $login_timeout=72,
-        String[1] $theme='default',
+        String[1]           $files_url,
+        String[1]           $hub_ca_cert,
+        String[1]           $hub_url,
+        String[1]           $secret,
+        String[1]           $web_cert,
+        Boolean             $debug=false,
+        Array[Integer]      $hidden_users=[],
+        Integer             $login_timeout=72,
+        String[1]           $theme='default',
         Optional[String[1]] $theme_source=undef,
     ) inherits ::koji::params {
 

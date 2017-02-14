@@ -21,11 +21,11 @@
 #
 # === Copyright
 #
-# Copyright 2016 John Florian
+# Copyright 2016-2017 John Florian
 
 
 class koji::cli (
-        Hash[String[1], Hash] $profiles={},
+        Hash[String[1], Hash]   $profiles={},
     ) inherits ::koji::params {
 
     package { $::koji::params::cli_packages:
