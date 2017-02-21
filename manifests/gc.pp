@@ -131,6 +131,7 @@ class koji::gc (
             user    => $owner,
             hour    => '4',
             minute  => '42',
+            mailto  => '',
             ;
     }
 
