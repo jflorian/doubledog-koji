@@ -23,6 +23,10 @@
 #
 # ==== Optional
 #
+# [*debug*]
+#   Enable verbose debugging for Kojira.
+#   One of: true or false (default).
+#
 # [*ensure*]
 #   Instance is to be 'running' (default) or 'stopped'.  Alternatively,
 #   a Boolean value may also be used with true equivalent to 'running' and
@@ -48,6 +52,7 @@ class koji::kojira (
         String[1]   $hub_ca_cert,
         String[1]   $kojira_cert,
         String[1]   $top_dir,
+        Boolean     $debug,
         Variant[Boolean, Enum['running', 'stopped']] $ensure,
         Boolean     $enable,
         String[1]   $service,

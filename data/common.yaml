@@ -40,6 +40,7 @@ koji::hub::packages:
     - python2-simplejson
 koji::hub::plugins:                 []
 
+koji::kojira::debug:                false
 koji::kojira::enable:               true
 koji::kojira::ensure:               running
 koji::kojira::service:              kojira
