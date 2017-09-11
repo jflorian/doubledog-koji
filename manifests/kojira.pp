@@ -31,6 +31,10 @@
 #   The number of seconds expired repositories must age before they will be
 #   cleaned up.  The default is one week.
 #
+# [*dist_repo_lifetime*]
+#   The number of seconds dist repositories must age before they will be
+#   cleaned up.  The default is one week.
+#
 # [*ensure*]
 #   Instance is to be 'running' (default) or 'stopped'.  Alternatively,
 #   a Boolean value may also be used with true equivalent to 'running' and
@@ -58,6 +62,7 @@ class koji::kojira (
         String[1]   $top_dir,
         Boolean     $debug,
         Integer[0]  $deleted_repo_lifetime,
+        Integer[0]  $dist_repo_lifetime,
         Variant[Boolean, Enum['running', 'stopped']] $ensure,
         Boolean     $enable,
         String[1]   $service,

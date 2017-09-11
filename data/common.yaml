@@ -42,6 +42,7 @@ koji::hub::plugins:                 []
 
 koji::kojira::debug:                false
 koji::kojira::deleted_repo_lifetime:    604800  # 1 week
+koji::kojira::dist_repo_lifetime:   604800      # 1 week
 koji::kojira::enable:               true
 koji::kojira::ensure:               running
 koji::kojira::service:              kojira
