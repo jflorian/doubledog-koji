@@ -63,6 +63,15 @@
 #   An array of strings, each naming a Koji Hub plugin that is to be enabled.
 #   The default is for no plugins to be enabled.
 #
+# [*traceback*]
+#   Determines how much detail about exceptions is reported to the client (via
+#   faults).  The 'extended' format is intended for debugging only and should
+#   NOT be used in production, since it may contain sensitive information.
+#   The default is 'normal'.  One of:
+#       normal      - a basic traceback (format_exception)
+#       extended    - an extended traceback (format_exc_plus)
+#       message     - no traceback, just the error message
+#
 # === Authors
 #
 #   John Florian <jflorian@doubledog.org>
@@ -86,6 +95,7 @@ class koji::hub (
         Boolean             $debug,
         String[1]           $email_domain,
         Array[String[1]]    $plugins,
+        Enum['normal', 'extended', 'message'] $traceback,
     ) {
 
     package { $packages:

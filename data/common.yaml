@@ -39,6 +39,7 @@ koji::hub::packages:
     # Work-around for https://bugzilla.redhat.com/show_bug.cgi?id=1301765
     - python2-simplejson
 koji::hub::plugins:                 []
+koji::hub::traceback:               normal
 
 koji::kojira::debug:                false
 koji::kojira::deleted_repo_lifetime:    604800  # 1 week
