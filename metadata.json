@@ -1,6 +1,6 @@
 {
 	"name": "doubledog-koji",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"author": "John Florian",
 	"license": "GPL-3.0",
 	"summary": "A module to manage Koji components",
