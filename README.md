@@ -10,6 +10,7 @@
 1. [Usage - Configuration options and additional functionality](#usage)
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
     * [Classes](#classes)
+    * [Defined types](#defined-types)
 1. [Limitations - OS compatibility, etc.](#limitations)
 1. [Development - Guide for contributing to the module](#development)
 
@@ -61,6 +62,10 @@ examples and code samples for doing things with your module.
 
 * [koji::builder](#kojibuilder-class)
 * [koji::cli](#kojicli-class)
+
+**Defined types:**
+
+* [koji::cli::profile](#kojicliprofile-defined-type)
 
 
 ### Classes
@@ -185,6 +190,62 @@ An array of package names needed for the Koji CLI installation.
 ##### `profiles`
 A hash whose keys are profile names and whose values are hashes comprising the
 same parameters you would otherwise pass to [koji::cli::profile](#kojicliprofile-defined-type).
+
+
+### Defined types
+
+#### koji::cli::profile defined type
+
+This defined type manages a Koji CLI configuration profile.
+
+Profiles can be utilized by the Koji CLI using:
+
+    koji -p|--profile PROFILE
+
+Without the `-p`/`--profile` option, the Koji CLI will use a default profile
+named `koji`.
+
+##### `namevar`
+An identifier for the configuration profile instance.  Specify `koji` to
+configure the default profile.
+
+##### `downloads`
+URL of your package download site.
+
+##### `hub`
+URL of your Koji-Hub server.
+
+##### `top_dir`
+Directory containing the `repos/` directory.
+
+##### `web`
+URL of your Koji-Web server.
+
+##### `auth_type`
+The method the client should use to authenticate itself to the Koji-Hub.  Must
+be one of: `noauth`, `ssl`, `password`, or `kerberos`.  The default is `ssl`.
+
+##### `max_retries`
+When making Koji calls, if the Koji Hub reports a temporary failure, how many
+times should the call be retried?  The default is `30`.
+
+##### `offline_retry`
+When making Koji calls, if the Koji Hub reports itself as offline, should the
+call be retried automatically?  The default is `false`.
+
+Note that offline failures are treated specially from other temporary failures.
+These are not constrained by other failure handling options, most notably
+`max_retries`.
+
+##### `offline_retry_interval`
+When making Koji calls, if the Koji Hub reports itself as offline and
+`offline_retry` is `true`, this determines how many seconds the Koji Client will
+wait before attempting the call again.  The default is 20 seconds.
+
+##### `retry_interval`
+When making Koji calls, if the Koji Hub reports a temporary failure, this
+determines how many seconds the Koji Client will wait before attempting the
+call again.  The default is 20 seconds.
 
 
 ## Limitations
