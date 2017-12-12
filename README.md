@@ -66,6 +66,7 @@ examples and code samples for doing things with your module.
 * [koji::gc](#kojigc-class)
 * [koji::httpd](#kojihttpd-class)
 * [koji::hub](#kojihub-class)
+* [koji::kojira](#kojikojira-class)
 
 **Defined types:**
 
@@ -389,6 +390,48 @@ is `normal`.  One of:
 * `normal` - a basic traceback (format_exception)
 * `extended` - an extended traceback (format_exc_plus)
 * `message` - no traceback, just the error message
+
+
+#### koji::kojira class
+
+This class manages the Kojira component on a host.
+
+##### `hub`
+URL of your Koji Hub service.
+
+##### `hub_ca_cert`
+Puppet source URI providing the CA certificate which signed the Koji Hub
+certificate.  This must be in PEM format and include all intermediate CA
+certificates, sorted and concatenated from the leaf CA to the root CA.
+
+##### `kojira_cert`
+Puppet source URI providing the Kojira component's identity certificate which
+must be in PEM format.
+
+##### `top_dir`
+Name of the directory containing the `repos/` directory.
+
+##### `debug`
+Enable verbose debugging for Kojira.  One of: `true` or `false` (default).
+
+##### `deleted_repo_lifetime`
+The number of seconds expired repositories must age before they will be
+cleaned up.  The default is one week.
+
+##### `dist_repo_lifetime`
+The number of seconds dist repositories must age before they will be
+cleaned up.  The default is one week.
+
+##### `ensure`
+Instance is to be `running` (default) or `stopped`.  Alternatively, a Boolean
+value may also be used with `true` equivalent to `running` and `false`
+equivalent to `stopped`.
+
+##### `enable`
+Instance is to be started at boot.  Either `true` (default) or `false`.
+
+##### `service`
+The service name of the Kojira daemon.
 
 
 ### Defined types
