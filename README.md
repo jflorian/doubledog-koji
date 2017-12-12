@@ -67,6 +67,7 @@ examples and code samples for doing things with your module.
 * [koji::httpd](#kojihttpd-class)
 * [koji::hub](#kojihub-class)
 * [koji::kojira](#kojikojira-class)
+* [koji::utils](#kojiutils-class)
 
 **Defined types:**
 
@@ -432,6 +433,19 @@ Instance is to be started at boot.  Either `true` (default) or `false`.
 
 ##### `service`
 The service name of the Kojira daemon.
+
+
+#### koji::utils class
+
+This class manages Koji utilities package.
+
+##### `ensure`
+Instance is to be `present` (default) or `absent`.  Alternatively, a Boolean
+value may also be used with `true` equivalent to `present` and `false`
+equivalent to `absent`.
+
+##### `packages`
+An array of package names needed for the Koji utilities installation.
 
 
 ### Defined types

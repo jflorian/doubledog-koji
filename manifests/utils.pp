@@ -2,20 +2,6 @@
 #
 # Manages the Koji utilities package.
 #
-# === Parameters
-#
-# ==== Required
-#
-# ==== Optional
-#
-# [*ensure*]
-#   Instance is to be 'present' (default) or 'absent'.  Alternatively,
-#   a Boolean value may also be used with true equivalent to 'present' and
-#   false equivalent to 'absent'.
-#
-# [*packages*]
-#   An array of package names needed for the Koji utilities installation.
-#
 # === Authors
 #
 #   John Florian <jflorian@doubledog.org>
