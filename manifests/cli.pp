@@ -2,20 +2,6 @@
 #
 # Manages the Koji CLI on a host.
 #
-# === Parameters
-#
-# ==== Required
-#
-# ==== Optional
-#
-# [*packages*]
-#   An array of package names needed for the Koji CLI installation.
-#
-# [*profiles*]
-#   A hash whose keys are profile names and whose values are hashes
-#   comprising the same parameters you would otherwise pass to
-#   Define[koji::cli::profile].
-#
 # === Authors
 #
 #   John Florian <jflorian@doubledog.org>

@@ -60,6 +60,8 @@ examples and code samples for doing things with your module.
 **Classes:**
 
 * [koji::builder](#kojibuilder-class)
+* [koji::cli](#kojicli-class)
+
 
 ### Classes
 
@@ -70,6 +72,7 @@ This class manages a host as a Koji Builder.
 ##### `allowed_scms`
 An array of tuples from which kojid is allowed to checkout.  The format of
 each tuple is:
+
     host:repository[:use_common[:source_cmd]]
 
 Incorrectly-formatted tuples will be ignored.
@@ -170,6 +173,18 @@ Enable using createrepo_c instead of createrepo.  The default is `false`.
 ##### `work_dir`
 Name of the directory where temporary work will be performed.  The default
 is `/tmp/koji`.
+
+
+#### koji::cli class
+
+This class manages the Koji CLI on a host.
+
+##### `packages`
+An array of package names needed for the Koji CLI installation.
+
+##### `profiles`
+A hash whose keys are profile names and whose values are hashes comprising the
+same parameters you would otherwise pass to [koji::cli::profile](#kojicliprofile-defined-type).
 
 
 ## Limitations
