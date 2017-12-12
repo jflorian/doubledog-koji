@@ -65,6 +65,7 @@ examples and code samples for doing things with your module.
 * [koji::database](#kojidatabase-class)
 * [koji::gc](#kojigc-class)
 * [koji::httpd](#kojihttpd-class)
+* [koji::hub](#kojihub-class)
 
 **Defined types:**
 
@@ -319,6 +320,75 @@ This class manages Apache httpd for the needs of the Koji Hub/Web components.
 
 This manages those parts of httpd that are common to both the Koji Hub and the
 Koji Web components, which may be on the same or different hosts.
+
+
+#### koji::hub class
+
+This class manages the Koji Hub component on a host.
+
+This manages the Koji Hub, an XML-RPC server running under mod_wsgi in Apache's
+httpd.  It also manages Koji's skeleton file system.  The Koji Hub may be run
+on the same host as the Koji Web, but that's not required.
+
+##### `client_ca_cert`
+Puppet source URI providing the CA certificate which signed the client
+certificates that wish to connect to this Koji Hub.  This must be in PEM format
+and include all intermediate CA certificates, sorted and concatenated from the
+leaf CA to the root CA.
+
+##### `db_host`
+Name of host that provides the Koji database.
+
+##### `db_passwd`
+Password for the Koji database connection.
+
+##### `db_user`
+User name for the Koji database connection.
+
+##### `hub_ca_cert`
+Puppet source URI providing the CA certificate which signed `hub_cert`.  This
+must be in PEM format and include all intermediate CA certificates, sorted and
+concatenated from the leaf CA to the root CA.
+
+##### `hub_cert`
+Puppet source URI providing the Koji Hub's certificate.  This must be in PEM
+format.
+
+##### `hub_key`
+Puppet source URI providing the private key that was used to sign the Koji
+Hub`s certificate contained in `hub_cert`.  This must be in PEM format.
+
+##### `top_dir`
+Directory containing the `repos/` directory.
+
+##### `proxy_auth_dns`
+An array of Distinguished Names (DN) of the clients allowed to proxy SSL
+authentication requests through the Koji Hub.
+
+##### `debug`
+Enable verbose debugging for the Koji Hub.  One of: `true` or `false`
+(default).
+
+##### `email_domain`
+The domain name that will be append to Koji user names when creating email
+notifications.  Defaults to the `$domain` fact.
+
+##### `packages`
+An array of package names needed for the Koji Hub installation.
+
+##### `plugins`
+An array of strings, each naming a Koji Hub plugin that is to be enabled.  The
+default is for no plugins to be enabled.
+
+##### `traceback`
+Determines how much detail about exceptions is reported to the client (via
+faults).  The `extended` format is intended for debugging only and should NOT
+be used in production, since it may contain sensitive information.  The default
+is `normal`.  One of:
+
+* `normal` - a basic traceback (format_exception)
+* `extended` - an extended traceback (format_exc_plus)
+* `message` - no traceback, just the error message
 
 
 ### Defined types
