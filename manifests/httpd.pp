@@ -5,12 +5,6 @@
 # This manages those parts of httpd that are common to both the Koji Hub and
 # the Koji Web components, which may be on the same or different hosts.
 #
-# === Parameters
-#
-# ==== Required
-#
-# ==== Optional
-#
 # === Authors
 #
 #   John Florian <jflorian@doubledog.org>
