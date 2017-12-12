@@ -68,6 +68,7 @@ examples and code samples for doing things with your module.
 * [koji::hub](#kojihub-class)
 * [koji::kojira](#kojikojira-class)
 * [koji::utils](#kojiutils-class)
+* [koji::web](#kojiweb-class)
 
 **Defined types:**
 
@@ -446,6 +447,62 @@ equivalent to `absent`.
 
 ##### `packages`
 An array of package names needed for the Koji utilities installation.
+
+
+#### koji::web class
+
+This class manages the Koji Web component on a host.
+
+The Koji Web may be run on the same host as the Koji Hub, but that's not
+required.
+
+##### `files_url`
+URL for accessing Koji's file resources.
+
+##### `hub_ca_cert`
+Puppet source URI providing the CA certificate which signed the Koji Hub
+certificate.  This must be in PEM format and include all intermediate CA
+certificates, sorted and concatenated from the leaf CA to the root CA.
+
+##### `hub_url`
+URL for accessing the Koji Hub's RPC services.
+
+##### `web_cert`
+Puppet source URI providing the Koji Web's certificate.  This must be in PEM
+format.
+
+##### `secret`
+Undocumented by the Koji project, but required.  Pass in a reasonably long
+random string.  It is unknown where/how this is used exactly without deeper
+investigation, but you won't need during normal use.
+
+##### `debug`
+Enable verbose debugging for the Koji Web.  When enabled, a full traceback will
+be shown to the client for unhandled exceptions.  One of: `true` or `false`
+(default).
+
+##### `hidden_users`
+An array of the numeric IDs of users that you want to hide from tasks listed on
+the front page.  You might want to, for instance, hide the activity of an
+account used for continuous integration.  The default is to not hide any user's
+tasks.
+
+##### `login_timeout`
+Automatically logout users after this many hours.  The default is 72
+hours.
+
+##### `packages`
+An array of package names needed for the Koji Web installation.
+
+##### `theme`
+Name of the web theme that Koji is to use.  Content under
+`/usr/share/koji-web/static/themes/$theme` will be used instead of the normal
+files under `/usr/share/koji-web/static/`.  Any absent files will fall back to
+the normal files.
+
+##### `theme_source`
+This should point to a gzipped tarball providing content for the named `theme`.
+The default is to not install an alternate theme.
 
 
 ### Defined types
