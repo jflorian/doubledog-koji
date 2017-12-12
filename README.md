@@ -64,6 +64,7 @@ examples and code samples for doing things with your module.
 * [koji::cli](#kojicli-class)
 * [koji::database](#kojidatabase-class)
 * [koji::gc](#kojigc-class)
+* [koji::httpd](#kojihttpd-class)
 
 **Defined types:**
 
@@ -310,6 +311,14 @@ default is `localhost`.
 ##### `unprotected_keys`
 An array of names in `keys` which are to be considered unprotected by the
 garbage collector.  Any key not listed here is considered a protected key.
+
+
+#### koji::httpd class
+
+This class manages Apache httpd for the needs of the Koji Hub/Web components.
+
+This manages those parts of httpd that are common to both the Koji Hub and the
+Koji Web components, which may be on the same or different hosts.
 
 
 ### Defined types
