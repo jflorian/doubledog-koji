@@ -62,6 +62,7 @@ examples and code samples for doing things with your module.
 
 * [koji::builder](#kojibuilder-class)
 * [koji::cli](#kojicli-class)
+* [koji::database](#kojidatabase-class)
 
 **Defined types:**
 
@@ -190,6 +191,65 @@ An array of package names needed for the Koji CLI installation.
 ##### `profiles`
 A hash whose keys are profile names and whose values are hashes comprising the
 same parameters you would otherwise pass to [koji::cli::profile](#kojicliprofile-defined-type).
+
+
+#### koji::database class
+
+This class manages the Koji database on a host.
+
+This class presently assumes a PostgreSQL database.
+
+Specifically, this class will:
+
+  1. install/configure the PostgreSQL server, including authentication
+  1. create the database and PostgreSQL user role
+  1. import the Koji database schema
+  1. bootstrap the database with an initial Koji administrator account
+
+**Upgrading**
+
+This class is primarily useful for establishing new Koji setups.  If you
+already have a Koji setup and you are building a newer one to replace it,
+a suggested procedure is as follows:
+
+  1. successfully apply this to the new Koji host ($NEW)
+  1. stop the Puppet agent on $NEW
+  1. stop the PostgreSQL server on $NEW
+  1. reinitialize the database cluster
+  1. perform a full dump on the old Koji host $(OLD)
+  1. transfer the dumped content to $NEW
+  1. load the dumped content on $NEW
+  1. review migration documents on $NEW; see `rpm -qd koji`
+
+##### `password`
+Password for the database user.
+
+##### `admin`
+Name of the of the Koji administrator.  Defaults to `kojiadmin`.
+
+##### `dbname`
+Name of the database.  Defaults to `koji`.
+
+##### `listen_addresses`
+From where may the PostgreSQL server accept connections?  Defaults to
+`localhost` which means it will only accept connections originating from the
+local host.  A value of `*` makes the PostgreSQL server accept connections from
+any remote host.  You may instead choose to specify a comma-separated list of
+host names and/or IP addresses.
+
+NB: This parameter affects the entire PostgreSQL server, not just the Koji
+database.  If the database cluster has other duties, additional work must be
+done here to permit that.
+
+##### `schema_source`
+Source URI for the Koji database schema.  The default is
+`/usr/share/doc/koji/docs/schema.sql`.
+
+##### `username`
+Name of the user who is to own the database.  Defaults to `koji`.
+
+##### `web_username`
+Name of the user that runs the Koji-Web server.  Defaults to `apache`.
 
 
 ### Defined types
