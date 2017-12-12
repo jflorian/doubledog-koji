@@ -94,6 +94,10 @@
 #   The directory under which mock will do its work and create buildroots.
 #   The default is '/var/lib/mock'.
 #
+# [*mock_user*]
+#   The user to run as when doing builds.
+#   The default is 'kojibuilder'.
+#
 # [*packages*]
 #   An array of package names needed for the Koji Builder installation.
 #
@@ -137,6 +141,7 @@ class koji::builder (
         Array[String[1], 1] $imaging_packages,
         Integer[0]          $min_space,
         String[1]           $mock_dir,
+        String[1]           $mock_user,
         Array[String[1], 1] $packages,
         String[1]           $service,
         String[1]           $smtp_host,

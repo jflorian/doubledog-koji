@@ -7,6 +7,7 @@ koji::builder::failed_buildroot_lifetime:   14400   # 4 hours
 koji::builder::image_building:              false
 koji::builder::min_space:                   8192    # MiB
 koji::builder::mock_dir:                    /var/lib/mock
+koji::builder::mock_user:                   kojibuilder
 koji::builder::packages:
     - koji-builder
 koji::builder::service:                     kojid
