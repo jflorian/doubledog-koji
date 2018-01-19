@@ -8,7 +8,7 @@
 #
 # === Copyright
 #
-# Copyright 2016-2017 John Florian
+# Copyright 2016-2018 John Florian
 
 
 class koji::web (
@@ -22,7 +22,6 @@ class koji::web (
         Integer             $login_timeout,
         Array[String[1], 1] $packages,
         String[1]           $theme,
-        Optional[String[1]] $theme_source=undef,
     ) {
 
     package { $packages:
@@ -71,19 +70,6 @@ class koji::web (
         '/etc/kojiweb/web.conf':
             content => template('koji/web/web.conf'),
             ;
-    }
-
-    if $theme_source {
-        $themes_dir = '/usr/share/koji-web/static/themes'
-        $theme_path = "${themes_dir}/${theme}"
-        $theme_tgz = "${theme_path}.tgz"
-        file { $theme_tgz:
-            source => $theme_source,
-        } ->
-        exec { "tar xzf ${theme_tgz}":
-            cwd     => $themes_dir,
-            creates => $theme_path,
-        }
     }
 
 }

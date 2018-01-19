@@ -498,11 +498,8 @@ An array of package names needed for the Koji Web installation.
 Name of the web theme that Koji is to use.  Content under
 `/usr/share/koji-web/static/themes/$theme` will be used instead of the normal
 files under `/usr/share/koji-web/static/`.  Any absent files will fall back to
-the normal files.
-
-##### `theme_source`
-This should point to a gzipped tarball providing content for the named `theme`.
-The default is to not install an alternate theme.
+the normal files.  This module provides only the configuration to use `theme`
+and provides nothing to actually install `theme`.
 
 
 ### Defined types
