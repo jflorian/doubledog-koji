@@ -9,7 +9,7 @@
     "issues_url": "https://github.com/jflorian/doubledog-koji/issues",
     "operatingsystem_support": [{
         "operatingsystem": "CentOS",
-        "operatingsystemrelease": "7.0"
+		"operatingsystemmajrelease": "7"
     }, {
         "operatingsystem": "Fedora",
         "operatingsystemrelease": ["25", "26", "27"]
