@@ -159,7 +159,7 @@ The mail host to use for sending email notifications.  The Koji Builder must be
 able to connect to this host via TCP on port 25.  The default is `localhost`.
 
 ##### `use_createrepo_c`
-Enable using createrepo_c instead of createrepo.  The default is `false`.
+Enable using createrepo\_c instead of createrepo.  The default is `false`.
 
 ##### `work_dir`
 Name of the directory where temporary work will be performed.  The default
@@ -307,9 +307,9 @@ Koji Web components, which may be on the same or different hosts.
 
 This class manages the Koji Hub component on a host.
 
-This manages the Koji Hub, an XML-RPC server running under mod_wsgi in Apache's
-httpd.  It also manages Koji's skeleton file system.  The Koji Hub may be run
-on the same host as the Koji Web, but that's not required.
+This manages the Koji Hub, an XML-RPC server running under mod\_wsgi in
+Apache's httpd.  It also manages Koji's skeleton file system.  The Koji Hub may
+be run on the same host as the Koji Web, but that's not required.
 
 ##### `client_ca_cert_source`
 Puppet source URI providing the CA certificate which signed the client
@@ -367,8 +367,8 @@ faults).  The `extended` format is intended for debugging only and should NOT
 be used in production, since it may contain sensitive information.  The default
 is `normal`.  One of:
 
-* `normal` - a basic traceback (format_exception)
-* `extended` - an extended traceback (format_exc_plus)
+* `normal` - a basic traceback (format\_exception)
+* `extended` - an extended traceback (format\_exc\_plus)
 * `message` - no traceback, just the error message
 
 
