@@ -337,7 +337,7 @@ format.
 
 ##### `hub_key_source`
 Puppet source URI providing the private key that was used to sign the Koji
-Hub`s certificate contained in `hub_cert_source`.  This must be in PEM format.
+Hub's certificate contained in `hub_cert_source`.  This must be in PEM format.
 
 ##### `top_dir`
 Directory containing the `repos/` directory.
