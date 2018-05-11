@@ -1,3 +1,4 @@
+#
 # == Class: koji::gc
 #
 # Manages the Koji garbage collector on a host.
@@ -8,13 +9,15 @@
 #
 # === Copyright
 #
-# Copyright 2016-2017 John Florian
+# This file is part of the doubledog-koji Puppet module.
+# Copyright 2016-2018 John Florian
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 
 class koji::gc (
-        String[1]                               $client_cert,
+        String[1]                               $client_cert_source,
         String[1]                               $hub,
-        String[1]                               $hub_ca_cert,
+        String[1]                               $hub_ca_cert_source,
         Hash[String, Pattern[/[0-9A-F]{8}/], 1] $keys,
         String[1]                               $owner,
         String[1]                               $top_dir,
@@ -40,10 +43,10 @@ class koji::gc (
             subscribe => Class['::koji::utils'],
             ;
         '/etc/koji-gc/client.pem':
-            source  => $client_cert,
+            source  => $client_cert_source,
             ;
         '/etc/koji-gc/serverca.crt':
-            source  => $hub_ca_cert,
+            source  => $hub_ca_cert_source,
             ;
     }
 

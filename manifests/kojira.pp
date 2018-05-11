@@ -1,3 +1,4 @@
+#
 # == Class: koji::kojira
 #
 # Manages the Koji Kojira component on a host.
@@ -8,13 +9,15 @@
 #
 # === Copyright
 #
-# Copyright 2016-2017 John Florian
+# This file is part of the doubledog-koji Puppet module.
+# Copyright 2016-2018 John Florian
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 
 class koji::kojira (
         String[1]   $hub,
-        String[1]   $hub_ca_cert,
-        String[1]   $kojira_cert,
+        String[1]   $hub_ca_cert_source,
+        String[1]   $kojira_cert_source,
         String[1]   $top_dir,
         Boolean     $debug,
         Integer[0]  $deleted_repo_lifetime,
@@ -36,11 +39,11 @@ class koji::kojira (
             ;
         'kojira-hub-ca-chain':
             cert_name   => 'hub-ca-chain',
-            cert_source => $hub_ca_cert,
+            cert_source => $hub_ca_cert_source,
             ;
         'kojira':
             cert_name   => 'kojira',
-            cert_source => $kojira_cert,
+            cert_source => $kojira_cert_source,
             ;
     }
 

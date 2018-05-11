@@ -1,3 +1,4 @@
+#
 # == Class: koji::web
 #
 # Manages the Koji Web component on a host.
@@ -8,15 +9,17 @@
 #
 # === Copyright
 #
+# This file is part of the doubledog-koji Puppet module.
 # Copyright 2016-2018 John Florian
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 
 class koji::web (
         String[1]           $files_url,
-        String[1]           $hub_ca_cert,
+        String[1]           $hub_ca_cert_source,
         String[1]           $hub_url,
         String[1]           $secret,
-        String[1]           $web_cert,
+        String[1]           $web_cert_source,
         Boolean             $debug,
         Array[Integer]      $hidden_users,
         Integer             $login_timeout,
@@ -47,11 +50,11 @@ class koji::web (
             ;
         'kojiweb-hub-ca-chain':
             cert_name   => 'hub-ca-chain',
-            cert_source => $hub_ca_cert,
+            cert_source => $hub_ca_cert_source,
             ;
         'kojiweb':
             cert_name   => 'web',
-            cert_source => $web_cert,
+            cert_source => $web_cert_source,
             ;
     }
 

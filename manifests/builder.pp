@@ -1,3 +1,4 @@
+#
 # == Class: koji::builder
 #
 # Manages a host as a Koji Builder.
@@ -8,14 +9,16 @@
 #
 # === Copyright
 #
-# Copyright 2016-2017 John Florian
+# This file is part of the doubledog-koji Puppet module.
+# Copyright 2016-2018 John Florian
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 
 class koji::builder (
         String[1]           $downloads,
         String[1]           $hub,
-        String[1]           $hub_ca_cert,
-        String[1]           $kojid_cert,
+        String[1]           $hub_ca_cert_source,
+        String[1]           $kojid_cert_source,
         String[1]           $top_dir,
         Array[String[1], 1] $allowed_scms,
         Boolean             $build_arch_can_fail,
@@ -57,11 +60,11 @@ class koji::builder (
             ;
         'kojid-hub-ca-chain':
             cert_name   => 'hub-ca-chain',
-            cert_source => $hub_ca_cert,
+            cert_source => $hub_ca_cert_source,
             ;
         'kojid':
             cert_name   => 'kojid',
-            cert_source => $kojid_cert,
+            cert_source => $kojid_cert_source,
             ;
     }
 

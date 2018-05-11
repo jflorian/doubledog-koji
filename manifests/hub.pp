@@ -1,3 +1,4 @@
+#
 # == Class: koji::hub
 #
 # Manages the Koji Hub component on a host.
@@ -8,17 +9,19 @@
 #
 # === Copyright
 #
-# Copyright 2016-2017 John Florian
+# This file is part of the doubledog-koji Puppet module.
+# Copyright 2016-2018 John Florian
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 
 class koji::hub (
-        String[1]           $client_ca_cert,
+        String[1]           $client_ca_cert_source,
         String[1]           $db_host,
         String[1]           $db_passwd,
         String[1]           $db_user,
-        String[1]           $hub_ca_cert,
-        String[1]           $hub_cert,
-        String[1]           $hub_key,
+        String[1]           $hub_ca_cert_source,
+        String[1]           $hub_cert_source,
+        String[1]           $hub_key_source,
         String[1]           $top_dir,
         Array[String[1], 1] $packages,
         Array[String[1]]    $proxy_auth_dns,
@@ -58,14 +61,14 @@ class koji::hub (
             notify => Class['::apache::service'],
             ;
         'koji-client-ca-chain':
-            cert_source => $client_ca_cert,
+            cert_source => $client_ca_cert_source,
             ;
         'koji-hub-ca-chain':
-            cert_source => $hub_ca_cert,
+            cert_source => $hub_ca_cert_source,
             ;
         'koji-hub':
-            cert_source => $hub_cert,
-            key_source  => $hub_key,
+            cert_source => $hub_cert_source,
+            key_source  => $hub_key_source,
             ;
     }
 

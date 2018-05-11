@@ -1,3 +1,9 @@
+<!--
+# This file is part of the doubledog-koji Puppet module.
+# Copyright 2017-2018 John Florian
+# SPDX-License-Identifier: GPL-3.0-or-later
+-->
+
 # koji
 
 #### Table of Contents
@@ -105,12 +111,12 @@ URL of your package download site.
 ##### `hub`
 URL of your Koji Hub service.
 
-##### `hub_ca_cert`
+##### `hub_ca_cert_source`
 Puppet source URI providing the CA certificate which signed the Koji Hub
 certificate.  This must be in PEM format and include all intermediate CA
 certificates, sorted and concatenated from the leaf CA to the root CA.
 
-##### `kojid_cert`
+##### `kojid_cert_source`
 Puppet source URI providing the builder's identity certificate which must
 be in PEM format.
 
@@ -263,14 +269,14 @@ Name of the user that runs the Koji-Web server.  Defaults to `apache`.
 
 This class manages the Koji garbage collector on a host.
 
-##### `client_cert`
+##### `client_cert_source`
 Puppet source URI providing the Koji garbage collector's certificate.  This
 must be in PEM format.
 
 ##### `hub`
 URL of your Koji-Hub server.
 
-##### `hub_ca_cert`
+##### `hub_ca_cert_source`
 Puppet source URI providing the CA certificate which signed Koji-Hub.  This
 must be in PEM format and include all intermediate CA certificates, sorted and
 concatenated from the leaf CA to the root CA.
@@ -333,7 +339,7 @@ This manages the Koji Hub, an XML-RPC server running under mod_wsgi in Apache's
 httpd.  It also manages Koji's skeleton file system.  The Koji Hub may be run
 on the same host as the Koji Web, but that's not required.
 
-##### `client_ca_cert`
+##### `client_ca_cert_source`
 Puppet source URI providing the CA certificate which signed the client
 certificates that wish to connect to this Koji Hub.  This must be in PEM format
 and include all intermediate CA certificates, sorted and concatenated from the
@@ -348,18 +354,18 @@ Password for the Koji database connection.
 ##### `db_user`
 User name for the Koji database connection.
 
-##### `hub_ca_cert`
-Puppet source URI providing the CA certificate which signed `hub_cert`.  This
+##### `hub_ca_cert_source`
+Puppet source URI providing the CA certificate which signed `hub_cert_source`.  This
 must be in PEM format and include all intermediate CA certificates, sorted and
 concatenated from the leaf CA to the root CA.
 
-##### `hub_cert`
+##### `hub_cert_source`
 Puppet source URI providing the Koji Hub's certificate.  This must be in PEM
 format.
 
-##### `hub_key`
+##### `hub_key_source`
 Puppet source URI providing the private key that was used to sign the Koji
-Hub`s certificate contained in `hub_cert`.  This must be in PEM format.
+Hub`s certificate contained in `hub_cert_source`.  This must be in PEM format.
 
 ##### `top_dir`
 Directory containing the `repos/` directory.
@@ -401,12 +407,12 @@ This class manages the Kojira component on a host.
 ##### `hub`
 URL of your Koji Hub service.
 
-##### `hub_ca_cert`
+##### `hub_ca_cert_source`
 Puppet source URI providing the CA certificate which signed the Koji Hub
 certificate.  This must be in PEM format and include all intermediate CA
 certificates, sorted and concatenated from the leaf CA to the root CA.
 
-##### `kojira_cert`
+##### `kojira_cert_source`
 Puppet source URI providing the Kojira component's identity certificate which
 must be in PEM format.
 
@@ -459,7 +465,7 @@ required.
 ##### `files_url`
 URL for accessing Koji's file resources.
 
-##### `hub_ca_cert`
+##### `hub_ca_cert_source`
 Puppet source URI providing the CA certificate which signed the Koji Hub
 certificate.  This must be in PEM format and include all intermediate CA
 certificates, sorted and concatenated from the leaf CA to the root CA.
@@ -467,7 +473,7 @@ certificates, sorted and concatenated from the leaf CA to the root CA.
 ##### `hub_url`
 URL for accessing the Koji Hub's RPC services.
 
-##### `web_cert`
+##### `web_cert_source`
 Puppet source URI providing the Koji Web's certificate.  This must be in PEM
 format.
 
