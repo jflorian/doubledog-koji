@@ -1,10 +1,19 @@
+# This file is part of the doubledog-koji Puppet module.
+# Copyright 2017-2018 John Florian
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 ---
+
 koji::builder::build_arch_can_fail:         false
 koji::builder::debug:                       false
 koji::builder::enable:                      true
 koji::builder::ensure:                      running
 koji::builder::failed_buildroot_lifetime:   14400   # 4 hours
+koji::builder::hub_ca_cert_content:         null
+koji::builder::hub_ca_cert_source:          null
 koji::builder::image_building:              false
+koji::builder::kojid_cert_content:          null
+koji::builder::kojid_cert_source:           null
 koji::builder::min_space:                   8192    # MiB
 koji::builder::mock_dir:                    /var/lib/mock
 koji::builder::mock_user:                   kojibuilder
@@ -15,9 +24,11 @@ koji::builder::smtp_host:                   localhost
 koji::builder::use_createrepo_c:            false
 koji::builder::work_dir:                    /tmp/koji
 
+
 koji::cli::packages:
     - koji
 koji::cli::profiles:        {}
+
 
 koji::database::admin:              kojiadmin
 koji::database::dbname:             koji
@@ -26,14 +37,28 @@ koji::database::schema_source:      /usr/share/doc/koji/docs/schema.sql
 koji::database::username:           koji
 koji::database::web_username:       apache
 
+
+koji::gc::client_cert_content:      null
+koji::gc::client_cert_source:       null
 koji::gc::email_domain:             "%{facts.domain}"
 koji::gc::grace_period:             '4 weeks'
+koji::gc::hub_ca_cert_content:      null
+koji::gc::hub_ca_cert_source:       null
 koji::gc::oldest_scratch:           90  # days
 koji::gc::smtp_host:                localhost
 koji::gc::unprotected_keys:         []
 
+
+koji::hub::client_ca_cert_content:  null
+koji::hub::client_ca_cert_source:   null
 koji::hub::debug:                   false
 koji::hub::email_domain:            "%{facts.domain}"
+koji::hub::hub_ca_cert_content:     null
+koji::hub::hub_ca_cert_source:      null
+koji::hub::hub_cert_content:        null
+koji::hub::hub_cert_source:         null
+koji::hub::hub_key_content:         null
+koji::hub::hub_key_source:          null
 koji::hub::packages:
     - koji-hub
     - koji-hub-plugins
@@ -42,20 +67,31 @@ koji::hub::packages:
 koji::hub::plugins:                 []
 koji::hub::traceback:               normal
 
+
 koji::kojira::debug:                false
 koji::kojira::deleted_repo_lifetime:    604800  # 1 week
 koji::kojira::dist_repo_lifetime:   604800      # 1 week
 koji::kojira::enable:               true
 koji::kojira::ensure:               running
+koji::kojira::hub_ca_cert_content:  null
+koji::kojira::hub_ca_cert_source:   null
+koji::kojira::kojira_cert_content:  null
+koji::kojira::kojira_cert_source:   null
 koji::kojira::service:              kojira
+
 
 koji::utils::packages:
     - koji-utils
 koji::utils::ensure:                present
 
+
 koji::web::debug:                   false
 koji::web::hidden_users:            []
+koji::web::hub_ca_cert_content:     null
+koji::web::hub_ca_cert_source:      null
 koji::web::login_timeout:           72  # hours
 koji::web::packages:
     - koji-web
 koji::web::theme:                   default
+koji::web::web_cert_content:        null
+koji::web::web_cert_source:         null

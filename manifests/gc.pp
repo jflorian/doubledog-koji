@@ -15,9 +15,11 @@
 
 
 class koji::gc (
-        String[1]                               $client_cert_source,
-        String[1]                               $hub,
-        String[1]                               $hub_ca_cert_source,
+        Optional[String[1]]                     $client_cert_content,
+        Optional[String[1]]                     $client_cert_source,
+        String[1]                                                   $hub,
+        Optional[String[1]]                     $hub_ca_cert_content,
+        Optional[String[1]]                     $hub_ca_cert_source,
         Hash[String, Pattern[/[0-9A-F]{8}/], 1] $keys,
         String[1]                               $owner,
         String[1]                               $top_dir,
@@ -43,9 +45,11 @@ class koji::gc (
             subscribe => Class['::koji::utils'],
             ;
         '/etc/koji-gc/client.pem':
+            content => $client_cert_content,
             source  => $client_cert_source,
             ;
         '/etc/koji-gc/serverca.crt':
+            content => $hub_ca_cert_content,
             source  => $hub_ca_cert_source,
             ;
     }

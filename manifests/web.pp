@@ -16,10 +16,12 @@
 
 class koji::web (
         String[1]           $files_url,
-        String[1]           $hub_ca_cert_source,
+        Optional[String[1]] $hub_ca_cert_content,
+        Optional[String[1]] $hub_ca_cert_source,
         String[1]           $hub_url,
         String[1]           $secret,
-        String[1]           $web_cert_source,
+        Optional[String[1]] $web_cert_content,
+        Optional[String[1]] $web_cert_source,
         Boolean             $debug,
         Array[Integer]      $hidden_users,
         Integer             $login_timeout,
@@ -49,12 +51,14 @@ class koji::web (
             notify    => Class['::apache::service'],
             ;
         'kojiweb-hub-ca-chain':
-            cert_name   => 'hub-ca-chain',
-            cert_source => $hub_ca_cert_source,
+            cert_name    => 'hub-ca-chain',
+            cert_content => $hub_ca_cert_content,
+            cert_source  => $hub_ca_cert_source,
             ;
         'kojiweb':
-            cert_name   => 'web',
-            cert_source => $web_cert_source,
+            cert_name    => 'web',
+            cert_content => $web_cert_content,
+            cert_source  => $web_cert_source,
             ;
     }
 

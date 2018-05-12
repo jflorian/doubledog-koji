@@ -15,27 +15,29 @@
 
 
 class koji::builder (
-        String[1]           $downloads,
-        String[1]           $hub,
-        String[1]           $hub_ca_cert_source,
-        String[1]           $kojid_cert_source,
-        String[1]           $top_dir,
-        Array[String[1], 1] $allowed_scms,
-        Boolean             $build_arch_can_fail,
-        Boolean             $debug,
-        Boolean             $enable,
+        String[1]                                    $downloads,
+        String[1]                                    $hub,
+        Optional[String[1]]                          $hub_ca_cert_content,
+        Optional[String[1]]                          $hub_ca_cert_source,
+        Optional[String[1]]                          $kojid_cert_content,
+        Optional[String[1]]                          $kojid_cert_source,
+        String[1]                                    $top_dir,
+        Array[String[1], 1]                          $allowed_scms,
+        Boolean                                      $build_arch_can_fail,
+        Boolean                                      $debug,
+        Boolean                                      $enable,
         Variant[Boolean, Enum['running', 'stopped']] $ensure,
-        Integer[0]          $failed_buildroot_lifetime,
-        Boolean             $image_building,
-        Array[String[1], 1] $imaging_packages,
-        Integer[0]          $min_space,
-        String[1]           $mock_dir,
-        String[1]           $mock_user,
-        Array[String[1], 1] $packages,
-        String[1]           $service,
-        String[1]           $smtp_host,
-        Boolean             $use_createrepo_c,
-        String[1]           $work_dir,
+        Integer[0]                                   $failed_buildroot_lifetime,
+        Boolean                                      $image_building,
+        Array[String[1], 1]                          $imaging_packages,
+        Integer[0]                                   $min_space,
+        String[1]                                    $mock_dir,
+        String[1]                                    $mock_user,
+        Array[String[1], 1]                          $packages,
+        String[1]                                    $service,
+        String[1]                                    $smtp_host,
+        Boolean                                      $use_createrepo_c,
+        String[1]                                    $work_dir,
     ) {
 
     package { $packages:
@@ -59,12 +61,14 @@ class koji::builder (
             notify    => Service[$service],
             ;
         'kojid-hub-ca-chain':
-            cert_name   => 'hub-ca-chain',
-            cert_source => $hub_ca_cert_source,
+            cert_name    => 'hub-ca-chain',
+            cert_content => $hub_ca_cert_content,
+            cert_source  => $hub_ca_cert_source,
             ;
         'kojid':
-            cert_name   => 'kojid',
-            cert_source => $kojid_cert_source,
+            cert_name    => 'kojid',
+            cert_content => $kojid_cert_content,
+            cert_source  => $kojid_cert_source,
             ;
     }
 

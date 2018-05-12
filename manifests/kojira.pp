@@ -15,16 +15,18 @@
 
 
 class koji::kojira (
-        String[1]   $hub,
-        String[1]   $hub_ca_cert_source,
-        String[1]   $kojira_cert_source,
-        String[1]   $top_dir,
-        Boolean     $debug,
-        Integer[0]  $deleted_repo_lifetime,
-        Integer[0]  $dist_repo_lifetime,
+        String[1]                                    $hub,
+        Optional[String[1]]                          $hub_ca_cert_content,
+        Optional[String[1]]                          $hub_ca_cert_source,
+        Optional[String[1]]                          $kojira_cert_content,
+        Optional[String[1]]                          $kojira_cert_source,
+        String[1]                                    $top_dir,
+        Boolean                                      $debug,
+        Integer[0]                                   $deleted_repo_lifetime,
+        Integer[0]                                   $dist_repo_lifetime,
         Variant[Boolean, Enum['running', 'stopped']] $ensure,
-        Boolean     $enable,
-        String[1]   $service,
+        Boolean                                      $enable,
+        String[1]                                    $service,
     ) {
 
     include '::koji::utils'
@@ -38,12 +40,14 @@ class koji::kojira (
             notify      => Service[$service],
             ;
         'kojira-hub-ca-chain':
-            cert_name   => 'hub-ca-chain',
-            cert_source => $hub_ca_cert_source,
+            cert_name    => 'hub-ca-chain',
+            cert_content => $hub_ca_cert_content,
+            cert_source  => $hub_ca_cert_source,
             ;
         'kojira':
-            cert_name   => 'kojira',
-            cert_source => $kojira_cert_source,
+            cert_name    => 'kojira',
+            cert_content => $kojira_cert_content,
+            cert_source  => $kojira_cert_source,
             ;
     }
 

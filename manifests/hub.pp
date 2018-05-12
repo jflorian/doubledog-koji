@@ -15,19 +15,23 @@
 
 
 class koji::hub (
-        String[1]           $client_ca_cert_source,
-        String[1]           $db_host,
-        String[1]           $db_passwd,
-        String[1]           $db_user,
-        String[1]           $hub_ca_cert_source,
-        String[1]           $hub_cert_source,
-        String[1]           $hub_key_source,
-        String[1]           $top_dir,
-        Array[String[1], 1] $packages,
-        Array[String[1]]    $proxy_auth_dns,
-        Boolean             $debug,
-        String[1]           $email_domain,
-        Array[String[1]]    $plugins,
+        Optional[String[1]]                   $client_ca_cert_content,
+        Optional[String[1]]                   $client_ca_cert_source,
+        String[1]                             $db_host,
+        String[1]                             $db_passwd,
+        String[1]                             $db_user,
+        Optional[String[1]]                   $hub_ca_cert_content,
+        Optional[String[1]]                   $hub_ca_cert_source,
+        Optional[String[1]]                   $hub_cert_content,
+        Optional[String[1]]                   $hub_cert_source,
+        Optional[String[1]]                   $hub_key_content,
+        Optional[String[1]]                   $hub_key_source,
+        String[1]                             $top_dir,
+        Array[String[1], 1]                   $packages,
+        Array[String[1]]                      $proxy_auth_dns,
+        Boolean                               $debug,
+        String[1]                             $email_domain,
+        Array[String[1]]                      $plugins,
         Enum['normal', 'extended', 'message'] $traceback,
     ) {
 
@@ -61,14 +65,18 @@ class koji::hub (
             notify => Class['::apache::service'],
             ;
         'koji-client-ca-chain':
-            cert_source => $client_ca_cert_source,
+            cert_content => $client_ca_cert_content,
+            cert_source  => $client_ca_cert_source,
             ;
         'koji-hub-ca-chain':
-            cert_source => $hub_ca_cert_source,
+            cert_content => $hub_ca_cert_content,
+            cert_source  => $hub_ca_cert_source,
             ;
         'koji-hub':
-            cert_source => $hub_cert_source,
-            key_source  => $hub_key_source,
+            cert_content => $hub_cert_content,
+            cert_source  => $hub_cert_source,
+            key_content  => $hub_key_content,
+            key_source   => $hub_key_source,
             ;
     }
 
