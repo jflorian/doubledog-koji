@@ -68,14 +68,14 @@ each tuple is:
 
 Incorrectly-formatted tuples will be ignored.
 
-If `use_common` is not present, kojid will attempt to checkout a common/
-directory from the repository.  If `use_common` is set to `no`, `off`, `false`,
-or `0`, it will not attempt to checkout a `common/` directory.
+If *use_common* is not present, kojid will attempt to checkout a `'common/'`
+directory from the repository.  If *use_common* is set to `no`, `'off'`,
+`false`, or `0`, it will not attempt to checkout a `'common/'` directory.
 
-`source_cmd` is a shell command (args separated with commas instead of spaces)
+*source_cmd* is a shell command (args separated with commas instead of spaces)
 to run before building the srpm.  It is generally used to retrieve source files
-from a remote location.  If no `source_cmd` is specified, `make sources` is run
-by default.
+from a remote location.  If no *source_cmd* is specified, `'make sources'` is
+run by default.
 
 ##### `downloads`
 URL of your package download site.
@@ -93,15 +93,16 @@ Puppet source URI providing the builder's identity certificate which must
 be in PEM format.
 
 ##### `top_dir`
-Name of the directory containing the `repos/` directory.
+Name of the directory containing the `'repos/'` directory.
 
 ##### `build_arch_can_fail`
 Don't cancel sub-task when other fails.  In some cases it makes sense to
 continue with sibling task even if some of them already failed.  E.g., with
-a kernel build it could be of use if submitter knows for which archs it succeed
-and for which it fails.  Repeated builds could take a lot of time and
-resources.  Note, that this shouldn't be enabled ordinarily as it could result
-in unnecessary resource consumption.  The default is `false`.
+a kernel build it could be of use if the submitter knows for which
+architectures it succeeds and for which it fails.  Repeated builds could take
+a lot of time and resources.  Note, that this shouldn't be enabled ordinarily
+as it could result in unnecessary resource consumption.  The default is
+`false`.
 
 ##### `debug`
 Enable verbose debugging for the Koji Builder.  One of: `true` or `false`
@@ -111,9 +112,9 @@ Enable verbose debugging for the Koji Builder.  One of: `true` or `false`
 Instance is to be started at boot.  Either `true` (default) or `false`.
 
 ##### `ensure`
-Instance is to be `running` (default) or `stopped`.  Alternatively, a Boolean
-value may also be used with `true` equivalent to `running` and `false`
-equivalent to `stopped`.
+Instance is to be `'running'` (default) or `'stopped'`.  Alternatively,
+a Boolean value may also be used with `true` equivalent to `'running'` and
+`false` equivalent to `'stopped'`.
 
 ##### `failed_buildroot_lifetime`
 The number of seconds a buildroot should be retained by kojid after a build
@@ -128,7 +129,7 @@ different but bear in mind that kojid doesn't fully destroy the build roots; it
 merely empties them.  So in effect, kojid can reuse a buildroot -- one which
 may already be hours towards its expiration.  If you wish to use this feature,
 you may want to use a value of a day or more, but keep in mind you might then
-exhaust the storage capacity of the `mock_dir`.
+exhaust the storage capacity of the *mock_dir*.
 
 ##### `image_building`
 If `true`, additional packages will be installed to permit this host to perform
@@ -136,17 +137,17 @@ image building tasks.  The default is `false`.
 
 ##### `imaging_packages`
 An array of extra package names needed for the Koji Builder installation when
-`image_building` is `true`.
+*image_building* is `true`.
 
 ##### `min_space`
 The minimum amount of free space (in MiB) required for each build root.
 
 ##### `mock_dir`
 The directory under which mock will do its work and create buildroots.
-The default is `/var/lib/mock`.
+The default is `'/var/lib/mock'`.
 
 ##### `mock_user`
-The user to run as when doing builds.  The default is `kojibuilder`.
+The user to run as when doing builds.  The default is `'kojibuilder'`.
 
 ##### `packages`
 An array of package names needed for the Koji Builder installation.
@@ -156,14 +157,14 @@ The service name of the Koji Builder daemon.
 
 ##### `smtp_host`
 The mail host to use for sending email notifications.  The Koji Builder must be
-able to connect to this host via TCP on port 25.  The default is `localhost`.
+able to connect to this host via TCP on port 25.  The default is `'localhost'`.
 
 ##### `use_createrepo_c`
 Enable using createrepo\_c instead of createrepo.  The default is `false`.
 
 ##### `work_dir`
 Name of the directory where temporary work will be performed.  The default
-is `/tmp/koji`.
+is `'/tmp/koji'`.
 
 
 #### koji::cli class
@@ -210,17 +211,17 @@ a suggested procedure is as follows:
 Password for the database user.
 
 ##### `admin`
-Name of the of the Koji administrator.  Defaults to `kojiadmin`.
+Name of the of the Koji administrator.  Defaults to `'kojiadmin'`.
 
 ##### `dbname`
-Name of the database.  Defaults to `koji`.
+Name of the database.  Defaults to `'koji'`.
 
 ##### `listen_addresses`
 From where may the PostgreSQL server accept connections?  Defaults to
-`localhost` which means it will only accept connections originating from the
-local host.  A value of `*` makes the PostgreSQL server accept connections from
-any remote host.  You may instead choose to specify a comma-separated list of
-host names and/or IP addresses.
+`'localhost'` which means it will only accept connections originating from the
+local host.  A value of `'*'` makes the PostgreSQL server accept connections
+from any remote host.  You may instead choose to specify a comma-separated list
+of host names and/or IP addresses.
 
 NB: This parameter affects the entire PostgreSQL server, not just the Koji
 database.  If the database cluster has other duties, additional work must be
@@ -228,13 +229,13 @@ done here to permit that.
 
 ##### `schema_source`
 Source URI for the Koji database schema.  The default is
-`/usr/share/doc/koji/docs/schema.sql`.
+`'/usr/share/doc/koji/docs/schema.sql'`.
 
 ##### `username`
-Name of the user who is to own the database.  Defaults to `koji`.
+Name of the user who is to own the database.  Defaults to `'koji'`.
 
 ##### `web_username`
-Name of the user that runs the Koji-Web server.  Defaults to `apache`.
+Name of the user that runs the Koji-Web server.  Defaults to `'apache'`.
 
 
 #### koji::gc class
@@ -263,7 +264,7 @@ Name of the OS user account under which the garbage collection process
 will run.
 
 ##### `top_dir`
-Directory containing the `repos/` directory.
+Directory containing the `'repos/'` directory.
 
 ##### `web`
 URL of your Koji-Web server.
@@ -274,11 +275,11 @@ email notifications.  Defaults to the `$domain` fact.
 
 ##### `grace_period`
 Determines the length of time that builds are held in the trash can before
-their ultimate demise.  The default is `4 weeks`.
+their ultimate demise.  The default is `'4 weeks'`.
 
 ##### `group`
 Name of the OS group account under which the garbage collection process will
-run.  The default is to be the same as `owner`.
+run.  The default is to be the same as *owner*.
 
 ##### `oldest_scratch`
 Any scratch builds that were last modified more than this number of days
@@ -288,10 +289,10 @@ purging any scratch builds.  The default is 90 days.
 ##### `smtp_host`
 The mail host to use for sending email notifications.  The Koji garbage
 collector must be able to connect to this host via TCP on port 25.  The
-default is `localhost`.
+default is `'localhost'`.
 
 ##### `unprotected_keys`
-An array of names in `keys` which are to be considered unprotected by the
+An array of names in *keys* which are to be considered unprotected by the
 garbage collector.  Any key not listed here is considered a protected key.
 
 
@@ -327,9 +328,9 @@ Password for the Koji database connection.
 User name for the Koji database connection.
 
 ##### `hub_ca_cert_source`
-Puppet source URI providing the CA certificate which signed `hub_cert_source`.  This
-must be in PEM format and include all intermediate CA certificates, sorted and
-concatenated from the leaf CA to the root CA.
+Puppet source URI providing the CA certificate which signed *hub_cert_source*.
+This must be in PEM format and include all intermediate CA certificates, sorted
+and concatenated from the leaf CA to the root CA.
 
 ##### `hub_cert_source`
 Puppet source URI providing the Koji Hub's certificate.  This must be in PEM
@@ -337,10 +338,10 @@ format.
 
 ##### `hub_key_source`
 Puppet source URI providing the private key that was used to sign the Koji
-Hub's certificate contained in `hub_cert_source`.  This must be in PEM format.
+Hub's certificate contained in *hub_cert_source*.  This must be in PEM format.
 
 ##### `top_dir`
-Directory containing the `repos/` directory.
+Directory containing the `'repos/'` directory.
 
 ##### `proxy_auth_dns`
 An array of Distinguished Names (DN) of the clients allowed to proxy SSL
@@ -363,13 +364,13 @@ default is for no plugins to be enabled.
 
 ##### `traceback`
 Determines how much detail about exceptions is reported to the client (via
-faults).  The `extended` format is intended for debugging only and should NOT
+faults).  The `'extended'` format is intended for debugging only and should NOT
 be used in production, since it may contain sensitive information.  The default
-is `normal`.  One of:
+is `'normal'`.  One of:
 
-* `normal` - a basic traceback (format\_exception)
-* `extended` - an extended traceback (format\_exc\_plus)
-* `message` - no traceback, just the error message
+* `'normal'` - a basic traceback (format\_exception)
+* `'extended'` - an extended traceback (format\_exc\_plus)
+* `'message'` - no traceback, just the error message
 
 
 #### koji::kojira class
@@ -389,7 +390,7 @@ Puppet source URI providing the Kojira component's identity certificate which
 must be in PEM format.
 
 ##### `top_dir`
-Name of the directory containing the `repos/` directory.
+Name of the directory containing the `'repos/'` directory.
 
 ##### `debug`
 Enable verbose debugging for Kojira.  One of: `true` or `false` (default).
@@ -403,9 +404,9 @@ The number of seconds dist repositories must age before they will be
 cleaned up.  The default is one week.
 
 ##### `ensure`
-Instance is to be `running` (default) or `stopped`.  Alternatively, a Boolean
-value may also be used with `true` equivalent to `running` and `false`
-equivalent to `stopped`.
+Instance is to be `'running'` (default) or `'stopped'`.  Alternatively,
+a Boolean value may also be used with `true` equivalent to `'running'` and
+`false` equivalent to `'stopped'`.
 
 ##### `enable`
 Instance is to be started at boot.  Either `true` (default) or `false`.
@@ -419,9 +420,9 @@ The service name of the Kojira daemon.
 This class manages Koji utilities package.
 
 ##### `ensure`
-Instance is to be `present` (default) or `absent`.  Alternatively, a Boolean
-value may also be used with `true` equivalent to `present` and `false`
-equivalent to `absent`.
+Instance is to be `'present'` (default) or `'absent'`.  Alternatively,
+a Boolean value may also be used with `true` equivalent to `'present'` and
+`false` equivalent to `'absent'`.
 
 ##### `packages`
 An array of package names needed for the Koji utilities installation.
@@ -466,18 +467,17 @@ account used for continuous integration.  The default is to not hide any user's
 tasks.
 
 ##### `login_timeout`
-Automatically logout users after this many hours.  The default is 72
-hours.
+Automatically logout users after this many hours.  The default is `72` hours.
 
 ##### `packages`
 An array of package names needed for the Koji Web installation.
 
 ##### `theme`
 Name of the web theme that Koji is to use.  Content under
-`/usr/share/koji-web/static/themes/$theme` will be used instead of the normal
-files under `/usr/share/koji-web/static/`.  Any absent files will fall back to
-the normal files.  This module provides only the configuration to use `theme`
-and provides nothing to actually install `theme`.
+`'/usr/share/koji-web/static/themes/$theme'` will be used instead of the normal
+files under `'/usr/share/koji-web/static/'`.  Any absent files will fall back
+to the normal files.  This module provides only the configuration to use
+*theme* and provides nothing to actually install *theme*.
 
 
 ### Defined types
@@ -490,11 +490,11 @@ Profiles can be utilized by the Koji CLI using:
 
     koji -p|--profile PROFILE
 
-Without the `-p`/`--profile` option, the Koji CLI will use a default profile
-named `koji`.
+The Koji CLI will use a default profile named `koji` unless another is
+specified.
 
 ##### `namevar`
-An identifier for the configuration profile instance.  Specify `koji` to
+An identifier for the configuration profile instance.  Specify *koji* to
 configure the default profile.
 
 ##### `downloads`
@@ -504,14 +504,15 @@ URL of your package download site.
 URL of your Koji-Hub server.
 
 ##### `top_dir`
-Directory containing the `repos/` directory.
+Directory containing the `'repos/'` directory.
 
 ##### `web`
 URL of your Koji-Web server.
 
 ##### `auth_type`
 The method the client should use to authenticate itself to the Koji-Hub.  Must
-be one of: `noauth`, `ssl`, `password`, or `kerberos`.  The default is `ssl`.
+be one of: `'noauth'`, `'ssl'`, `'password'`, or `'kerberos'`.  The default is
+`'ssl'`.
 
 ##### `max_retries`
 When making Koji calls, if the Koji Hub reports a temporary failure, how many
@@ -523,12 +524,12 @@ call be retried automatically?  The default is `false`.
 
 Note that offline failures are treated specially from other temporary failures.
 These are not constrained by other failure handling options, most notably
-`max_retries`.
+*max_retries*.
 
 ##### `offline_retry_interval`
 When making Koji calls, if the Koji Hub reports itself as offline and
-`offline_retry` is `true`, this determines how many seconds the Koji Client will
-wait before attempting the call again.  The default is 20 seconds.
+*offline_retry* is `true`, this determines how many seconds the Koji Client
+will wait before attempting the call again.  The default is 20 seconds.
 
 ##### `retry_interval`
 When making Koji calls, if the Koji Hub reports a temporary failure, this
@@ -591,7 +592,7 @@ The available actions are:
 ##### `seq`
 Determines the evaluation sequence of this rule amongst all of the policy
 rules.  This should be a 3-digit numerical string with lower values taking
-precedence.  Value `000` is reserved for use by this module.
+precedence.  Value `'000'` is reserved for use by this module.
 
 
 ## Limitations
