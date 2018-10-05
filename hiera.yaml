@@ -1,9 +1,16 @@
+# This file is part of the doubledog-koji Puppet module.
+# Copyright 2017-2018 John Florian
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 ---
-version: 4
-datadir: data
+version: 5
+defaults:
+    data_hash:  yaml_data
+    datadir:    data
+
 hierarchy:
-    - name: "Operating System"
-      backend: yaml
-      path: "os/%{facts.os.name}"
-    - name: "common"
-      backend: yaml
+    - name: 'Operating System'
+      path: 'os/%{facts.os.name}.yaml'
+
+    - name: 'common'
+      path: 'common.yaml'
