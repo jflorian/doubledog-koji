@@ -1,4 +1,5 @@
 ---
 koji::builder::imaging_packages:
-    - lorax
+    - livecd-tools
+    - appliance-tools
     - pykickstart
