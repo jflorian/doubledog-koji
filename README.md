@@ -1,7 +1,7 @@
 <!--
-# This file is part of the doubledog-koji Puppet module.
-# Copyright 2017-2018 John Florian
-# SPDX-License-Identifier: GPL-3.0-or-later
+This file is part of the doubledog-koji Puppet module.
+Copyright 2017-2018 John Florian <jflorian@doubledog.org>
+SPDX-License-Identifier: GPL-3.0-or-later
 -->
 
 # koji
@@ -17,6 +17,8 @@
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
     * [Classes](#classes)
     * [Defined types](#defined-types)
+    * [Data types](#data-types)
+    * [Facts](#facts)
 1. [Limitations - OS compatibility, etc.](#limitations)
 1. [Development - Guide for contributing to the module](#development)
 
@@ -52,6 +54,10 @@ The typical Koji build system deployment consists of one or more Builders, a Web
 
 * [koji::cli::profile](#kojicliprofile-defined-type)
 * [koji::gc::policy](#kojigcpolicy-defined-type)
+
+**Data types:**
+
+**Facts:**
 
 
 ### Classes
@@ -604,11 +610,14 @@ rules.  This should be a 3-digit numerical string with lower values taking
 precedence.  Value `'000'` is reserved for use by this module.
 
 
+### Data types
+
+### Facts
+
+
 ## Limitations
 
 Tested on modern Fedora and CentOS releases, but likely to work on any Red Hat variant.  Adaptations for other operating systems should be trivial as this module follows the data-in-module paradigm.  See `data/common.yaml` for the most likely obstructions.  If "one size can't fit all", the value should be moved from `data/common.yaml` to `data/os/%{facts.os.name}.yaml` instead.  See `hiera.yaml` for how this is handled.
-
-This should be compatible with Puppet 3.x and is being used with Puppet 4.x as well.
 
 ## Development
 
