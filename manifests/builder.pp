@@ -85,10 +85,10 @@ class koji::builder (
             subscribe => Package[$packages],
             ;
         '/etc/kojid/kojid.conf':
-            content => template('koji/builder/kojid.conf'),
+            content => template('koji/builder/kojid.conf.erb'),
             ;
         '/etc/sysconfig/kojid':
-            content => template('koji/builder/kojid'),
+            content => template('koji/builder/kojid.erb'),
             ;
     }
 

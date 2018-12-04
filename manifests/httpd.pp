@@ -11,7 +11,7 @@
 #
 # === Copyright
 #
-# Copyright 2016-2017 John Florian
+# Copyright 2016-2018 John Florian
 
 
 class koji::httpd (
@@ -27,7 +27,7 @@ class koji::httpd (
 
     ::apache::site_config {
         'ssl':
-            content   => template("koji/hub/ssl.conf.${::operatingsystem}.${::operatingsystemmajrelease}"),
+            content   => template("koji/hub/ssl.conf.${::operatingsystem}.${::operatingsystemmajrelease}.erb"),
             subscribe => Class['::apache::mod_ssl'],
             ;
     }

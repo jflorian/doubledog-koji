@@ -68,7 +68,7 @@ class koji::gc (
     ::concat::fragment { 'koji-gc.conf-top':
         target  => 'koji-gc.conf',
         order   => '000',
-        content => template('koji/gc/koji-gc.conf'),
+        content => template('koji/gc/koji-gc.conf.erb'),
     }
 
     ::cron::job {

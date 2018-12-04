@@ -58,7 +58,7 @@ class koji::kojira (
         seluser   => 'system_u',
         selrole   => 'object_r',
         seltype   => 'etc_t',
-        content   => template('koji/kojira/kojira.conf'),
+        content   => template('koji/kojira/kojira.conf.erb'),
         before    => Service[$service],
         notify    => Service[$service],
         subscribe => Class['::koji::utils'],

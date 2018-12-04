@@ -53,7 +53,7 @@ class koji::hub (
 
     ::apache::site_config {
         'kojihub':
-            content   => template('koji/hub/kojihub.conf'),
+            content   => template('koji/hub/kojihub.conf.erb'),
             subscribe => Package[$packages],
             ;
     }
@@ -110,7 +110,7 @@ class koji::hub (
             seltype => 'public_content_rw_t',
             ;
         '/etc/koji-hub/hub.conf':
-            content => template('koji/hub/hub.conf'),
+            content => template('koji/hub/hub.conf.erb'),
             ;
     }
 

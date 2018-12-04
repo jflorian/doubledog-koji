@@ -8,7 +8,7 @@
 #
 # === Copyright
 #
-# Copyright 2016-2017 John Florian
+# Copyright 2016-2018 John Florian
 
 
 class koji::database (
@@ -68,7 +68,7 @@ class koji::database (
         owner   => 'root',
         group   => 'root',
         mode    => '0754',
-        content => template('koji/database/bootstrap.sh'),
+        content => template('koji/database/bootstrap.sh.erb'),
     } ->
 
     exec { 'bootstrap Koji database':

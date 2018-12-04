@@ -37,7 +37,7 @@ class koji::web (
 
     ::apache::site_config {
         'kojiweb':
-            content   => template('koji/web/kojiweb.conf'),
+            content   => template('koji/web/kojiweb.conf.erb'),
             subscribe => Package[$packages],
             ;
     }
@@ -75,7 +75,7 @@ class koji::web (
             subscribe => Package[$packages],
             ;
         '/etc/kojiweb/web.conf':
-            content => template('koji/web/web.conf'),
+            content => template('koji/web/web.conf.erb'),
             ;
     }
 
