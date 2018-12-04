@@ -374,6 +374,11 @@ is `'normal'`.  One of:
 * `'extended'` - an extended traceback (format\_exc\_plus)
 * `'message'` - no traceback, just the error message
 
+##### `web_url`
+The prefix the Koji Hub is to use when providing content references for access
+through the Koji Web.  The default is `'http://`*FQDN*`/koji'` where *FQDN* is
+the host's fully qualified domain name.
+
 
 #### koji::kojira class
 

@@ -66,6 +66,7 @@ koji::hub::packages:
     - python2-simplejson
 koji::hub::plugins:                 []
 koji::hub::traceback:               normal
+koji::hub::web_url:                 "http://%{facts.fqdn}/koji"
 
 
 koji::kojira::debug:                false

@@ -33,6 +33,7 @@ class koji::hub (
         String[1]                             $email_domain,
         Array[String[1]]                      $plugins,
         Enum['normal', 'extended', 'message'] $traceback,
+        String[1]                             $web_url,
     ) {
 
     package { $packages:
