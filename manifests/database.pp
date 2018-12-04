@@ -50,28 +50,28 @@ class koji::database (
             address => '::1/128',
             ;
         'allow Koji-Hub via local domain socket':
-            type    => 'local',
-            user    => $username,
+            type => 'local',
+            user => $username,
             ;
         'allow Koji-Web via local domain socket':
-            type    => 'local',
-            user    => $web_username,
+            type => 'local',
+            user => $web_username,
             ;
-    } ->
+    }
 
-    ::postgresql::server::db { $dbname:
+    -> ::postgresql::server::db { $dbname:
         user     => $username,
         password => $password,
-    } ->
+    }
 
-    file { $bstrap_cmd:
+    -> file { $bstrap_cmd:
         owner   => 'root',
         group   => 'root',
         mode    => '0754',
         content => template('koji/database/bootstrap.sh.erb'),
-    } ->
+    }
 
-    exec { 'bootstrap Koji database':
+    -> exec { 'bootstrap Koji database':
         user    => 'root',
         creates => $bstrap_flag,
         command => "${bstrap_cmd} &> ${bstrap_log} && touch ${bstrap_flag}",

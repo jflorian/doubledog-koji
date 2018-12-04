@@ -36,8 +36,8 @@ class koji::kojira (
     # trust anchors.
     ::openssl::tls_certificate {
         default:
-            cert_path   => '/etc/kojira',
-            notify      => Service[$service],
+            cert_path => '/etc/kojira',
+            notify    => Service[$service],
             ;
         'kojira-hub-ca-chain':
             cert_name    => 'hub-ca-chain',

@@ -8,7 +8,7 @@
 #
 # === Copyright
 #
-# Copyright 2016-2017 John Florian
+# Copyright 2016-2018 John Florian
 
 
 class koji::cli (
@@ -30,7 +30,7 @@ class koji::cli (
         subscribe => Package[$packages],
     }
 
-    concat::fragment { "koji CLI configuration header":
+    concat::fragment { 'koji CLI configuration header':
         target  => '/etc/koji.conf',
         content => template('koji/cli/koji.conf.erb'),
         order   => '01',
