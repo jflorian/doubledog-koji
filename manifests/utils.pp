@@ -14,8 +14,8 @@
 
 
 class koji::utils (
-        Variant[Boolean, Enum['present', 'absent']] $ensure,
-        Array[String[1], 1]     $packages,
+        Enum['present', 'absent']   $ensure,
+        Array[String[1], 1]         $packages,
     ) {
 
     package { $packages:

@@ -434,9 +434,7 @@ The service name of the Kojira daemon.
 This class manages Koji utilities package.
 
 ##### `ensure`
-Instance is to be `'present'` (default) or `'absent'`.  Alternatively,
-a Boolean value may also be used with `true` equivalent to `'present'` and
-`false` equivalent to `'absent'`.
+Instance is to be `'present'` (default) or `'absent'`.
 
 ##### `packages`
 An array of package names needed for the Koji utilities installation.
