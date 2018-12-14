@@ -111,6 +111,12 @@ a lot of time and resources.  Note, that this shouldn't be enabled ordinarily
 as it could result in unnecessary resource consumption.  The default is
 `false`.
 
+##### `chroot_tmpdir`
+Name of the directory within buildroots that is used for various temporary data
+by the Koji builder daemon.  Prior to Koji 1.16, this was hard-coded to
+`/builddir/tmp`, which created problems with modern versions of mock.  The
+default is `/chroot_tmpdir`.
+
 ##### `debug`
 Enable verbose debugging for the Koji Builder.  One of: `true` or `false`
 (default).

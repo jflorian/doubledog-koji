@@ -24,6 +24,7 @@ class koji::builder (
         String[1]                                    $top_dir,
         Array[String[1], 1]                          $allowed_scms,
         Boolean                                      $build_arch_can_fail,
+        String[1]                                    $chroot_tmpdir,
         Boolean                                      $debug,
         Boolean                                      $enable,
         Variant[Boolean, Enum['running', 'stopped']] $ensure,

@@ -5,6 +5,7 @@
 ---
 
 koji::builder::build_arch_can_fail:         false
+koji::builder::chroot_tmpdir:               /chroot_tmpdir
 koji::builder::debug:                       false
 koji::builder::enable:                      true
 koji::builder::ensure:                      running
