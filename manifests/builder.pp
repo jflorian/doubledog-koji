@@ -34,6 +34,7 @@ class koji::builder (
         Integer[0]                                   $min_space,
         String[1]                                    $mock_dir,
         String[1]                                    $mock_user,
+        Integer[0]                                   $oz_install_timeout,
         Array[String[1], 1]                          $packages,
         String[1]                                    $service,
         String[1]                                    $smtp_host,

@@ -162,6 +162,9 @@ The default is `'/var/lib/mock'`.
 ##### `mock_user`
 The user to run as when doing builds.  The default is `'kojibuilder'`.
 
+##### `oz_install_timeout`
+The install timeout for imagefactory.  The default is `0`, which disables the timeout.
+
 ##### `packages`
 An array of package names needed for the Koji Builder installation.
 

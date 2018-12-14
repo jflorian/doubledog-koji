@@ -18,6 +18,7 @@ koji::builder::kojid_cert_source:           null
 koji::builder::min_space:                   8192    # MiB
 koji::builder::mock_dir:                    /var/lib/mock
 koji::builder::mock_user:                   kojibuilder
+koji::builder::oz_install_timeout:          0
 koji::builder::packages:
     - koji-builder
 koji::builder::service:                     kojid

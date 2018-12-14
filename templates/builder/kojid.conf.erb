@@ -47,6 +47,9 @@ mockuser=<%= @mock_user %>
 # Timeout for build duration (24 hours)
 ;rpmbuild_timeout=86400
 
+# Install timeout(seconds) for image build
+oz_install_timeout=<%= @oz_install_timeout %>
+
 # The URL for the xmlrpc server
 server=<%= @hub %>
 
