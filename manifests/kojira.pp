@@ -16,10 +16,6 @@
 
 class koji::kojira (
         String[1]                                    $hub,
-        Optional[String[1]]                          $hub_ca_cert_content,
-        Optional[String[1]]                          $hub_ca_cert_source,
-        Optional[String[1]]                          $kojira_cert_content,
-        Optional[String[1]]                          $kojira_cert_source,
         String[1]                                    $top_dir,
         Boolean                                      $debug,
         Integer[0]                                   $deleted_repo_lifetime,
@@ -30,26 +26,6 @@ class koji::kojira (
     ) {
 
     include '::koji::utils'
-
-    # The CA certificates are correct to use openssl::tls_certificate instead
-    # of openssl::tls_ca_certificate because they don't need to be general
-    # trust anchors.
-    ::openssl::tls_certificate {
-        default:
-            cert_path => '/etc/kojira',
-            notify    => Service[$service],
-            ;
-        'kojira-hub-ca-chain':
-            cert_name    => 'hub-ca-chain',
-            cert_content => $hub_ca_cert_content,
-            cert_source  => $hub_ca_cert_source,
-            ;
-        'kojira':
-            cert_name    => 'kojira',
-            cert_content => $kojira_cert_content,
-            cert_source  => $kojira_cert_source,
-            ;
-    }
 
     file { '/etc/kojira/kojira.conf':
         owner     => 'root',

@@ -49,6 +49,7 @@ The typical Koji build system deployment consists of one or more Builders, a Web
 * [koji::hub](#kojihub-class)
 * [koji::hub::x509](#kojihubx509-class)
 * [koji::kojira](#kojikojira-class)
+* [koji::kojira::x509](#kojikojirax509-class)
 * [koji::utils](#kojiutils-class)
 * [koji::web](#kojiweb-class)
 
@@ -423,16 +424,6 @@ This class manages the Kojira component on a host.
 ##### `hub`
 URL of your Koji Hub service.
 
-#####  `hub_ca_cert_content`, `hub_ca_cert_source`
-Literal string or Puppet source URI providing the CA certificate which signed
-the Koji Hub certificate.  This must be in PEM format and include all
-intermediate CA certificates, sorted and concatenated from the leaf CA to the
-root CA.
-
-#####  `kojira_cert_content`, `kojira_cert_source`
-Literal string or Puppet source URI providing the Kojira component's identity
-certificate which must be in PEM format.
-
 ##### `top_dir`
 Name of the directory containing the `'repos/'` directory.
 
@@ -457,6 +448,24 @@ Instance is to be started at boot.  Either `true` (default) or `false`.
 
 ##### `service`
 The service name of the Kojira daemon.
+
+
+#### koji::kojira::x509 class
+
+This class manages the X.509 certificates for Kojira.  It's use is optional and
+should only be included if you wish to use the integrated X.509 support offered
+by the [doubledog-openssl](https://github.com/jflorian/doubledog-openssl)
+module.
+
+#####  `hub_ca_cert_content`, `hub_ca_cert_source`
+Literal string or Puppet source URI providing the CA certificate which signed
+the Koji Hub certificate.  This must be in PEM format and include all
+intermediate CA certificates, sorted and concatenated from the leaf CA to the
+root CA.
+
+#####  `kojira_cert_content`, `kojira_cert_source`
+Literal string or Puppet source URI providing the Kojira component's identity
+certificate which must be in PEM format.
 
 
 #### koji::utils class
