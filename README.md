@@ -340,6 +340,9 @@ Name of host that provides the Koji database.
 ##### `db_passwd`
 Password for the Koji database connection.
 
+##### `db_port`
+The TCP port for the Koji database connection.  The default is `5432`, the standard for a PostgreSQL database.  Supported since Koji 1.16.
+
 ##### `db_user`
 User name for the Koji database connection.
 

@@ -19,6 +19,7 @@ class koji::hub (
         Optional[String[1]]                   $client_ca_cert_source,
         String[1]                             $db_host,
         String[1]                             $db_passwd,
+        Integer[1,65535]                      $db_port,
         String[1]                             $db_user,
         Optional[String[1]]                   $hub_ca_cert_content,
         Optional[String[1]]                   $hub_ca_cert_source,

@@ -53,6 +53,7 @@ koji::gc::unprotected_keys:         []
 
 koji::hub::client_ca_cert_content:  null
 koji::hub::client_ca_cert_source:   null
+koji::hub::db_port:                 5432
 koji::hub::debug:                   false
 koji::hub::email_domain:            "%{facts.domain}"
 koji::hub::hub_ca_cert_content:     null
