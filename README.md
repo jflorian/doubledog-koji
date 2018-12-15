@@ -41,6 +41,7 @@ The typical Koji build system deployment consists of one or more Builders, a Web
 **Classes:**
 
 * [koji::builder](#kojibuilder-class)
+* [koji::builder::x509](#kojibuilderx509-class)
 * [koji::cli](#kojicli-class)
 * [koji::database](#kojidatabase-class)
 * [koji::gc](#kojigc-class)
@@ -88,16 +89,6 @@ URL of your package download site.
 
 ##### `hub`
 URL of your Koji Hub service.
-
-#####  `hub_ca_cert_content`, `hub_ca_cert_source`
-Literal string or Puppet source URI providing the CA certificate which signed
-the Koji Hub certificate.  This must be in PEM format and include all
-intermediate CA certificates, sorted and concatenated from the leaf CA to the
-root CA.
-
-#####  `kojid_cert_content`, `kojid_cert_source`
-Literal string or Puppet source URI providing the builder's identity
-certificate which must be in PEM format.
 
 ##### `top_dir`
 Name of the directory containing the `'repos/'` directory.
@@ -181,6 +172,24 @@ Enable using createrepo\_c instead of createrepo.  The default is `false`.
 ##### `work_dir`
 Name of the directory where temporary work will be performed.  The default
 is `'/tmp/koji'`.
+
+
+#### koji::builder::x509 class
+
+This class manages the X.509 certificates on a host acting as a Koji Builder.
+It's use is optional and should only be included if you wish to use the
+integrated X.509 support offered by the
+[doubledog-openssl](https://github.com/jflorian/doubledog-openssl) module.
+
+#####  `hub_ca_cert_content`, `hub_ca_cert_source`
+Literal string or Puppet source URI providing the CA certificate which signed
+the Koji Hub certificate.  This must be in PEM format and include all
+intermediate CA certificates, sorted and concatenated from the leaf CA to the
+root CA.
+
+#####  `kojid_cert_content`, `kojid_cert_source`
+Literal string or Puppet source URI providing the builder's identity
+certificate which must be in PEM format.
 
 
 #### koji::cli class

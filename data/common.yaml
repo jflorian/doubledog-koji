@@ -10,11 +10,7 @@ koji::builder::debug:                       false
 koji::builder::enable:                      true
 koji::builder::ensure:                      running
 koji::builder::failed_buildroot_lifetime:   14400   # 4 hours
-koji::builder::hub_ca_cert_content:         null
-koji::builder::hub_ca_cert_source:          null
 koji::builder::image_building:              false
-koji::builder::kojid_cert_content:          null
-koji::builder::kojid_cert_source:           null
 koji::builder::min_space:                   8192    # MiB
 koji::builder::mock_dir:                    /var/lib/mock
 koji::builder::mock_user:                   kojibuilder
@@ -25,6 +21,12 @@ koji::builder::service:                     kojid
 koji::builder::smtp_host:                   localhost
 koji::builder::use_createrepo_c:            false
 koji::builder::work_dir:                    /tmp/koji
+
+
+koji::builder::x509::hub_ca_cert_content:   null
+koji::builder::x509::hub_ca_cert_source:    null
+koji::builder::x509::kojid_cert_content:    null
+koji::builder::x509::kojid_cert_source:     null
 
 
 koji::cli::packages:

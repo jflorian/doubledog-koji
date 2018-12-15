@@ -17,10 +17,6 @@
 class koji::builder (
         String[1]                                    $downloads,
         String[1]                                    $hub,
-        Optional[String[1]]                          $hub_ca_cert_content,
-        Optional[String[1]]                          $hub_ca_cert_source,
-        Optional[String[1]]                          $kojid_cert_content,
-        Optional[String[1]]                          $kojid_cert_source,
         String[1]                                    $top_dir,
         Array[String[1], 1]                          $allowed_scms,
         Boolean                                      $build_arch_can_fail,
@@ -52,26 +48,6 @@ class koji::builder (
             ensure => installed,
             notify => Service[$service],
         }
-    }
-
-    # The CA certificates are correct to use openssl::tls_certificate instead
-    # of openssl::tls_ca_certificate because they don't need to be general
-    # trust anchors.
-    ::openssl::tls_certificate {
-        default:
-            cert_path => '/etc/kojid',
-            notify    => Service[$service],
-            ;
-        'kojid-hub-ca-chain':
-            cert_name    => 'hub-ca-chain',
-            cert_content => $hub_ca_cert_content,
-            cert_source  => $hub_ca_cert_source,
-            ;
-        'kojid':
-            cert_name    => 'kojid',
-            cert_content => $kojid_cert_content,
-            cert_source  => $kojid_cert_source,
-            ;
     }
 
     file {
