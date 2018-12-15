@@ -32,6 +32,24 @@ The typical Koji build system deployment consists of one or more Builders, a Web
 
 ### Setup Requirements
 
+This module integrates and thus depends on several other Puppet modules to
+achieve a reliable solution.  At present these are:
+
+* [doubledog-apache](https://github.com/jflorian/doubledog-apache)
+* [doubledog-cron](https://github.com/jflorian/doubledog-cron)
+* [puppetlabs-concat](https://github.com/puppetlabs/puppetlabs-concat)
+* [puppetlabs-postgresql](https://github.com/puppetlabs/puppetlabs-postgresql)
+
+The following is optional (despite being listed as a requirement in the
+`metadata.json` file), unless you wish to use any of the integrated `*::x509`
+classes.  If you don't use those, you will either need to manage the X.509
+certificates separately (or help with the Kerberos support, below).
+
+* [doubledog-openssl](https://github.com/jflorian/doubledog-openssl)
+
+In the future, I intend to do more such disintegration and implement Kerberos
+support but, alas I only have so much time.  (Hint: PRs welcome!)
+
 ### Beginning with koji
 
 ## Usage
