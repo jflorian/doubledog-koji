@@ -15,18 +15,10 @@
 
 
 class koji::hub (
-        Optional[String[1]]                   $client_ca_cert_content,
-        Optional[String[1]]                   $client_ca_cert_source,
         String[1]                             $db_host,
         String[1]                             $db_passwd,
         Integer[1,65535]                      $db_port,
         String[1]                             $db_user,
-        Optional[String[1]]                   $hub_ca_cert_content,
-        Optional[String[1]]                   $hub_ca_cert_source,
-        Optional[String[1]]                   $hub_cert_content,
-        Optional[String[1]]                   $hub_cert_source,
-        Optional[String[1]]                   $hub_key_content,
-        Optional[String[1]]                   $hub_key_source,
         String[1]                             $top_dir,
         Array[String[1], 1]                   $packages,
         Array[String[1]]                      $proxy_auth_dns,
@@ -56,29 +48,6 @@ class koji::hub (
         'kojihub':
             content   => template('koji/hub/kojihub.conf.erb'),
             subscribe => Package[$packages],
-            ;
-    }
-
-    # The CA certificates are correct to use openssl::tls_certificate instead
-    # of openssl::tls_ca_certificate because they don't need to be general
-    # trust anchors.
-    ::openssl::tls_certificate {
-        default:
-            notify => Class['::apache::service'],
-            ;
-        'koji-client-ca-chain':
-            cert_content => $client_ca_cert_content,
-            cert_source  => $client_ca_cert_source,
-            ;
-        'koji-hub-ca-chain':
-            cert_content => $hub_ca_cert_content,
-            cert_source  => $hub_ca_cert_source,
-            ;
-        'koji-hub':
-            cert_content => $hub_cert_content,
-            cert_source  => $hub_cert_source,
-            key_content  => $hub_key_content,
-            key_source   => $hub_key_source,
             ;
     }
 

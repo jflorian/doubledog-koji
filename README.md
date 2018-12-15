@@ -32,6 +32,24 @@ The typical Koji build system deployment consists of one or more Builders, a Web
 
 ### Setup Requirements
 
+This module integrates and thus depends on several other Puppet modules to
+achieve a reliable solution.  At present these are:
+
+* [doubledog-apache](https://github.com/jflorian/doubledog-apache)
+* [doubledog-cron](https://github.com/jflorian/doubledog-cron)
+* [puppetlabs-concat](https://github.com/puppetlabs/puppetlabs-concat)
+* [puppetlabs-postgresql](https://github.com/puppetlabs/puppetlabs-postgresql)
+
+The following is optional (despite being listed as a requirement in the
+`metadata.json` file), unless you wish to use any of the integrated `*::x509`
+classes.  If you don't use those, you will either need to manage the X.509
+certificates separately (or help with the Kerberos support, below).
+
+* [doubledog-openssl](https://github.com/jflorian/doubledog-openssl)
+
+In the future, I intend to do more such disintegration and implement Kerberos
+support but, alas I only have so much time.  (Hint: PRs welcome!)
+
 ### Beginning with koji
 
 ## Usage
@@ -41,14 +59,18 @@ The typical Koji build system deployment consists of one or more Builders, a Web
 **Classes:**
 
 * [koji::builder](#kojibuilder-class)
+* [koji::builder::x509](#kojibuilderx509-class)
 * [koji::cli](#kojicli-class)
 * [koji::database](#kojidatabase-class)
 * [koji::gc](#kojigc-class)
 * [koji::httpd](#kojihttpd-class)
 * [koji::hub](#kojihub-class)
+* [koji::hub::x509](#kojihubx509-class)
 * [koji::kojira](#kojikojira-class)
+* [koji::kojira::x509](#kojikojirax509-class)
 * [koji::utils](#kojiutils-class)
 * [koji::web](#kojiweb-class)
+* [koji::web::x509](#kojiwebx509-class)
 
 **Defined types:**
 
@@ -88,16 +110,6 @@ URL of your package download site.
 
 ##### `hub`
 URL of your Koji Hub service.
-
-#####  `hub_ca_cert_content`, `hub_ca_cert_source`
-Literal string or Puppet source URI providing the CA certificate which signed
-the Koji Hub certificate.  This must be in PEM format and include all
-intermediate CA certificates, sorted and concatenated from the leaf CA to the
-root CA.
-
-#####  `kojid_cert_content`, `kojid_cert_source`
-Literal string or Puppet source URI providing the builder's identity
-certificate which must be in PEM format.
 
 ##### `top_dir`
 Name of the directory containing the `'repos/'` directory.
@@ -181,6 +193,24 @@ Enable using createrepo\_c instead of createrepo.  The default is `false`.
 ##### `work_dir`
 Name of the directory where temporary work will be performed.  The default
 is `'/tmp/koji'`.
+
+
+#### koji::builder::x509 class
+
+This class manages the X.509 certificates on a host acting as a Koji Builder.
+It's use is optional and should only be included if you wish to use the
+integrated X.509 support offered by the
+[doubledog-openssl](https://github.com/jflorian/doubledog-openssl) module.
+
+#####  `hub_ca_cert_content`, `hub_ca_cert_source`
+Literal string or Puppet source URI providing the CA certificate which signed
+the Koji Hub certificate.  This must be in PEM format and include all
+intermediate CA certificates, sorted and concatenated from the leaf CA to the
+root CA.
+
+#####  `kojid_cert_content`, `kojid_cert_source`
+Literal string or Puppet source URI providing the builder's identity
+certificate which must be in PEM format.
 
 
 #### koji::cli class
@@ -328,12 +358,6 @@ This manages the Koji Hub, an XML-RPC server running under mod\_wsgi in
 Apache's httpd.  It also manages Koji's skeleton file system.  The Koji Hub may
 be run on the same host as the Koji Web, but that's not required.
 
-#####  `client_ca_cert_content`, `client_ca_cert_source`
-Literal string or Puppet source URI providing the CA certificate which signed
-the client certificates that wish to connect to this Koji Hub.  This must be in
-PEM format and include all intermediate CA certificates, sorted and
-concatenated from the leaf CA to the root CA.
-
 ##### `db_host`
 Name of host that provides the Koji database.
 
@@ -345,20 +369,6 @@ The TCP port for the Koji database connection.  The default is `5432`, the stand
 
 ##### `db_user`
 User name for the Koji database connection.
-
-#####  `hub_ca_cert_content`, `hub_ca_cert_source`
-Literal string or Puppet source URI providing the CA certificate which signed
-*hub_cert_source*.  This must be in PEM format and include all intermediate CA
-certificates, sorted and concatenated from the leaf CA to the root CA.
-
-#####  `hub_cert_content`, `hub_cert_source`
-Literal string or Puppet source URI providing the Koji Hub's certificate.  This
-must be in PEM format.
-
-#####  `hub_key_content`, `hub_key_source`
-Literal string or Puppet source URI providing the private key that was used to
-sign the Koji Hub's certificate contained in *hub_cert_source*.  This must be
-in PEM format.
 
 ##### `top_dir`
 Directory containing the `'repos/'` directory.
@@ -398,22 +408,40 @@ through the Koji Web.  The default is `'http://`*FQDN*`/koji'` where *FQDN* is
 the host's fully qualified domain name.
 
 
+#### koji::hub::x509 class
+
+This class manages the X.509 certificates on a host acting as a Koji Hub.  It's
+use is optional and should only be included if you wish to use the integrated
+X.509 support offered by the
+[doubledog-openssl](https://github.com/jflorian/doubledog-openssl) module.
+
+#####  `client_ca_cert_content`, `client_ca_cert_source`
+Literal string or Puppet source URI providing the CA certificate which signed
+the client certificates that wish to connect to this Koji Hub.  This must be in
+PEM format and include all intermediate CA certificates, sorted and
+concatenated from the leaf CA to the root CA.
+
+#####  `hub_ca_cert_content`, `hub_ca_cert_source`
+Literal string or Puppet source URI providing the CA certificate which signed
+*hub_cert_source*.  This must be in PEM format and include all intermediate CA
+certificates, sorted and concatenated from the leaf CA to the root CA.
+
+#####  `hub_cert_content`, `hub_cert_source`
+Literal string or Puppet source URI providing the Koji Hub's certificate.  This
+must be in PEM format.
+
+#####  `hub_key_content`, `hub_key_source`
+Literal string or Puppet source URI providing the private key that was used to
+sign the Koji Hub's certificate contained in *hub_cert_source*.  This must be
+in PEM format.
+
+
 #### koji::kojira class
 
 This class manages the Kojira component on a host.
 
 ##### `hub`
 URL of your Koji Hub service.
-
-#####  `hub_ca_cert_content`, `hub_ca_cert_source`
-Literal string or Puppet source URI providing the CA certificate which signed
-the Koji Hub certificate.  This must be in PEM format and include all
-intermediate CA certificates, sorted and concatenated from the leaf CA to the
-root CA.
-
-#####  `kojira_cert_content`, `kojira_cert_source`
-Literal string or Puppet source URI providing the Kojira component's identity
-certificate which must be in PEM format.
 
 ##### `top_dir`
 Name of the directory containing the `'repos/'` directory.
@@ -441,6 +469,24 @@ Instance is to be started at boot.  Either `true` (default) or `false`.
 The service name of the Kojira daemon.
 
 
+#### koji::kojira::x509 class
+
+This class manages the X.509 certificates for Kojira.  It's use is optional and
+should only be included if you wish to use the integrated X.509 support offered
+by the [doubledog-openssl](https://github.com/jflorian/doubledog-openssl)
+module.
+
+#####  `hub_ca_cert_content`, `hub_ca_cert_source`
+Literal string or Puppet source URI providing the CA certificate which signed
+the Koji Hub certificate.  This must be in PEM format and include all
+intermediate CA certificates, sorted and concatenated from the leaf CA to the
+root CA.
+
+#####  `kojira_cert_content`, `kojira_cert_source`
+Literal string or Puppet source URI providing the Kojira component's identity
+certificate which must be in PEM format.
+
+
 #### koji::utils class
 
 This class manages Koji utilities package.
@@ -462,18 +508,8 @@ required.
 ##### `files_url`
 URL for accessing Koji's file resources.
 
-#####  `hub_ca_cert_content`, `hub_ca_cert_source`
-Literal string or Puppet source URI providing the CA certificate which signed
-the Koji Hub certificate.  This must be in PEM format and include all
-intermediate CA certificates, sorted and concatenated from the leaf CA to the
-root CA.
-
 ##### `hub_url`
 URL for accessing the Koji Hub's RPC services.
-
-#####  `web_cert_content`, `web_cert_source`
-Literal string or Puppet source URI providing the Koji Web's certificate.  This
-must be in PEM format.
 
 ##### `secret`
 Undocumented by the Koji project, but required.  Pass in a reasonably long
@@ -503,6 +539,24 @@ Name of the web theme that Koji is to use.  Content under
 files under `'/usr/share/koji-web/static/'`.  Any absent files will fall back
 to the normal files.  This module provides only the configuration to use
 *theme* and provides nothing to actually install *theme*.
+
+
+#### koji::web::x509 class
+
+This class manages the X.509 certificates the Koji Web component.  It's use is
+optional and should only be included if you wish to use the integrated X.509
+support offered by the
+[doubledog-openssl](https://github.com/jflorian/doubledog-openssl) module.
+
+#####  `hub_ca_cert_content`, `hub_ca_cert_source`
+Literal string or Puppet source URI providing the CA certificate which signed
+the Koji Hub certificate.  This must be in PEM format and include all
+intermediate CA certificates, sorted and concatenated from the leaf CA to the
+root CA.
+
+#####  `web_cert_content`, `web_cert_source`
+Literal string or Puppet source URI providing the Koji Web's certificate.  This
+must be in PEM format.
 
 
 ### Defined types
