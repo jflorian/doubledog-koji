@@ -52,6 +52,7 @@ The typical Koji build system deployment consists of one or more Builders, a Web
 * [koji::kojira::x509](#kojikojirax509-class)
 * [koji::utils](#kojiutils-class)
 * [koji::web](#kojiweb-class)
+* [koji::web::x509](#kojiwebx509-class)
 
 **Defined types:**
 
@@ -489,18 +490,8 @@ required.
 ##### `files_url`
 URL for accessing Koji's file resources.
 
-#####  `hub_ca_cert_content`, `hub_ca_cert_source`
-Literal string or Puppet source URI providing the CA certificate which signed
-the Koji Hub certificate.  This must be in PEM format and include all
-intermediate CA certificates, sorted and concatenated from the leaf CA to the
-root CA.
-
 ##### `hub_url`
 URL for accessing the Koji Hub's RPC services.
-
-#####  `web_cert_content`, `web_cert_source`
-Literal string or Puppet source URI providing the Koji Web's certificate.  This
-must be in PEM format.
 
 ##### `secret`
 Undocumented by the Koji project, but required.  Pass in a reasonably long
@@ -530,6 +521,24 @@ Name of the web theme that Koji is to use.  Content under
 files under `'/usr/share/koji-web/static/'`.  Any absent files will fall back
 to the normal files.  This module provides only the configuration to use
 *theme* and provides nothing to actually install *theme*.
+
+
+#### koji::web::x509 class
+
+This class manages the X.509 certificates the Koji Web component.  It's use is
+optional and should only be included if you wish to use the integrated X.509
+support offered by the
+[doubledog-openssl](https://github.com/jflorian/doubledog-openssl) module.
+
+#####  `hub_ca_cert_content`, `hub_ca_cert_source`
+Literal string or Puppet source URI providing the CA certificate which signed
+the Koji Hub certificate.  This must be in PEM format and include all
+intermediate CA certificates, sorted and concatenated from the leaf CA to the
+root CA.
+
+#####  `web_cert_content`, `web_cert_source`
+Literal string or Puppet source URI providing the Koji Web's certificate.  This
+must be in PEM format.
 
 
 ### Defined types

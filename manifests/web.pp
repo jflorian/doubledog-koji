@@ -16,12 +16,8 @@
 
 class koji::web (
         String[1]           $files_url,
-        Optional[String[1]] $hub_ca_cert_content,
-        Optional[String[1]] $hub_ca_cert_source,
         String[1]           $hub_url,
         String[1]           $secret,
-        Optional[String[1]] $web_cert_content,
-        Optional[String[1]] $web_cert_source,
         Boolean             $debug,
         Array[Integer]      $hidden_users,
         Integer             $login_timeout,
@@ -39,26 +35,6 @@ class koji::web (
         'kojiweb':
             content   => template('koji/web/kojiweb.conf.erb'),
             subscribe => Package[$packages],
-            ;
-    }
-
-    # The CA certificates are correct to use openssl::tls_certificate instead
-    # of openssl::tls_ca_certificate because they don't need to be general
-    # trust anchors.
-    ::openssl::tls_certificate {
-        default:
-            cert_path => '/etc/kojiweb',
-            notify    => Class['::apache::service'],
-            ;
-        'kojiweb-hub-ca-chain':
-            cert_name    => 'hub-ca-chain',
-            cert_content => $hub_ca_cert_content,
-            cert_source  => $hub_ca_cert_source,
-            ;
-        'kojiweb':
-            cert_name    => 'web',
-            cert_content => $web_cert_content,
-            cert_source  => $web_cert_source,
             ;
     }
 

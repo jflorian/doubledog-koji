@@ -97,11 +97,13 @@ koji::utils::ensure:                present
 
 koji::web::debug:                   false
 koji::web::hidden_users:            []
-koji::web::hub_ca_cert_content:     null
-koji::web::hub_ca_cert_source:      null
 koji::web::login_timeout:           72  # hours
 koji::web::packages:
     - koji-web
 koji::web::theme:                   default
-koji::web::web_cert_content:        null
-koji::web::web_cert_source:         null
+
+
+koji::web::x509::hub_ca_cert_content:   null
+koji::web::x509::hub_ca_cert_source:    null
+koji::web::x509::web_cert_content:      null
+koji::web::x509::web_cert_source:       null
