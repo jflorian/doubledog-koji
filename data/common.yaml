@@ -53,17 +53,9 @@ koji::gc::smtp_host:                localhost
 koji::gc::unprotected_keys:         []
 
 
-koji::hub::client_ca_cert_content:  null
-koji::hub::client_ca_cert_source:   null
 koji::hub::db_port:                 5432
 koji::hub::debug:                   false
 koji::hub::email_domain:            "%{facts.domain}"
-koji::hub::hub_ca_cert_content:     null
-koji::hub::hub_ca_cert_source:      null
-koji::hub::hub_cert_content:        null
-koji::hub::hub_cert_source:         null
-koji::hub::hub_key_content:         null
-koji::hub::hub_key_source:          null
 koji::hub::packages:
     - koji-hub
     - koji-hub-plugins
@@ -72,6 +64,16 @@ koji::hub::packages:
 koji::hub::plugins:                 []
 koji::hub::traceback:               normal
 koji::hub::web_url:                 "http://%{facts.fqdn}/koji"
+
+
+koji::hub::x509::client_ca_cert_content:    null
+koji::hub::x509::client_ca_cert_source:     null
+koji::hub::x509::hub_ca_cert_content:       null
+koji::hub::x509::hub_ca_cert_source:        null
+koji::hub::x509::hub_cert_content:          null
+koji::hub::x509::hub_cert_source:           null
+koji::hub::x509::hub_key_content:           null
+koji::hub::x509::hub_key_source:            null
 
 
 koji::kojira::debug:                false
