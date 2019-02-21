@@ -10,7 +10,7 @@
 # === Copyright
 #
 # This file is part of the doubledog-koji Puppet module.
-# Copyright 2018 John Florian
+# Copyright 2018-2019 John Florian
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
@@ -30,6 +30,7 @@ class koji::web::x509 (
         default:
             cert_path => '/etc/kojiweb',
             notify    => Class['::apache::service'],
+            require   => Package[$::koji::web::packages],
             ;
         'kojiweb-hub-ca-chain':
             cert_name    => 'hub-ca-chain',

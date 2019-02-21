@@ -10,7 +10,7 @@
 # === Copyright
 #
 # This file is part of the doubledog-koji Puppet module.
-# Copyright 2018 John Florian
+# Copyright 2018-2019 John Florian
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
@@ -31,6 +31,7 @@ class koji::hub::x509 (
     ::openssl::tls_certificate {
         default:
             notify => Class['::apache::service'],
+            require   => Package[$::koji::hub::packages],
             ;
         'koji-client-ca-chain':
             cert_content => $client_ca_cert_content,
