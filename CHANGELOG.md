@@ -22,6 +22,7 @@ All notable changes to this project (since v4.0.0) will be documented in this fi
 ## [4.1.0] WIP
 ### Added
 - `client_cert` parameter to the `koji::cli::profile` defined type.
+- `server_ca` parameter to the `koji::cli::profile` defined type.
 ### Changed
 ### Deprecated
 ### Removed

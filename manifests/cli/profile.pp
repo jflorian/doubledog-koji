@@ -24,6 +24,7 @@ define koji::cli::profile (
         Boolean     $offline_retry=false,
         Integer     $offline_retry_interval=20,
         Integer     $retry_interval=20,
+        String[1]   $server_ca='~/.koji/serverca.crt',
     ) {
 
     # Force the default profile to be first.  It looks better and may be

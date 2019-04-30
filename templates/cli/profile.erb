@@ -33,7 +33,7 @@ krb_rdns = false
 cert = <%= @client_cert %>
 
 # certificate of the CA that issued the HTTP server certificate
-serverca = ~/.koji/serverca.crt
+serverca = <%= @server_ca %>
 <% end -%>
 
 ## failure handling when making calls to the Koji-Hub {{{2

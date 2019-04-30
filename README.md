@@ -625,6 +625,16 @@ When making Koji calls, if the Koji Hub reports a temporary failure, this
 determines how many seconds the Koji Client will wait before attempting the
 call again.  The default is 20 seconds.
 
+##### `server_ca`
+Name of the file containing the X.509 CA certificate that signed the *hub*.
+Ignored unless *auth_type* is `'ssl'`.  The default is
+`'~/.koji/serverca.crt'`.
+
+Note that this module provides no means for managing this certificate itself
+(since it's generally bad practice for Puppet to manage things in a user's home
+directory).  This setting is merely a host-wide reference to such a file, hence
+the need for the `'~'` in the path.
+
 
 #### koji::gc::policy defined type
 
