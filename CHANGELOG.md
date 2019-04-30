@@ -19,6 +19,15 @@ Template
 
 All notable changes to this project (since v4.0.0) will be documented in this file.  The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [4.1.0] WIP
+### Added
+- `client_cert` parameter to the `koji::cli::profile` defined type.
+### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
+
 ## [4.0.1] 2019-02-21
 ### Changed
 - `puppetlabs-concat` dependency now allows version 5

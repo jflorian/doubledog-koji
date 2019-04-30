@@ -1,6 +1,6 @@
 <!--
 This file is part of the doubledog-koji Puppet module.
-Copyright 2017-2018 John Florian <jflorian@doubledog.org>
+Copyright 2017-2019 John Florian <jflorian@doubledog.org>
 SPDX-License-Identifier: GPL-3.0-or-later
 -->
 
@@ -592,6 +592,16 @@ URL of your Koji-Web server.
 The method the client should use to authenticate itself to the Koji-Hub.  Must
 be one of: `'noauth'`, `'ssl'`, `'password'`, or `'kerberos'`.  The default is
 `'ssl'`.
+
+##### `client_cert`
+Name of the file containing the client's X.509 certificate to be used in
+authenticating the client for this profile.  Ignored unless *auth_type* is
+`'ssl'`.  The default is `'~/.koji/client.crt'`.
+
+Note that this module provides no means for managing this certificate itself
+(since it's generally bad practice for Puppet to manage things in a user's home
+directory).  This setting is merely a host-wide reference to such a file, hence
+the need for the `'~'` in the path.
 
 ##### `max_retries`
 When making Koji calls, if the Koji Hub reports a temporary failure, how many
