@@ -565,6 +565,14 @@ must be in PEM format.
 
 This defined type manages a Koji CLI configuration profile.
 
+The profile is managed for all users on the host.  Specifically, the
+configuration managed here resides in `/etc/` but some aspects of a profile may
+abstractly reference a user's home directory via the conventional `'~'`
+character in a file system path.  Depending on *auth_type*, it may be necessary
+for each user to populate their `~/.koji/` directory with additional resources,
+such as X.509 certificates.  Nothing in any user's home directory is managed by
+this defined type.
+
 Profiles can be utilized by the Koji CLI using:
 
     koji -p|--profile PROFILE
@@ -573,8 +581,12 @@ The Koji CLI will use a default profile named `koji` unless another is
 specified.
 
 ##### `namevar`
-An identifier for the configuration profile instance.  Specify *koji* to
+An identifier for the configuration profile instance.  Specify `'koji'` to
 configure the default profile.
+
+It appears that the Koji CLI has built-in defaults even if a default profile is
+absent.  Therefore if these defaults are undesired, the default profile must be
+managed explicitly.
 
 ##### `downloads`
 URL of your package download site.
@@ -597,11 +609,6 @@ be one of: `'noauth'`, `'ssl'`, `'password'`, or `'kerberos'`.  The default is
 Name of the file containing the client's X.509 certificate to be used in
 authenticating the client for this profile.  Ignored unless *auth_type* is
 `'ssl'`.  The default is `'~/.koji/client.crt'`.
-
-Note that this module provides no means for managing this certificate itself
-(since it's generally bad practice for Puppet to manage things in a user's home
-directory).  This setting is merely a host-wide reference to such a file, hence
-the need for the `'~'` in the path.
 
 ##### `max_retries`
 When making Koji calls, if the Koji Hub reports a temporary failure, how many
@@ -629,11 +636,6 @@ call again.  The default is 20 seconds.
 Name of the file containing the X.509 CA certificate that signed the *hub*.
 Ignored unless *auth_type* is `'ssl'`.  The default is
 `'~/.koji/serverca.crt'`.
-
-Note that this module provides no means for managing this certificate itself
-(since it's generally bad practice for Puppet to manage things in a user's home
-directory).  This setting is merely a host-wide reference to such a file, hence
-the need for the `'~'` in the path.
 
 
 #### koji::gc::policy defined type
