@@ -28,10 +28,10 @@ class koji::hub::x509 (
     # The CA certificates are correct to use openssl::tls_certificate instead
     # of openssl::tls_ca_certificate because they don't need to be general
     # trust anchors.
-    ::openssl::tls_certificate {
+    openssl::tls_certificate {
         default:
-            notify => Class['::apache::service'],
-            require   => Package[$::koji::hub::packages],
+            notify  => Class['apache::service'],
+            require => Package[$koji::hub::packages],
             ;
         'koji-client-ca-chain':
             cert_content => $client_ca_cert_content,

@@ -21,16 +21,16 @@ class koji::kojira::x509 (
         Optional[String[1]] $kojira_cert_source,
     ) {
 
-    include '::koji::kojira'
+    include 'koji::kojira'
 
     # The CA certificates are correct to use openssl::tls_certificate instead
     # of openssl::tls_ca_certificate because they don't need to be general
     # trust anchors.
-    ::openssl::tls_certificate {
+    openssl::tls_certificate {
         default:
             cert_path => '/etc/kojira',
-            notify    => Service[$::koji::kojira::service],
-            require   => Package[$::koji::utils::packages],
+            notify    => Service[$koji::kojira::service],
+            require   => Package[$koji::utils::packages],
             ;
         'kojira-hub-ca-chain':
             cert_name    => 'hub-ca-chain',

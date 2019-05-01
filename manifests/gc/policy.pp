@@ -9,7 +9,7 @@
 # === Copyright
 #
 # This file is part of the doubledog-koji Puppet module.
-# Copyright 2016-2018 John Florian
+# Copyright 2016-2019 John Florian
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
@@ -18,7 +18,7 @@ define koji::gc::policy (
         Pattern[/[1-9][0-9]{2}/, /[0-9][1-9][0-9]/, /[0-9]{2}[1-9]/] $seq,
     ) {
 
-    ::concat::fragment { "koji-gc.conf-${title}":
+    concat::fragment { "koji-gc.conf-${title}":
         target  => 'koji-gc.conf',
         order   => $seq,
         content => "    ${rule}\n",
