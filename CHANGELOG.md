@@ -19,7 +19,7 @@ Template
 
 All notable changes to this project (since v4.0.0) will be documented in this file.  The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
-## [4.1.0] WIP
+## [4.1.0] 2019-05-02
 ### Added
 - `client_cert` parameter to the `koji::cli::profile` defined type.
 - `server_ca` parameter to the `koji::cli::profile` defined type.
@@ -27,11 +27,8 @@ All notable changes to this project (since v4.0.0) will be documented in this fi
 ### Changed
 - Improved documentation for the `koji::cli::profile` defined type.
 - Absolute namespace references have been eliminated since modern Puppet versions no longer require this.
-### Deprecated
 ### Removed
 - Fedora 27 support
-### Fixed
-### Security
 
 ## [4.0.1] 2019-02-21
 ### Changed
