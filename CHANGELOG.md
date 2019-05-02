@@ -23,6 +23,7 @@ All notable changes to this project (since v4.0.0) will be documented in this fi
 ### Added
 - `client_cert` parameter to the `koji::cli::profile` defined type.
 - `server_ca` parameter to the `koji::cli::profile` defined type.
+- Fedora 30 support
 ### Changed
 - Improved documentation for the `koji::cli::profile` defined type.
 - Absolute namespace references have been eliminated since modern Puppet versions no longer require this.
