@@ -28,6 +28,7 @@ All notable changes to this project (since v4.0.0) will be documented in this fi
 - Absolute namespace references have been eliminated since modern Puppet versions no longer require this.
 ### Deprecated
 ### Removed
+- Fedora 27 support
 ### Fixed
 ### Security
 
