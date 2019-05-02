@@ -21,16 +21,16 @@ class koji::web::x509 (
         Optional[String[1]] $web_cert_source,
     ) {
 
-    include '::koji::web'
+    include 'koji::web'
 
     # The CA certificates are correct to use openssl::tls_certificate instead
     # of openssl::tls_ca_certificate because they don't need to be general
     # trust anchors.
-    ::openssl::tls_certificate {
+    openssl::tls_certificate {
         default:
             cert_path => '/etc/kojiweb',
-            notify    => Class['::apache::service'],
-            require   => Package[$::koji::web::packages],
+            notify    => Class['apache::service'],
+            require   => Package[$koji::web::packages],
             ;
         'kojiweb-hub-ca-chain':
             cert_name    => 'hub-ca-chain',

@@ -10,7 +10,7 @@
 # === Copyright
 #
 # This file is part of the doubledog-koji Puppet module.
-# Copyright 2016-2018 John Florian
+# Copyright 2016-2019 John Florian
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
@@ -33,9 +33,9 @@ class koji::hub (
         ensure  => installed,
     }
 
-    include '::koji::httpd'
+    include 'koji::httpd'
 
-    ::apache::module_config {
+    apache::module_config {
         '99-prefork':
             source => 'puppet:///modules/koji/httpd/99-prefork.conf',
             ;
@@ -44,7 +44,7 @@ class koji::hub (
             ;
     }
 
-    ::apache::site_config {
+    apache::site_config {
         'kojihub':
             content   => template('koji/hub/kojihub.conf.erb'),
             subscribe => Package[$packages],
@@ -59,8 +59,8 @@ class koji::hub (
             seluser   => 'system_u',
             selrole   => 'object_r',
             seltype   => 'etc_t',
-            before    => Class['::apache::service'],
-            notify    => Class['::apache::service'],
+            before    => Class['apache::service'],
+            notify    => Class['apache::service'],
             subscribe => Package[$packages],
             ;
         [

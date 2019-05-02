@@ -9,7 +9,7 @@
 # === Copyright
 #
 # This file is part of the doubledog-koji Puppet module.
-# Copyright 2016-2018 John Florian
+# Copyright 2016-2019 John Florian
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
@@ -25,17 +25,17 @@ class koji::database (
 
     # Class[koji::cli] provides the schema.sql file required by the bootstrap
     # script.
-    include '::koji::cli'
+    include 'koji::cli'
 
     $bstrap_cmd = "/var/lib/pgsql/data/bootstrap-${dbname}-database"
     $bstrap_flag = "${bstrap_cmd}.flag"
     $bstrap_log = "${bstrap_cmd}.log"
 
-    class { '::postgresql::server':
+    class { 'postgresql::server':
         listen_addresses => $listen_addresses,
     }
 
-    ::postgresql::server::pg_hba_rule {
+    postgresql::server::pg_hba_rule {
         default:
             auth_method => 'trust',
             database    => $dbname,
@@ -61,7 +61,7 @@ class koji::database (
             ;
     }
 
-    -> ::postgresql::server::db { $dbname:
+    -> postgresql::server::db { $dbname:
         user     => $username,
         password => $password,
     }

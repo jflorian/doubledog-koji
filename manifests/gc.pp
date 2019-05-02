@@ -10,7 +10,7 @@
 # === Copyright
 #
 # This file is part of the doubledog-koji Puppet module.
-# Copyright 2016-2018 John Florian
+# Copyright 2016-2019 John Florian
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
@@ -32,7 +32,7 @@ class koji::gc (
         Optional[String[1]]                     $hub_ca_cert_source,
     ) {
 
-    include '::koji::utils'
+    include 'koji::utils'
 
     file {
         default:
@@ -42,7 +42,7 @@ class koji::gc (
             seluser   => 'system_u',
             selrole   => 'object_r',
             seltype   => 'etc_t',
-            subscribe => Class['::koji::utils'],
+            subscribe => Class['koji::utils'],
             ;
         '/etc/koji-gc/client.pem':
             content => $client_cert_content,
@@ -54,7 +54,7 @@ class koji::gc (
             ;
     }
 
-    ::concat { 'koji-gc.conf':
+    concat { 'koji-gc.conf':
         path      => '/etc/koji-gc/koji-gc.conf',
         owner     => 'root',
         group     => 'root',
@@ -62,16 +62,16 @@ class koji::gc (
         seluser   => 'system_u',
         selrole   => 'object_r',
         seltype   => 'etc_t',
-        subscribe => Class['::koji::utils'],
+        subscribe => Class['koji::utils'],
     }
 
-    ::concat::fragment { 'koji-gc.conf-top':
+    concat::fragment { 'koji-gc.conf-top':
         target  => 'koji-gc.conf',
         order   => '000',
         content => template('koji/gc/koji-gc.conf.erb'),
     }
 
-    ::cron::job {
+    cron::job {
         'koji-gc':
             command => 'koji-gc',
             user    => $owner,

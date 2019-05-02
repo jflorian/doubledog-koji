@@ -21,16 +21,16 @@ class koji::builder::x509 (
         Optional[String[1]] $kojid_cert_source,
     ) {
 
-    include '::koji::builder'
+    include 'koji::builder'
 
     # The CA certificates are correct to use openssl::tls_certificate instead
     # of openssl::tls_ca_certificate because they don't need to be general
     # trust anchors.
-    ::openssl::tls_certificate {
+    openssl::tls_certificate {
         default:
             cert_path => '/etc/kojid',
-            notify    => Service[$::koji::builder::service],
-            require   => Package[$::koji::builder::packages],
+            notify    => Service[$koji::builder::service],
+            require   => Package[$koji::builder::packages],
             ;
         'kojid-hub-ca-chain':
             cert_name    => 'hub-ca-chain',

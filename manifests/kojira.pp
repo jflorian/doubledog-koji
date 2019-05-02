@@ -10,7 +10,7 @@
 # === Copyright
 #
 # This file is part of the doubledog-koji Puppet module.
-# Copyright 2016-2018 John Florian
+# Copyright 2016-2019 John Florian
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
@@ -25,7 +25,7 @@ class koji::kojira (
         String[1]                                    $service,
     ) {
 
-    include '::koji::utils'
+    include 'koji::utils'
 
     file { '/etc/kojira/kojira.conf':
         owner     => 'root',
@@ -37,7 +37,7 @@ class koji::kojira (
         content   => template('koji/kojira/kojira.conf.erb'),
         before    => Service[$service],
         notify    => Service[$service],
-        subscribe => Class['::koji::utils'],
+        subscribe => Class['koji::utils'],
     }
 
     service { $service:
@@ -45,7 +45,7 @@ class koji::kojira (
         enable     => $enable,
         hasrestart => true,
         hasstatus  => true,
-        subscribe  => Class['::koji::utils'],
+        subscribe  => Class['koji::utils'],
     }
 
 }
