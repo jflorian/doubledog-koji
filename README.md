@@ -210,7 +210,8 @@ root CA.
 
 #####  `kojid_cert_content`, `kojid_cert_source`
 Literal string or Puppet source URI providing the builder's identity
-certificate which must be in PEM format.
+certificate which must be in PEM format and contain both the public- and
+private-keys.
 
 
 #### koji::cli class
