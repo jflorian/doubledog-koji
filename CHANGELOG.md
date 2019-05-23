@@ -19,15 +19,10 @@ Template
 
 All notable changes to this project (since v4.0.0) will be documented in this file.  The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
-## [4.1.2] WIP
-### Added
-### Changed
-### Deprecated
-### Removed
+## [4.1.2] 2019-05-23
 ### Fixed
 - `spin-livemedia` tasks fail on Fedora-based Koji Builders
     - `pycdio` and `python2-kickstart` packages are still required there
-### Security
 
 ## [4.1.1] 2019-05-13
 ### Fixed
