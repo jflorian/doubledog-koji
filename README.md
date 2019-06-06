@@ -183,6 +183,9 @@ An array of package names needed for the Koji Builder installation.
 ##### `service`
 The service name of the Koji Builder daemon.
 
+##### `sleep_time`
+The number of seconds to sleep between tasks.  The default is `15` seconds.
+
 ##### `smtp_host`
 The mail host to use for sending email notifications.  The Koji Builder must be
 able to connect to this host via TCP on port 25.  The default is `'localhost'`.

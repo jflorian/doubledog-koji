@@ -10,7 +10,7 @@
 # === Copyright
 #
 # This file is part of the doubledog-koji Puppet module.
-# Copyright 2016-2018 John Florian
+# Copyright 2016-2019 John Florian
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
@@ -33,6 +33,7 @@ class koji::builder (
         Integer[0]                                   $oz_install_timeout,
         Array[String[1], 1]                          $packages,
         String[1]                                    $service,
+        Integer[0]                                   $sleep_time,
         String[1]                                    $smtp_host,
         Boolean                                      $use_createrepo_c,
         String[1]                                    $work_dir,
