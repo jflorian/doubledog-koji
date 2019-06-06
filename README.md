@@ -164,6 +164,10 @@ image building tasks.  The default is `false`.
 An array of extra package names needed for the Koji Builder installation when
 *image_building* is `true`.
 
+##### `max_jobs`
+The maximum number of jobs that the Koji Builder will handle at a time.  The
+default is 10.
+
 ##### `min_space`
 The minimum amount of free space (in MiB) required for each build root.
 

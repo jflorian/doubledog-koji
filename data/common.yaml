@@ -11,6 +11,7 @@ koji::builder::enable:                      true
 koji::builder::ensure:                      running
 koji::builder::failed_buildroot_lifetime:   14400   # 4 hours
 koji::builder::image_building:              false
+koji::builder::max_jobs:                    10
 koji::builder::min_space:                   8192    # MiB
 koji::builder::mock_dir:                    /var/lib/mock
 koji::builder::mock_user:                   kojibuilder

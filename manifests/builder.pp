@@ -27,6 +27,7 @@ class koji::builder (
         Integer[0]                                   $failed_buildroot_lifetime,
         Boolean                                      $image_building,
         Array[String[1], 1]                          $imaging_packages,
+        Integer[1]                                   $max_jobs,
         Integer[0]                                   $min_space,
         String[1]                                    $mock_dir,
         String[1]                                    $mock_user,
