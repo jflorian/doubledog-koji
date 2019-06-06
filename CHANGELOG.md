@@ -23,6 +23,7 @@ All notable changes to this project (since v4.0.0) will be documented in this fi
 ### Added
 - `koji::builder::sleep_time` parameter
 - `koji::builder::max_jobs` parameter
+- `koji::builder::rpmbuild_timeout` parameter
 ### Changed
 ### Deprecated
 ### Removed

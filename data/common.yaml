@@ -18,6 +18,7 @@ koji::builder::mock_user:                   kojibuilder
 koji::builder::oz_install_timeout:          0
 koji::builder::packages:
     - koji-builder
+koji::builder::rpmbuild_timeout:            86400   # 24 hours
 koji::builder::service:                     kojid
 koji::builder::sleep_time:                  15
 koji::builder::smtp_host:                   localhost

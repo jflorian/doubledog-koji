@@ -44,8 +44,8 @@ mockuser=<%= @mock_user %>
 # The _host string to use in mock
 ;mockhost=koji-linux-gnu
 
-# Timeout for build duration (24 hours)
-;rpmbuild_timeout=86400
+# Timeout for build duration
+rpmbuild_timeout=<%= @rpmbuild_timeout %>
 
 # Install timeout(seconds) for image build
 oz_install_timeout=<%= @oz_install_timeout %>

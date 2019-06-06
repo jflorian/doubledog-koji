@@ -184,6 +184,9 @@ The install timeout for imagefactory.  The default is `0`, which disables the ti
 ##### `packages`
 An array of package names needed for the Koji Builder installation.
 
+##### `rpmbuild_timeout`
+The timeout for build duration.  The default is `86400` (24 hours).
+
 ##### `service`
 The service name of the Koji Builder daemon.
 
