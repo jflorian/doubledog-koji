@@ -24,7 +24,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 ## Description
 
-The typical Koji build system deployment consists of one or more Builders, a Web portal, a CLI, and a Hub that coordinates activities.  There's also some "behind the scenes" components such a Garbage Collector, database and that service know as Kojira.  This Puppet module aims to make deployment of all these components relatively easy, while allowing considerable flexibility for advanced setups.
+The typical Koji build system deployment consists of one or more Builders,
+a Web portal, a CLI, and a Hub that coordinates activities.  There's also some
+"behind the scenes" components such a Garbage Collector, database and that
+service know as Kojira.  This Puppet module aims to make deployment of all
+these components relatively easy, while allowing considerable flexibility for
+advanced setups.
 
 ## Setup
 
@@ -179,7 +184,8 @@ The default is `'/var/lib/mock'`.
 The user to run as when doing builds.  The default is `'kojibuilder'`.
 
 ##### `oz_install_timeout`
-The install timeout for imagefactory.  The default is `0`, which disables the timeout.
+The install timeout for imagefactory.  The default is `0`, which disables the
+timeout.
 
 ##### `packages`
 An array of package names needed for the Koji Builder installation.
@@ -233,7 +239,8 @@ An array of package names needed for the Koji CLI installation.
 
 ##### `profiles`
 A hash whose keys are profile names and whose values are hashes comprising the
-same parameters you would otherwise pass to [koji::cli::profile](#kojicliprofile-defined-type).
+same parameters you would otherwise pass to
+[koji::cli::profile](#kojicliprofile-defined-type).
 
 
 #### koji::database class
@@ -376,7 +383,8 @@ Name of host that provides the Koji database.
 Password for the Koji database connection.
 
 ##### `db_port`
-The TCP port for the Koji database connection.  The default is `5432`, the standard for a PostgreSQL database.  Supported since Koji 1.16.
+The TCP port for the Koji database connection.  The default is `5432`, the
+standard for a PostgreSQL database.  Supported since Koji 1.16.
 
 ##### `db_user`
 User name for the Koji database connection.
@@ -714,8 +722,14 @@ precedence.  Value `'000'` is reserved for use by this module.
 
 ## Limitations
 
-Tested on modern Fedora and CentOS releases, but likely to work on any Red Hat variant.  Adaptations for other operating systems should be trivial as this module follows the data-in-module paradigm.  See `data/common.yaml` for the most likely obstructions.  If "one size can't fit all", the value should be moved from `data/common.yaml` to `data/os/%{facts.os.name}.yaml` instead.  See `hiera.yaml` for how this is handled.
+Tested on modern Fedora and CentOS releases, but likely to work on any Red Hat
+variant.  Adaptations for other operating systems should be trivial as this
+module follows the data-in-module paradigm.  See `data/common.yaml` for the
+most likely obstructions.  If "one size can't fit all", the value should be
+moved from `data/common.yaml` to `data/os/%{facts.os.name}.yaml` instead.  See
+`hiera.yaml` for how this is handled.
 
 ## Development
 
-Contributions are welcome via pull requests.  All code should generally be compliant with puppet-lint.
+Contributions are welcome via pull requests.  All code should generally be
+compliant with puppet-lint.
