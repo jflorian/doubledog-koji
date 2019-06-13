@@ -15,18 +15,18 @@
 
 
 class koji::hub (
-        String[1]                             $db_host,
-        String[1]                             $db_passwd,
-        Stdlib::Port                          $db_port,
-        String[1]                             $db_user,
-        Boolean                               $debug,
-        String[1]                             $email_domain,
-        Array[String[1], 1]                   $packages,
-        Array[String[1]]                      $plugins,
-        Array[String[1]]                      $proxy_auth_dns,
-        String[1]                             $top_dir,
-        Enum['normal', 'extended', 'message'] $traceback,
-        String[1]                             $web_url,
+        String[1]               $db_host,
+        String[1]               $db_passwd,
+        Stdlib::Port            $db_port,
+        String[1]               $db_user,
+        Boolean                 $debug,
+        String[1]               $email_domain,
+        Array[String[1], 1]     $packages,
+        Array[String[1]]        $plugins,
+        Array[String[1]]        $proxy_auth_dns,
+        String[1]               $top_dir,
+        Koji::Traceback         $traceback,
+        String[1]               $web_url,
     ) {
 
     package { $packages:

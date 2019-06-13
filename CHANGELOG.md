@@ -21,13 +21,16 @@ All notable changes to this project (since v4.0.0) will be documented in this fi
 
 ## [4.2.0] WIP
 ### Added
-- `koji::builder::sleep_time` parameter
-- `koji::builder::max_jobs` parameter
-- `koji::builder::rpmbuild_timeout` parameter
-- dependency on:
-    - `doubledog-ddolib` module
-    - `puppetlabs-stdlib` module
-- `Koji::GpgKeyId` data type
+- parameters:
+    - `koji::builder::max_jobs`
+    - `koji::builder::rpmbuild_timeout`
+    - `koji::builder::sleep_time`
+- module dependencies:
+    - `doubledog-ddolib`
+    - `puppetlabs-stdlib`
+- data types:
+    - `Koji::GpgKeyId`
+    - `Koji::Traceback`
 ### Changed
 ### Deprecated
 ### Removed

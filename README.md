@@ -87,6 +87,7 @@ support but, alas I only have so much time.  (Hint: PRs welcome!)
 **Data types:**
 
 * [Koji::GpgKeyId](#kojigpgkeyid-data-type)
+* [Koji::Traceback](#kojitraceback-data-type)
 
 **Facts:**
 
@@ -418,14 +419,9 @@ An array of strings, each naming a Koji Hub plugin that is to be enabled.  The
 default is for no plugins to be enabled.
 
 ##### `traceback`
-Determines how much detail about exceptions is reported to the client (via
-faults).  The `'extended'` format is intended for debugging only and should NOT
-be used in production, since it may contain sensitive information.  The default
-is `'normal'`.  One of:
-
-* `'normal'` - a basic traceback (format\_exception)
-* `'extended'` - an extended traceback (format\_exc\_plus)
-* `'message'` - no traceback, just the error message
+A [Koji::Traceback](#kojitraceback-data-type) value that determines how much
+detail about exceptions is reported to the client (via faults).  The default
+is `'normal'`.
 
 ##### `web_url`
 The prefix the Koji Hub is to use when providing content references for access
@@ -726,6 +722,16 @@ precedence.  Value `'000'` is reserved for use by this module.
 #### `Koji::GgpKeyId` data type
 
 Matches a short GPG key identifier, which must consist of exactly 8 hex digits in upper-case.
+
+#### `Koji::Traceback` data type
+
+One of:
+* `normal` - a basic traceback (`format_exception`)
+* `extended` - an extended traceback (`format_exc_plus`)
+* `message` - no traceback, just the error message
+
+The `'extended'` format is intended for debugging only and should NOT be used
+in production, since it may contain sensitive information.
 
 
 ### Facts
