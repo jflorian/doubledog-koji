@@ -511,7 +511,7 @@ certificate which must be in PEM format.
 This class manages Koji utilities package.
 
 ##### `ensure`
-Instance is to be `'present'` (default) or `'absent'`.
+State that utilities package is to be in.  Accepts any value applicable to the *package* resource type.  The default is `'installed'`.
 
 ##### `packages`
 An array of package names needed for the Koji utilities installation.

@@ -28,6 +28,9 @@ All notable changes to this project (since v4.0.0) will be documented in this fi
 ### Deprecated
 ### Removed
 ### Fixed
+- `koji::utils::ensure` parameter:
+    - enforces values suitable for files, but doesn't accept most for packages
+    - is not honored
 ### Security
 
 ## [4.1.2] 2019-05-23
