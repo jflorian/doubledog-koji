@@ -35,6 +35,7 @@ All notable changes to this project (since v4.0.0) will be documented in this fi
     - `Koji::Traceback`
 ### Changed
 - `koji::gc::policy::seq` now also accepts integer values
+- freshen version requirement on `doubledog-cron` module
 ### Deprecated
 ### Removed
 ### Fixed
