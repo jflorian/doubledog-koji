@@ -15,16 +15,15 @@
 
 
 class koji::builder (
-        String[1]                                    $downloads,
-        String[1]                                    $hub,
-        String[1]                                    $top_dir,
         Array[String[1], 1]                          $allowed_scms,
         Boolean                                      $build_arch_can_fail,
         String[1]                                    $chroot_tmpdir,
         Boolean                                      $debug,
+        String[1]                                    $downloads,
         Boolean                                      $enable,
         Variant[Boolean, Enum['running', 'stopped']] $ensure,
         Integer[0]                                   $failed_buildroot_lifetime,
+        String[1]                                    $hub,
         Boolean                                      $image_building,
         Array[String[1], 1]                          $imaging_packages,
         Integer[1]                                   $max_jobs,
@@ -37,6 +36,7 @@ class koji::builder (
         String[1]                                    $service,
         Integer[0]                                   $sleep_time,
         String[1]                                    $smtp_host,
+        String[1]                                    $top_dir,
         Boolean                                      $use_createrepo_c,
         String[1]                                    $work_dir,
     ) {

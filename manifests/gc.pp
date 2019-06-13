@@ -15,9 +15,14 @@
 
 
 class koji::gc (
+        Optional[String[1]]                     $client_cert_content,
+        Optional[String[1]]                     $client_cert_source,
         String[1]                               $email_domain,
         String[1]                               $grace_period,
+        String[1]                               $group=$owner,
         String[1]                               $hub,
+        Optional[String[1]]                     $hub_ca_cert_content,
+        Optional[String[1]]                     $hub_ca_cert_source,
         Hash[String, Pattern[/[0-9A-F]{8}/], 1] $keys,
         Integer                                 $oldest_scratch,
         String[1]                               $owner,
@@ -25,11 +30,6 @@ class koji::gc (
         String[1]                               $top_dir,
         Array[Pattern[/[0-9A-F]{8}/]]           $unprotected_keys,
         String[1]                               $web,
-        Optional[String[1]]                     $client_cert_content,
-        Optional[String[1]]                     $client_cert_source,
-        String[1]                               $group=$owner,
-        Optional[String[1]]                     $hub_ca_cert_content,
-        Optional[String[1]]                     $hub_ca_cert_source,
     ) {
 
     include 'koji::utils'

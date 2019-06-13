@@ -15,14 +15,14 @@
 
 
 class koji::hub::x509 (
-        Optional[String[1]]                   $client_ca_cert_content,
-        Optional[String[1]]                   $client_ca_cert_source,
-        Optional[String[1]]                   $hub_ca_cert_content,
-        Optional[String[1]]                   $hub_ca_cert_source,
-        Optional[String[1]]                   $hub_cert_content,
-        Optional[String[1]]                   $hub_cert_source,
-        Optional[String[1]]                   $hub_key_content,
-        Optional[String[1]]                   $hub_key_source,
+        Optional[String[1]] $client_ca_cert_content,
+        Optional[String[1]] $client_ca_cert_source,
+        Optional[String[1]] $hub_ca_cert_content,
+        Optional[String[1]] $hub_ca_cert_source,
+        Optional[String[1]] $hub_cert_content,
+        Optional[String[1]] $hub_cert_source,
+        Optional[String[1]] $hub_key_content,
+        Optional[String[1]] $hub_key_source,
     ) {
 
     # The CA certificates are correct to use openssl::tls_certificate instead

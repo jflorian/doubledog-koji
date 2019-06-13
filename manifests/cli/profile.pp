@@ -14,17 +14,17 @@
 
 
 define koji::cli::profile (
-        String[1]   $downloads,
-        String[1]   $hub,
-        String[1]   $top_dir,
-        String[1]   $web,
         Enum['noauth', 'ssl', 'password', 'kerberos'] $auth_type='ssl',
         String[1]   $client_cert='~/.koji/client.crt',
+        String[1]   $downloads,
+        String[1]   $hub,
         Integer     $max_retries=30,
         Boolean     $offline_retry=false,
         Integer     $offline_retry_interval=20,
         Integer     $retry_interval=20,
         String[1]   $server_ca='~/.koji/serverca.crt',
+        String[1]   $top_dir,
+        String[1]   $web,
     ) {
 
     # Force the default profile to be first.  It looks better and may be

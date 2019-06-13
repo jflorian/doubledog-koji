@@ -15,14 +15,14 @@
 
 
 class koji::kojira (
-        String[1]                                    $hub,
-        String[1]                                    $top_dir,
         Boolean                                      $debug,
         Integer[0]                                   $deleted_repo_lifetime,
         Integer[0]                                   $dist_repo_lifetime,
-        Variant[Boolean, Enum['running', 'stopped']] $ensure,
         Boolean                                      $enable,
+        Variant[Boolean, Enum['running', 'stopped']] $ensure,
+        String[1]                                    $hub,
         String[1]                                    $service,
+        String[1]                                    $top_dir,
     ) {
 
     include 'koji::utils'
