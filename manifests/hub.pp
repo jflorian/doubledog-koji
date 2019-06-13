@@ -17,7 +17,7 @@
 class koji::hub (
         String[1]                             $db_host,
         String[1]                             $db_passwd,
-        Integer[1,65535]                      $db_port,
+        Stdlib::Port                          $db_port,
         String[1]                             $db_user,
         Boolean                               $debug,
         String[1]                             $email_domain,

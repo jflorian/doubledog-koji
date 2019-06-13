@@ -24,7 +24,9 @@ All notable changes to this project (since v4.0.0) will be documented in this fi
 - `koji::builder::sleep_time` parameter
 - `koji::builder::max_jobs` parameter
 - `koji::builder::rpmbuild_timeout` parameter
-- dependency on `doubledog-ddolib` module
+- dependency on:
+    - `doubledog-ddolib` module
+    - `puppetlabs-stdlib` module
 ### Changed
 ### Deprecated
 ### Removed
