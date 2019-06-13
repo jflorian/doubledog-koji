@@ -26,6 +26,7 @@ class koji::gc (
         Hash[String, Koji::GpgKeyId, 1]         $keys,
         Integer                                 $oldest_scratch,
         String[1]                               $owner,
+        Hash[String[1], Hash]                   $policies,
         String[1]                               $smtp_host,
         String[1]                               $top_dir,
         Array[Variant[String, Koji::GpgKeyId]]  $unprotected_keys,
@@ -80,5 +81,7 @@ class koji::gc (
             mailto  => '',
             ;
     }
+
+    create_resources('koji::gc::policy', $policies)
 
 }

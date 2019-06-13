@@ -25,6 +25,7 @@ All notable changes to this project (since v4.0.0) will be documented in this fi
     - `koji::builder::max_jobs`
     - `koji::builder::rpmbuild_timeout`
     - `koji::builder::sleep_time`
+    - `koji::gc::policies` for Hiera driven declarations
 - module dependencies:
     - `doubledog-ddolib`
     - `puppetlabs-stdlib`

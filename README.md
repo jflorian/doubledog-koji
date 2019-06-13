@@ -334,6 +334,11 @@ a hash.  E.g.:
 Name of the OS user account under which the garbage collection process
 will run.
 
+##### `policies`
+A hash whose keys are policy names and whose values are hashes comprising the
+same parameters you would otherwise pass to
+[koji::gc::policy](#kojigcpolicy-defined-type).
+
 ##### `top_dir`
 Directory containing the `'repos/'` directory.
 

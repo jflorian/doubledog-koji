@@ -52,6 +52,7 @@ koji::gc::grace_period:             '4 weeks'
 koji::gc::hub_ca_cert_content:      null
 koji::gc::hub_ca_cert_source:       null
 koji::gc::oldest_scratch:           90  # days
+koji::gc::policies:                 {}
 koji::gc::smtp_host:                localhost
 koji::gc::unprotected_keys:         []
 
