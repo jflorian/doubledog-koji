@@ -29,9 +29,11 @@ All notable changes to this project (since v4.0.0) will be documented in this fi
     - `doubledog-ddolib`
     - `puppetlabs-stdlib`
 - data types:
+    - `Koji::Gc::Seq`
     - `Koji::GpgKeyId`
     - `Koji::Traceback`
 ### Changed
+- `koji::gc::policy::seq` now also accepts integer values
 ### Deprecated
 ### Removed
 ### Fixed

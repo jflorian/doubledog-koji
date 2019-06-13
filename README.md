@@ -86,6 +86,7 @@ support but, alas I only have so much time.  (Hint: PRs welcome!)
 
 **Data types:**
 
+* [Koji::Gc::Seq](#kojigcseq-data-type)
 * [Koji::GpgKeyId](#kojigpgkeyid-data-type)
 * [Koji::Traceback](#kojitraceback-data-type)
 
@@ -712,12 +713,16 @@ The available actions are:
     * Like keep, but do not count the build for ordering.
 
 ##### `seq`
-Determines the evaluation sequence of this rule amongst all of the policy
-rules.  This should be a 3-digit numerical string with lower values taking
-precedence.  Value `'000'` is reserved for use by this module.
+A [Koji::Gc::Seq](#kojigcseq-data-type) which determines the evaluation
+sequence of this rule amongst all of the policy rules.  Value `0` is reserved
+for use by this module.
 
 
 ### Data types
+
+#### `Koji::Gc::Seq` data type
+
+Matches any integer from `1` to `999`, or 3-digit numerical string from `001` to `999`, inclusive.
 
 #### `Koji::GgpKeyId` data type
 
