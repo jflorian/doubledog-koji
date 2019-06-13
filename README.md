@@ -42,6 +42,7 @@ achieve a reliable solution.  At present these are:
 
 * [doubledog-apache](https://github.com/jflorian/doubledog-apache)
 * [doubledog-cron](https://github.com/jflorian/doubledog-cron)
+* [doubledog-ddolib](https://github.com/jflorian/doubledog-ddolib)
 * [puppetlabs-concat](https://github.com/puppetlabs/puppetlabs-concat)
 * [puppetlabs-postgresql](https://github.com/puppetlabs/puppetlabs-postgresql)
 
