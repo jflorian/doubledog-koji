@@ -361,8 +361,9 @@ collector must be able to connect to this host via TCP on port 25.  The
 default is `'localhost'`.
 
 ##### `unprotected_keys`
-An array of names in *keys* which are to be considered unprotected by the
-garbage collector.  Any key not listed here is considered a protected key.
+An array of names or IDs from those in *keys* which are to be considered
+unprotected by the garbage collector.  Builds signed with an unprotected key
+may be deleted.  Any key not listed here is considered a protected key.
 
 
 #### koji::httpd class

@@ -28,7 +28,7 @@ class koji::gc (
         String[1]                               $owner,
         String[1]                               $smtp_host,
         String[1]                               $top_dir,
-        Array[Koji::GpgKeyId]                   $unprotected_keys,
+        Array[Variant[String, Koji::GpgKeyId]]  $unprotected_keys,
         String[1]                               $web,
     ) {
 
