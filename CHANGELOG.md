@@ -27,6 +27,7 @@ All notable changes to this project (since v4.0.0) will be documented in this fi
 - dependency on:
     - `doubledog-ddolib` module
     - `puppetlabs-stdlib` module
+- `Koji::GpgKeyId` data type
 ### Changed
 ### Deprecated
 ### Removed

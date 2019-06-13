@@ -86,6 +86,8 @@ support but, alas I only have so much time.  (Hint: PRs welcome!)
 
 **Data types:**
 
+* [Koji::GpgKeyId](#kojigpgkeyid-data-type)
+
 **Facts:**
 
 
@@ -321,7 +323,8 @@ Koji-Hub.  This must be in PEM format and include all intermediate CA
 certificates, sorted and concatenated from the leaf CA to the root CA.
 
 ##### `keys`
-GPG key IDs that were used to sign packages, as a hash.  E.g.:
+[GPG key IDs](#kojigpgkeyid-data-type) that were used to sign packages, as
+a hash.  E.g.:
 
     { 'fedora-gold' => '4F2A6FD2', 'fedora-test' => '30C9ECF8' }
 
@@ -718,6 +721,11 @@ precedence.  Value `'000'` is reserved for use by this module.
 
 
 ### Data types
+
+#### `Koji::GgpKeyId` data type
+
+Matches a short GPG key identifier, which must consist of exactly 8 hex digits in upper-case.
+
 
 ### Facts
 
