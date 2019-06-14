@@ -1,0 +1,21 @@
+[DEFAULT]
+
+# 'update' is a Python list of files and/or directories to be updated.
+# Directories will be recursed into, but symlinks will not be followed.
+update: ['./']
+
+# 'exclude' is a Python list of file- and directory- base-names to be
+# excluded.  Names without a trailing slash (e.g., 'foo') exclude files and
+# directories.  Names with a trailing slash (e.g., 'foo/') exclude only
+# directories.  This file is implicitly excluded.
+exclude: ['.git/']
+
+# 'pattern' is an extended regular expression that must be found within a text
+# line for that line to be considered appropriate for a copyright update.
+# Once a line has been selected for update, this regex is ignored as the
+# program then merely looks for dates to be revised within that line.  If more
+# than one date appears, the first (initial copyright) is retained and the
+# last (most recent copyright) is updated.  Any intermediate dates are
+# eliminated as the result is just a simple range or single value if the range
+# would consist of only one date.
+pattern: copyright.*Florian
