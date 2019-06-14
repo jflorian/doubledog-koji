@@ -19,7 +19,7 @@ Template
 
 All notable changes to this project (since v4.0.0) will be documented in this file.  The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
-## [4.2.0] WIP
+## [4.2.0] 2019-06-14
 ### Added
 - parameters:
     - `koji::builder::max_jobs`
@@ -36,8 +36,6 @@ All notable changes to this project (since v4.0.0) will be documented in this fi
 ### Changed
 - `koji::gc::policy::seq` now also accepts integer values
 - freshen version requirement on `doubledog-cron` module
-### Deprecated
-### Removed
 ### Fixed
 - `koji::utils::ensure` parameter:
     - enforces values suitable for files, but doesn't accept most for packages
@@ -45,7 +43,6 @@ All notable changes to this project (since v4.0.0) will be documented in this fi
 - `koji::gc::unprotected_keys` parameter:
     - did not accept key names as documented
     - documentation did not mention allowance of key IDs
-### Security
 
 ## [4.1.2] 2019-05-23
 ### Fixed
