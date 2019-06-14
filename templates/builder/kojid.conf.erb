@@ -1,6 +1,6 @@
 <%#
 This file is part of the doubledog-koji Puppet module.
-Copyright 2016-2018 John Florian
+Copyright 2016-2019 John Florian
 SPDX-License-Identifier: GPL-3.0-or-later
 -%>
 # This file is managed by Puppet via the "<%= @module_name %>" module.
@@ -9,10 +9,10 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 [kojid]
 # The number of seconds to sleep between tasks
-;sleeptime=15
+sleeptime=<%= @sleep_time %>
 
 # The maximum number of jobs that kojid will handle at a time
-;maxjobs=10
+maxjobs=<%= @max_jobs %>
 
 # The minimum amount of free space (in MBs) required for each build root
 minspace=<%= @min_space %>
@@ -44,8 +44,8 @@ mockuser=<%= @mock_user %>
 # The _host string to use in mock
 ;mockhost=koji-linux-gnu
 
-# Timeout for build duration (24 hours)
-;rpmbuild_timeout=86400
+# Timeout for build duration
+rpmbuild_timeout=<%= @rpmbuild_timeout %>
 
 # Install timeout(seconds) for image build
 oz_install_timeout=<%= @oz_install_timeout %>

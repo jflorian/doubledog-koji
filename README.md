@@ -24,7 +24,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 ## Description
 
-The typical Koji build system deployment consists of one or more Builders, a Web portal, a CLI, and a Hub that coordinates activities.  There's also some "behind the scenes" components such a Garbage Collector, database and that service know as Kojira.  This Puppet module aims to make deployment of all these components relatively easy, while allowing considerable flexibility for advanced setups.
+The typical Koji build system deployment consists of one or more Builders,
+a Web portal, a CLI, and a Hub that coordinates activities.  There's also some
+"behind the scenes" components such a Garbage Collector, database and that
+service know as Kojira.  This Puppet module aims to make deployment of all
+these components relatively easy, while allowing considerable flexibility for
+advanced setups.
 
 ## Setup
 
@@ -37,8 +42,10 @@ achieve a reliable solution.  At present these are:
 
 * [doubledog-apache](https://github.com/jflorian/doubledog-apache)
 * [doubledog-cron](https://github.com/jflorian/doubledog-cron)
+* [doubledog-ddolib](https://github.com/jflorian/doubledog-ddolib)
 * [puppetlabs-concat](https://github.com/puppetlabs/puppetlabs-concat)
 * [puppetlabs-postgresql](https://github.com/puppetlabs/puppetlabs-postgresql)
+* [puppetlabs-stdlib](https://github.com/puppetlabs/puppetlabs-stdlib)
 
 The following is optional (despite being listed as a requirement in the
 `metadata.json` file), unless you wish to use any of the integrated `*::x509`
@@ -78,6 +85,10 @@ support but, alas I only have so much time.  (Hint: PRs welcome!)
 * [koji::gc::policy](#kojigcpolicy-defined-type)
 
 **Data types:**
+
+* [Koji::Gc::Seq](#kojigcseq-data-type)
+* [Koji::GpgKeyId](#kojigpgkeyid-data-type)
+* [Koji::Traceback](#kojitraceback-data-type)
 
 **Facts:**
 
@@ -164,6 +175,10 @@ image building tasks.  The default is `false`.
 An array of extra package names needed for the Koji Builder installation when
 *image_building* is `true`.
 
+##### `max_jobs`
+The maximum number of jobs that the Koji Builder will handle at a time.  The
+default is 10.
+
 ##### `min_space`
 The minimum amount of free space (in MiB) required for each build root.
 
@@ -175,13 +190,20 @@ The default is `'/var/lib/mock'`.
 The user to run as when doing builds.  The default is `'kojibuilder'`.
 
 ##### `oz_install_timeout`
-The install timeout for imagefactory.  The default is `0`, which disables the timeout.
+The install timeout for imagefactory.  The default is `0`, which disables the
+timeout.
 
 ##### `packages`
 An array of package names needed for the Koji Builder installation.
 
+##### `rpmbuild_timeout`
+The timeout for build duration.  The default is `86400` (24 hours).
+
 ##### `service`
 The service name of the Koji Builder daemon.
+
+##### `sleep_time`
+The number of seconds to sleep between tasks.  The default is `15` seconds.
 
 ##### `smtp_host`
 The mail host to use for sending email notifications.  The Koji Builder must be
@@ -223,7 +245,8 @@ An array of package names needed for the Koji CLI installation.
 
 ##### `profiles`
 A hash whose keys are profile names and whose values are hashes comprising the
-same parameters you would otherwise pass to [koji::cli::profile](#kojicliprofile-defined-type).
+same parameters you would otherwise pass to
+[koji::cli::profile](#kojicliprofile-defined-type).
 
 
 #### koji::database class
@@ -302,13 +325,19 @@ Koji-Hub.  This must be in PEM format and include all intermediate CA
 certificates, sorted and concatenated from the leaf CA to the root CA.
 
 ##### `keys`
-GPG key IDs that were used to sign packages, as a hash.  E.g.:
+[GPG key IDs](#kojigpgkeyid-data-type) that were used to sign packages, as
+a hash.  E.g.:
 
     { 'fedora-gold' => '4F2A6FD2', 'fedora-test' => '30C9ECF8' }
 
 ##### `owner`
 Name of the OS user account under which the garbage collection process
 will run.
+
+##### `policies`
+A hash whose keys are policy names and whose values are hashes comprising the
+same parameters you would otherwise pass to
+[koji::gc::policy](#kojigcpolicy-defined-type).
 
 ##### `top_dir`
 Directory containing the `'repos/'` directory.
@@ -339,8 +368,9 @@ collector must be able to connect to this host via TCP on port 25.  The
 default is `'localhost'`.
 
 ##### `unprotected_keys`
-An array of names in *keys* which are to be considered unprotected by the
-garbage collector.  Any key not listed here is considered a protected key.
+An array of names or IDs from those in *keys* which are to be considered
+unprotected by the garbage collector.  Builds signed with an unprotected key
+may be deleted.  Any key not listed here is considered a protected key.
 
 
 #### koji::httpd class
@@ -366,7 +396,8 @@ Name of host that provides the Koji database.
 Password for the Koji database connection.
 
 ##### `db_port`
-The TCP port for the Koji database connection.  The default is `5432`, the standard for a PostgreSQL database.  Supported since Koji 1.16.
+The TCP port for the Koji database connection.  The default is `5432`, the
+standard for a PostgreSQL database.  Supported since Koji 1.16.
 
 ##### `db_user`
 User name for the Koji database connection.
@@ -394,14 +425,9 @@ An array of strings, each naming a Koji Hub plugin that is to be enabled.  The
 default is for no plugins to be enabled.
 
 ##### `traceback`
-Determines how much detail about exceptions is reported to the client (via
-faults).  The `'extended'` format is intended for debugging only and should NOT
-be used in production, since it may contain sensitive information.  The default
-is `'normal'`.  One of:
-
-* `'normal'` - a basic traceback (format\_exception)
-* `'extended'` - an extended traceback (format\_exc\_plus)
-* `'message'` - no traceback, just the error message
+A [Koji::Traceback](#kojitraceback-data-type) value that determines how much
+detail about exceptions is reported to the client (via faults).  The default
+is `'normal'`.
 
 ##### `web_url`
 The prefix the Koji Hub is to use when providing content references for access
@@ -493,7 +519,7 @@ certificate which must be in PEM format.
 This class manages Koji utilities package.
 
 ##### `ensure`
-Instance is to be `'present'` (default) or `'absent'`.
+State that utilities package is to be in.  Accepts any value applicable to the *package* resource type.  The default is `'installed'`.
 
 ##### `packages`
 An array of package names needed for the Koji utilities installation.
@@ -692,20 +718,45 @@ The available actions are:
     * Like keep, but do not count the build for ordering.
 
 ##### `seq`
-Determines the evaluation sequence of this rule amongst all of the policy
-rules.  This should be a 3-digit numerical string with lower values taking
-precedence.  Value `'000'` is reserved for use by this module.
+A [Koji::Gc::Seq](#kojigcseq-data-type) which determines the evaluation
+sequence of this rule amongst all of the policy rules.  Value `0` is reserved
+for use by this module.
 
 
 ### Data types
+
+#### `Koji::Gc::Seq` data type
+
+Matches any integer from `1` to `999`, or 3-digit numerical string from `001` to `999`, inclusive.
+
+#### `Koji::GgpKeyId` data type
+
+Matches a short GPG key identifier, which must consist of exactly 8 hex digits in upper-case.
+
+#### `Koji::Traceback` data type
+
+One of:
+* `normal` - a basic traceback (`format_exception`)
+* `extended` - an extended traceback (`format_exc_plus`)
+* `message` - no traceback, just the error message
+
+The `'extended'` format is intended for debugging only and should NOT be used
+in production, since it may contain sensitive information.
+
 
 ### Facts
 
 
 ## Limitations
 
-Tested on modern Fedora and CentOS releases, but likely to work on any Red Hat variant.  Adaptations for other operating systems should be trivial as this module follows the data-in-module paradigm.  See `data/common.yaml` for the most likely obstructions.  If "one size can't fit all", the value should be moved from `data/common.yaml` to `data/os/%{facts.os.name}.yaml` instead.  See `hiera.yaml` for how this is handled.
+Tested on modern Fedora and CentOS releases, but likely to work on any Red Hat
+variant.  Adaptations for other operating systems should be trivial as this
+module follows the data-in-module paradigm.  See `data/common.yaml` for the
+most likely obstructions.  If "one size can't fit all", the value should be
+moved from `data/common.yaml` to `data/os/%{facts.os.name}.yaml` instead.  See
+`hiera.yaml` for how this is handled.
 
 ## Development
 
-Contributions are welcome via pull requests.  All code should generally be compliant with puppet-lint.
+Contributions are welcome via pull requests.  All code should generally be
+compliant with puppet-lint.

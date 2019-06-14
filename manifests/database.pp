@@ -15,9 +15,9 @@
 
 class koji::database (
         String[1]   $admin,
-        String[1]   $password,
         String[1]   $dbname,
         String[1]   $listen_addresses,
+        String[1]   $password,
         String[1]   $schema_source,
         String[1]   $username,
         String[1]   $web_username,

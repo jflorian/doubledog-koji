@@ -10,32 +10,35 @@
 # === Copyright
 #
 # This file is part of the doubledog-koji Puppet module.
-# Copyright 2016-2018 John Florian
+# Copyright 2016-2019 John Florian
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
 class koji::builder (
-        String[1]                                    $downloads,
-        String[1]                                    $hub,
-        String[1]                                    $top_dir,
-        Array[String[1], 1]                          $allowed_scms,
-        Boolean                                      $build_arch_can_fail,
-        String[1]                                    $chroot_tmpdir,
-        Boolean                                      $debug,
-        Boolean                                      $enable,
-        Variant[Boolean, Enum['running', 'stopped']] $ensure,
-        Integer[0]                                   $failed_buildroot_lifetime,
-        Boolean                                      $image_building,
-        Array[String[1], 1]                          $imaging_packages,
-        Integer[0]                                   $min_space,
-        String[1]                                    $mock_dir,
-        String[1]                                    $mock_user,
-        Integer[0]                                   $oz_install_timeout,
-        Array[String[1], 1]                          $packages,
-        String[1]                                    $service,
-        String[1]                                    $smtp_host,
-        Boolean                                      $use_createrepo_c,
-        String[1]                                    $work_dir,
+        Array[String[1], 1]     $allowed_scms,
+        Boolean                 $build_arch_can_fail,
+        String[1]               $chroot_tmpdir,
+        Boolean                 $debug,
+        String[1]               $downloads,
+        Boolean                 $enable,
+        Ddolib::Service::Ensure $ensure,
+        Integer[0]              $failed_buildroot_lifetime,
+        String[1]               $hub,
+        Boolean                 $image_building,
+        Array[String[1], 1]     $imaging_packages,
+        Integer[1]              $max_jobs,
+        Integer[0]              $min_space,
+        String[1]               $mock_dir,
+        String[1]               $mock_user,
+        Integer[0]              $oz_install_timeout,
+        Array[String[1], 1]     $packages,
+        Integer[0]              $rpmbuild_timeout,
+        String[1]               $service,
+        Integer[0]              $sleep_time,
+        String[1]               $smtp_host,
+        String[1]               $top_dir,
+        Boolean                 $use_createrepo_c,
+        String[1]               $work_dir,
     ) {
 
     package { $packages:

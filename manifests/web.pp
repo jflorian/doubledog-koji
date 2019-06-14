@@ -15,13 +15,13 @@
 
 
 class koji::web (
-        String[1]           $files_url,
-        String[1]           $hub_url,
-        String[1]           $secret,
         Boolean             $debug,
+        String[1]           $files_url,
         Array[Integer]      $hidden_users,
+        String[1]           $hub_url,
         Integer             $login_timeout,
         Array[String[1], 1] $packages,
+        String[1]           $secret,
         String[1]           $theme,
     ) {
 
