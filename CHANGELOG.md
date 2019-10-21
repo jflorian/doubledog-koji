@@ -19,17 +19,13 @@ Template
 
 All notable changes to this project (since v4.0.0) will be documented in this file.  The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
-## [4.3.0] WIP
+## [4.3.0] 2019-10-21
 ### Added
 - CentOS 8 support
 ### Changed
 - `puppetlabs-concat` module dependency now allows version 6
 - `puppetlabs-postgresql` module dependency now allows version 6
 - `puppetlabs-stdlib` module dependency now allows version 6
-### Deprecated
-### Removed
-### Fixed
-### Security
 
 ## [4.2.0] 2019-06-14
 ### Added
