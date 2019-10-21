@@ -24,6 +24,7 @@ All notable changes to this project (since v4.0.0) will be documented in this fi
 - CentOS 8 support
 ### Changed
 - `puppetlabs-concat` module dependency now allows version 6
+- `puppetlabs-postgresql` module dependency now allows version 6
 ### Deprecated
 ### Removed
 ### Fixed
