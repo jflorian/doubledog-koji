@@ -43,7 +43,7 @@
         },
         {
             "name": "puppetlabs/concat",
-            "version_requirement": ">= 4.0.0 < 6.0.0"
+            "version_requirement": ">= 4.0.0 < 7.0.0"
         },
         {
             "name": "puppetlabs/postgresql",
