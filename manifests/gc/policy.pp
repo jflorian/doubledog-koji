@@ -10,7 +10,7 @@
 # === Copyright
 #
 # This file is part of the doubledog-koji Puppet module.
-# Copyright 2016-2019 John Florian
+# Copyright 2016-2020 John Florian
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
@@ -22,7 +22,7 @@ define koji::gc::policy (
     concat::fragment { "koji-gc.conf-${title}":
         target  => 'koji-gc.conf',
         # adding zero causes String conversion to Integer
-        order   => sprintf("%03d", $seq + 0),
+        order   => sprintf('%03d', $seq + 0),
         content => "    ${rule}\n",
     }
 

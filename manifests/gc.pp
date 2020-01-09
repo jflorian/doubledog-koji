@@ -10,19 +10,12 @@
 # === Copyright
 #
 # This file is part of the doubledog-koji Puppet module.
-# Copyright 2016-2019 John Florian
+# Copyright 2016-2020 John Florian
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
 class koji::gc (
-        Optional[String[1]]                     $client_cert_content,
-        Optional[String[1]]                     $client_cert_source,
-        String[1]                               $email_domain,
-        String[1]                               $grace_period,
-        String[1]                               $group=$owner,
         String[1]                               $hub,
-        Optional[String[1]]                     $hub_ca_cert_content,
-        Optional[String[1]]                     $hub_ca_cert_source,
         Hash[String, Koji::GpgKeyId, 1]         $keys,
         Integer                                 $oldest_scratch,
         String[1]                               $owner,
@@ -31,6 +24,13 @@ class koji::gc (
         String[1]                               $top_dir,
         Array[Variant[String, Koji::GpgKeyId]]  $unprotected_keys,
         String[1]                               $web,
+        Optional[String[1]]                     $client_cert_content,
+        Optional[String[1]]                     $client_cert_source,
+        String[1]                               $email_domain,
+        String[1]                               $grace_period,
+        String[1]                               $group=$owner,
+        Optional[String[1]]                     $hub_ca_cert_content,
+        Optional[String[1]]                     $hub_ca_cert_source,
     ) {
 
     include 'koji::utils'
