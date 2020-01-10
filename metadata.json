@@ -1,29 +1,5 @@
 {
-    "name": "doubledog-koji",
-    "version": "4.3.0",
     "author": "John Florian",
-    "summary": "A module to manage components of the Koji build system",
-    "license": "GPL-3.0",
-    "source": "https://www.doubledog.org/git/puppet-koji.git",
-    "project_page": "https://github.com/jflorian/doubledog-koji",
-    "issues_url": "https://github.com/jflorian/doubledog-koji/issues",
-    "operatingsystem_support": [
-        {
-            "operatingsystem": "CentOS",
-            "operatingsystemmajrelease": [
-                "7",
-                "8"
-            ]
-        },
-        {
-            "operatingsystem": "Fedora",
-            "operatingsystemrelease": [
-                "28",
-                "29",
-                "30"
-            ]
-        }
-    ],
     "dependencies": [
         {
             "name": "doubledog/apache",
@@ -53,5 +29,29 @@
             "name": "puppetlabs/stdlib",
             "version_requirement": ">= 5.0.0 < 7.0.0"
         }
-    ]
+    ],
+    "issues_url": "https://github.com/jflorian/doubledog-koji/issues",
+    "license": "GPL-3.0",
+    "name": "doubledog-koji",
+    "operatingsystem_support": [
+        {
+            "operatingsystem": "CentOS",
+            "operatingsystemmajrelease": [
+                "7",
+                "8"
+            ]
+        },
+        {
+            "operatingsystem": "Fedora",
+            "operatingsystemrelease": [
+                "29",
+                "30",
+                "31"
+            ]
+        }
+    ],
+    "project_page": "https://github.com/jflorian/doubledog-koji",
+    "source": "https://www.doubledog.org/git/puppet-koji.git",
+    "summary": "A module to manage components of the Koji build system",
+    "version": "4.3.0"
 }
