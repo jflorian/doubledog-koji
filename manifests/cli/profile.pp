@@ -9,22 +9,22 @@
 # === Copyright
 #
 # This file is part of the doubledog-koji Puppet module.
-# Copyright 2016-2019 John Florian
+# Copyright 2016-2020 John Florian
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
 define koji::cli::profile (
-        Enum['noauth', 'ssl', 'password', 'kerberos'] $auth_type='ssl',
-        String[1]   $client_cert='~/.koji/client.crt',
         String[1]   $downloads,
         String[1]   $hub,
+        String[1]   $top_dir,
+        String[1]   $web,
+        Enum['noauth', 'ssl', 'password', 'kerberos'] $auth_type='ssl',
+        String[1]   $client_cert='~/.koji/client.crt',
         Integer     $max_retries=30,
         Boolean     $offline_retry=false,
         Integer     $offline_retry_interval=20,
         Integer     $retry_interval=20,
         String[1]   $server_ca='~/.koji/serverca.crt',
-        String[1]   $top_dir,
-        String[1]   $web,
     ) {
 
     # Force the default profile to be first.  It looks better and may be
