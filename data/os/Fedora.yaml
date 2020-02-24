@@ -1,5 +1,5 @@
 # This file is part of the doubledog-koji Puppet module.
-# Copyright 2017-2019 John Florian
+# Copyright 2017-2020 John Florian
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 ---
@@ -7,4 +7,3 @@
 koji::builder::imaging_packages:
     - lorax
     - pycdio
-    - python2-kickstart
