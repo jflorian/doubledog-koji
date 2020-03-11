@@ -1,0 +1,7 @@
+.travis.yml:
+  branches:
+    - /bug_.*/
+    - /feature_.*/
+    - /issue_.*/
+    - /release_.*/
+    - devel
