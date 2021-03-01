@@ -27,11 +27,9 @@ class koji::httpd (
 
     include 'apache::mod_ssl'
 
-    apache::site_config {
-        'ssl':
-            content   => template("koji/hub/ssl.conf.${::operatingsystem}.${::operatingsystemmajrelease}.erb"),
-            subscribe => Class['apache::mod_ssl'],
-            ;
+    apache::site_config { 'ssl':
+        content   => template("koji/hub/ssl.conf.erb"),
+        subscribe => Class['apache::mod_ssl'],
     }
 
 }
