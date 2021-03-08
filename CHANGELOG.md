@@ -26,6 +26,7 @@ All notable changes to this project (since v4.0.0) will be documented in this fi
 ### Removed
 - work around for `python-simplejson` for Koji < 1.11.0 (no longer needed)
 ### Fixed
+- CentOS 8 support missing `ssl.conf` template
 ### Security
 
 ## [4.4.0] 2020-02-24
