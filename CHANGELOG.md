@@ -21,10 +21,12 @@ All notable changes to this project (since v4.0.0) will be documented in this fi
 
 ## [4.5.0] WIP
 ### Added
+- Fedora 32-33 support
 ### Changed
 ### Deprecated
 ### Removed
 - work around for `python-simplejson` for Koji < 1.11.0 (no longer needed)
+- Fedora 29-30 support
 ### Fixed
 - CentOS 8 support missing `ssl.conf` template
 ### Security
