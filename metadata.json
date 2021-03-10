@@ -44,14 +44,14 @@
         {
             "operatingsystem": "Fedora",
             "operatingsystemrelease": [
-                "29",
-                "30",
-                "31"
+                "31",
+                "32",
+                "33"
             ]
         }
     ],
     "project_page": "https://github.com/jflorian/doubledog-koji",
     "source": "https://www.doubledog.org/git/puppet-koji.git",
     "summary": "A module to manage components of the Koji build system",
-    "version": "4.4.0"
+    "version": "4.5.0"
 }
