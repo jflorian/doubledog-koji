@@ -19,17 +19,14 @@ Template
 
 All notable changes to this project (since v4.0.0) will be documented in this file.  The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
-## [4.5.0] WIP
+## [4.5.0] 2021-03-10
 ### Added
 - Fedora 32-33 support
-### Changed
-### Deprecated
 ### Removed
 - work around for `python-simplejson` for Koji < 1.11.0 (no longer needed)
 - Fedora 29-30 support
 ### Fixed
 - CentOS 8 support missing `ssl.conf` template
-### Security
 
 ## [4.4.0] 2020-02-24
 ### Added
