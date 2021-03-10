@@ -1,6 +1,6 @@
 <!--
 This file is part of the doubledog-koji Puppet module.
-Copyright 2018-2020 John Florian
+Copyright 2018-2021 John Florian
 SPDX-License-Identifier: GPL-3.0-or-later
 
 Template
@@ -18,6 +18,16 @@ Template
 # Change log
 
 All notable changes to this project (since v4.0.0) will be documented in this file.  The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
+
+## [4.5.0] WIP
+### Added
+### Changed
+### Deprecated
+### Removed
+- work around for `python-simplejson` for Koji < 1.11.0 (no longer needed)
+### Fixed
+- CentOS 8 support missing `ssl.conf` template
+### Security
 
 ## [4.4.0] 2020-02-24
 ### Added

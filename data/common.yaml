@@ -1,5 +1,5 @@
 # This file is part of the doubledog-koji Puppet module.
-# Copyright 2017-2019 John Florian
+# Copyright 2017-2021 John Florian
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 ---
@@ -63,8 +63,6 @@ koji::hub::email_domain:            "%{facts.domain}"
 koji::hub::packages:
     - koji-hub
     - koji-hub-plugins
-    # Work-around for https://bugzilla.redhat.com/show_bug.cgi?id=1301765
-    - python2-simplejson
 koji::hub::plugins:                 []
 koji::hub::traceback:               normal
 koji::hub::web_url:                 "http://%{facts.fqdn}/koji"
