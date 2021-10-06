@@ -1,6 +1,6 @@
 <%#
 This file is part of the doubledog-koji Puppet module.
-Copyright 2016-2018 John Florian
+Copyright 2016-2021 John Florian
 SPDX-License-Identifier: GPL-3.0-or-later
 -%>
 # This file is managed by Puppet via the "<%= @module_name %>" module.
@@ -10,6 +10,11 @@ SPDX-License-Identifier: GPL-3.0-or-later
 #We use wsgi by default
 Alias /koji "/usr/share/koji-web/scripts/wsgi_publisher.py"
 #(configuration goes in /etc/kojiweb/web.conf)
+
+# Python 3 Cheetah expectes unicode everywhere, apache's default lang is C
+# which is not sufficient to open our templates
+WSGIDaemonProcess koji lang=C.UTF-8
+WSGIProcessGroup koji
 
 <Directory "/usr/share/koji-web/scripts/">
     Options ExecCGI
@@ -26,33 +31,13 @@ Alias /koji "/usr/share/koji-web/scripts/wsgi_publisher.py"
     </IfVersion>
 </Directory>
 
-# Support for mod_python is DEPRECATED. If you still need mod_python support,
-# then use the following directory settings instead:
-#
-# <Directory "/usr/share/koji-web/scripts/">
-#     # Config for the publisher handler
-#     SetHandler mod_python
-#     # Use kojiweb's publisher (provides wsgi compat layer)
-#     # mod_python's publisher is no longer supported
-#     PythonHandler wsgi_publisher
-#     PythonOption koji.web.ConfigFile /etc/kojiweb/web.conf
-#     PythonAutoReload Off
-#     # Configuration via PythonOptions is DEPRECATED. Use /etc/kojiweb/web.conf
-#     Order allow,deny
-#     Allow from all
-# </Directory>
-
 # uncomment this to enable authentication via Kerberos
 # <Location /koji/login>
-#     AuthType Kerberos
+#     AuthType GSSAPI
 #     AuthName "Koji Web UI"
-#     KrbMethodNegotiate on
-#     KrbMethodK5Passwd off
-#     KrbServiceName HTTP
-#     KrbAuthRealm EXAMPLE.COM
-#     Krb5Keytab /etc/httpd.keytab
-#     KrbSaveCredentials off
+#     GssapiCredStore keytab:/etc/koji.keytab
 #     Require valid-user
+#     GssapiLocalName Off
 #     ErrorDocument 401 /koji-static/errors/unauthorized.html
 # </Location>
 
@@ -66,7 +51,9 @@ Alias /koji "/usr/share/koji-web/scripts/wsgi_publisher.py"
 Alias /koji-static/ "/usr/share/koji-web/static/"
 
 <Directory "/usr/share/koji-web/static/">
-    Options None
+    # Local branding may use a symlink here to reference product branding from
+    # another package.
+    Options FollowSymLinks
     AllowOverride None
     <IfVersion < 2.4>
         Order allow,deny

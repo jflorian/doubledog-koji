@@ -1,6 +1,6 @@
 <%#
 This file is part of the doubledog-koji Puppet module.
-Copyright 2016-2018 John Florian
+Copyright 2016-2021 John Florian
 SPDX-License-Identifier: GPL-3.0-or-later
 -%>
 # This file is managed by Puppet via the "<%= @module_name %>" module.
@@ -18,6 +18,9 @@ Alias /kojihub /usr/share/koji-hub/kojixmlrpc.py
     WSGIApplicationGroup %{GLOBAL}
     # ^ works around a hub issue with OpenSSL
     # see: https://cryptography.io/en/latest/faq/#starting-cryptography-using-mod-wsgi-produces-an-internalerror-during-a-call-in-register-osrandom-engine
+    WSGIScriptReloading Off
+    # ^ reloading breaks hub "firstcall" check
+    # see: https://pagure.io/koji/issue/875
     <IfVersion < 2.4>
         Order allow,deny
         Allow from all
@@ -26,17 +29,6 @@ Alias /kojihub /usr/share/koji-hub/kojixmlrpc.py
         Require all granted
     </IfVersion>
 </Directory>
-
-# Support for mod_python is DEPRECATED. If you still need mod_python support,
-# then use the following directory settings instead:
-#
-# <Directory "/usr/share/koji-hub">
-#         SetHandler mod_python
-#         PythonHandler kojixmlrpc
-#         PythonOption ConfigFile /etc/koji-hub/hub.conf
-#         PythonDebug Off
-#         PythonAutoReload Off
-# </Directory>
 
 # Also serve <%= @top_dir %>
 Alias /kojifiles "<%= @top_dir %>/"
@@ -47,6 +39,7 @@ Alias /kojifiles "<%= @top_dir %>/"
     #you will need to follow all symlinks instead, e.g.
     #Options Indexes FollowSymLinks
     AllowOverride None
+    IndexOptions +NameWidth=*
     <IfVersion < 2.4>
         Order allow,deny
         Allow from all
@@ -70,3 +63,13 @@ Alias /kojifiles "<%= @top_dir %>/"
 # In this case, you will need to enable these options globally (in ssl.conf):
 # SSLVerifyClient require
 # SSLVerifyDepth  10
+
+# uncomment this to enable authentication via GSSAPI
+# <Location /kojihub/ssllogin>
+#         AuthType GSSAPI
+#         GssapiSSLonly Off
+#         GssapiLocalName Off
+#         AuthName "GSSAPI Single Sign On Login"
+#         GssapiCredStore keytab:/etc/koji.keytab
+#         Require valid-user
+# </Location>

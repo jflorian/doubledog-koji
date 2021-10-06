@@ -23,7 +23,7 @@
         },
         {
             "name": "puppetlabs/postgresql",
-            "version_requirement": ">= 5.0.0 < 7.0.0"
+            "version_requirement": ">= 5.0.0 < 8.0.0"
         },
         {
             "name": "puppetlabs/stdlib",
@@ -44,14 +44,14 @@
         {
             "operatingsystem": "Fedora",
             "operatingsystemrelease": [
-                "31",
                 "32",
-                "33"
+                "33",
+                "34"
             ]
         }
     ],
     "project_page": "https://github.com/jflorian/doubledog-koji",
     "source": "https://www.doubledog.org/git/puppet-koji.git",
     "summary": "A module to manage components of the Koji build system",
-    "version": "4.5.0"
+    "version": "4.6.0"
 }

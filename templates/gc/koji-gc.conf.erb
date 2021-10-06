@@ -1,6 +1,6 @@
 <%#
 This file is part of the doubledog-koji Puppet module.
-Copyright 2016-2018 John Florian
+Copyright 2016-2021 John Florian
 SPDX-License-Identifier: GPL-3.0-or-later
 -%>
 # This file is managed by Puppet via the "<%= @module_name %>" module.
@@ -39,19 +39,19 @@ krb_rdns = False
 
 # Mail notifications {{{1
 
-# the domain name that will be appended to Koji usernames when creating email
-# notifications
+# The domain name that will be appended to Koji usernames
+# when creating email notifications
 email_domain = <%= @email_domain %>
 
-# the mail host to use for sending email notifications
+# The mail host to use for sending email notifications
 smtp_host=<%= @smtp_host %>
 
-# the From address used when sending email notifications
+# The From address used when sending email notifications
 from_addr=Koji Build System <buildsys@<%= @fqdn %>>
 
 # GC controls and policy {{{1
 
-# the time that builds are held in trashcan
+# The time that builds are held in trashcan
 grace_period=<%= @grace_period %>
 
 
