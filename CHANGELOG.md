@@ -21,11 +21,13 @@ All notable changes to this project (since v4.0.0) will be documented in this fi
 
 ## [4.6.0] WIP
 ### Added
+- Fedora 34 support (builders only)
 ### Changed
 - refreshed templates against `koji-1.21.1-1.el7` and `koji-builder-1.22.1-1.fc33`
 - allow httpd to follow symlinks for static content and local product branding
 ### Deprecated
 ### Removed
+- Fedora 31 support
 ### Fixed
 ### Security
 
