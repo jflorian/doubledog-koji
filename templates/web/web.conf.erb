@@ -1,6 +1,6 @@
 <%#
 This file is part of the doubledog-koji Puppet module.
-Copyright 2016-2018 John Florian
+Copyright 2016-2021 John Florian
 SPDX-License-Identifier: GPL-3.0-or-later
 -%>
 # This file is managed by Puppet via the "<%= @module_name %>" module.
@@ -21,6 +21,8 @@ KojiFilesURL = <%= @files_url %>
 ;WebCCache = /var/tmp/kojiweb.ccache
 # The service name of the principal being used by the hub
 ;KrbService = host
+## The realm of server principal. Using client's realm if not set
+;KrbServerRealm = EXAMPLE.COM
 
 # SSL authentication options
 WebCert = /etc/kojiweb/web.crt
@@ -42,6 +44,15 @@ LiteralFooter = True
 # to hide from tasks listed on the front page. You might want to, for instance,
 # hide the activity of an account used for continuous integration.
 HiddenUsers = <%= @hidden_users.join(' ') %>
+
+# Task types visible in pulldown menu on tasks page.
+# Tasks =
+# runroot plugin provided via main package could be listed as:
+# Tasks = runroot
+# Tasks that can exist without a parent
+# ToplevelTasks = 
+# Tasks that can have children
+# ParentTasks = 
 
 # If PythonDebug is on, the Web UI will be show full tracebacks when unhandled
 # exceptions occur.

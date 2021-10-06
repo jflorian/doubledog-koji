@@ -1,6 +1,6 @@
 <%#
 This file is part of the doubledog-koji Puppet module.
-Copyright 2016-2019 John Florian
+Copyright 2016-2021 John Florian
 SPDX-License-Identifier: GPL-3.0-or-later
 -%>
 # This file is managed by Puppet via the "<%= @module_name %>" module.
@@ -76,8 +76,26 @@ use_createrepo_c=<%= @use_createrepo_c %>
 # is run by default.
 allowed_scms=<%= @allowed_scms.join(' ') %>
 
+# A directory to bind mount into Source RPM creation so that some
+# credentials can be supplied when required to fetch sources, e.g.
+# when the place the sources are fetched from requires all accesses to
+# be authenticated in order to satisfy auditing requirements.
+#
+# The directory specified here will turn up in the SRPMfromSCM chroot
+# as /credentials. It is up to whatever implements "make_source_cmd"
+# to make appropriate use of any credentials supplied.
+#
+# Be aware that this means "make_source_cmd" has access to these
+# credentials and could steal them; any credentials supplied
+# should be easily disabled, and not used for other purposes.
+;scm_credentials_dir = /etc/kojid/scmcredentials
+
 # The mail host to use for sending email notifications
 smtphost=<%= @smtp_host %>
+
+# SMTP user and pass (uncomment and fill in if your smtp server requires authentication)
+;smtp_user=user@example.com
+;smtp_pass=CHANGEME
 
 # The From address used when sending email notifications
 from_addr=Koji Build System <buildsys@<%= @fqdn %>>
@@ -91,9 +109,6 @@ from_addr=Koji Build System <buildsys@<%= @fqdn %>>
 # location of the keytab
 ;keytab = /etc/kojid/kojid.keytab
 
-# the service name of the principal being used by the hub
-;krbservice = host
-
 # configuration for SSL authentication
 
 # client certificate
@@ -102,8 +117,26 @@ cert = /etc/kojid/kojid.crt
 # certificate of the CA that issued the HTTP server certificate
 serverca = /etc/kojid/hub-ca-chain.crt
 
-# if set to True, failing sub-task will not automatically cancel other siblings
+# if set to True, failing subtask will not automatically cancel other siblings
 build_arch_can_fail = <%= @build_arch_can_fail %>
+
+# if set to True, tag extra 'mock.bootstrap_image' can be used
+;mock_boostrap_image = False
+
+# image build with raw-xz type will use following xz options
+;xz_options=-z6T0
+
+# if set to True additional logs with timestamps will get created and uploaded
+# to hub. It could be useful for debugging purposes, but creates twice as many
+;log files
+;log_timestamps = False
+
+# enabled plugins, base koji installation has access to runroot and save_failed_tree
+# none of these is enabled by default
+;plugin = 
+
+# path where builder plugins are located, there could be multiple paths delimited by :
+;pluginpath = /usr/lib/koji-builder-plugins
 
 # ==========
 # DISCLAIMER

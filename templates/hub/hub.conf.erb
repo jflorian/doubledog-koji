@@ -1,6 +1,6 @@
 <%#
 This file is part of the doubledog-koji Puppet module.
-Copyright 2016-2018 John Florian
+Copyright 2016-2021 John Florian
 SPDX-License-Identifier: GPL-3.0-or-later
 -%>
 # This file is managed by Puppet via the "<%= @module_name %>" module.
@@ -23,6 +23,9 @@ DBPort = <%= @db_port %>
 DBPass = <%= @db_passwd %>
 KojiDir = <%= @top_dir %>
 
+##  Auth-related options  ##
+# Use user IP in session management
+;CheckClientIP = True
 
 ##  Kerberos authentication options  ##
 
@@ -31,6 +34,11 @@ KojiDir = <%= @top_dir %>
 ;ProxyPrincipals = koji/kojiweb@EXAMPLE.COM
 ## format string for host principals (%s = hostname)
 ;HostPrincipalFormat = compile/%s@EXAMPLE.COM
+## Allowed Kerberos Realms separated by ','.
+## Default value "*" indicates any Realm is allowed
+;AllowedKrbRealms = *
+## TODO: this option should be removed in future release
+;DisableGSSAPIProxyDNFallback = False
 
 ## end Kerberos auth configuration
 
@@ -59,6 +67,28 @@ NotifyOnSuccess = True
 ## Disables all notifications
 ;DisableNotifications = False
 
+##  Resource limits  ##
+## All standard RLIMIT_* can be set here
+;RLIMIT_AS =
+;RLIMIT_CORE =
+;RLIMIT_CPU =
+;RLIMIT_DATA =
+;RLIMIT_FSIZE =
+;RLIMIT_MEMLOCK =
+;RLIMIT_NOFILE =
+;RLIMIT_NPROC =
+;RLIMIT_OFILE =
+;RLIMIT_RSS =
+;RLIMIT_STACK =
+
+## If memory consumption raises during handling request for more
+## than MemoryWarnThreshold kilobytes, warning is emitted to log
+;MemoryWarnThreshold = 5000
+
+## Maximum request length can be limited on python-side
+;MaxRequestLength = 4194304
+
+
 ## Extended features
 ## Support Maven builds
 ;EnableMaven = False
@@ -75,7 +105,21 @@ Plugins = <%= @plugins.flatten.join(' ') %>
 ## details to clients for anticipated errors (i.e. koji's own exceptions --
 ## subclasses of koji.GenericError).
 KojiDebug = <%= @debug %>
-
+#
+## Log level/format for python logging module at hub
+;LogLevel = WARNING
+;LogFormat = %(asctime)s [%(levelname)s] m=%(method)s u=%(user_name)s p=%(process)s r=%(remoteaddr)s %(name)s: %(message)s'
+#
+#
+## If VerbosePolicy (or KojiDebug) is on, 'policy violation'
+## messages will contain also policy rule which caused this denial
+;VerbosePolicy = False
+#
+## If MissingPolicyOk is on, and given policy is not set up,
+## policy test will pass as ok. If 'deny' result is desired, set it
+## to off
+;MissingPolicyOk = True
+#
 ## Determines how much detail about exceptions is reported to the client (via faults)
 ## Meaningful values:
 ##   normal - a basic traceback (format_exception)

@@ -1,6 +1,6 @@
 <%#
 This file is part of the doubledog-koji Puppet module.
-Copyright 2016-2018 John Florian
+Copyright 2016-2021 John Florian
 SPDX-License-Identifier: GPL-3.0-or-later
 -%>
 # This file is managed by Puppet via the "<%= @module_name %>" module.
@@ -27,9 +27,6 @@ topdir=<%= @top_dir %>
 # Logfile
 logfile=/var/log/kojira.log
 
-# Include srpms in repos? (not needed for normal operation)
-with_src=no
-
 # configuration for Kerberos authentication
 
 # the kerberos principal to use
@@ -40,6 +37,9 @@ with_src=no
 
 # the service name of the principal being used by the hub
 ;krbservice = host
+
+# The realm of server principal. Using client's realm if not set
+;krb_server_realm = EXAMPLE.COM
 
 # configuration for SSL authentication
 
@@ -57,3 +57,13 @@ dist_repo_lifetime = <%= @dist_repo_lifetime %>
 
 # turn on debugging statements in the log
 debug = <%= @debug %>
+
+# ignored repositories according to glob. Multiple masks separated by space.
+;ignore_tags =
+
+
+# Monitor external repos and trigger the appropriate Koji repo regenerations
+# when they change. Note that you need to have your database set to use UTC,
+# as otherwise you can end with weird behaviour. For details see
+# https://pagure.io/koji/issue/2159
+;check_external_repos = false

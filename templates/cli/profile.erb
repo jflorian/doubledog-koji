@@ -1,6 +1,6 @@
 <%#
 This file is part of the doubledog-koji Puppet module.
-Copyright 2016-2019 John Florian
+Copyright 2016-2021 John Florian
 SPDX-License-Identifier: GPL-3.0-or-later
 -%>
 
@@ -28,6 +28,21 @@ authtype = <%= @auth_type %>
 
 <% if @auth_type == 'kerberos' -%>
 krb_rdns = false
+
+# the service name of the principal being used by the Koji-Hub
+;krbservice = host
+
+# the principal to auth as for automated clients
+;principal = client@EXAMPLE.COM
+
+# the keytab to auth as for automated clients
+;keytab = /etc/krb5.keytab
+
+# enable to lookup dns canonical hostname for krb auth
+;krb_canon_host = no
+
+# The realm of server principal. Using client's realm if not set
+;krb_server_realm = EXAMPLE.COM
 <% elsif @auth_type == 'ssl' -%>
 # client certificate
 cert = <%= @client_cert %>
@@ -35,6 +50,25 @@ cert = <%= @client_cert %>
 # certificate of the CA that issued the HTTP server certificate
 serverca = <%= @server_ca %>
 <% end -%>
+
+# plugin paths, separated by ':' as the same as the shell's PATH
+# koji_cli_plugins module and ~/.koji/plugins are always loaded in advance,
+# and then be overridden by this option
+;plugin_paths = ~/.koji/plugins
+
+# enabled plugins for CLI, runroot and save_failed_tree are available
+;plugins =
+#  runroot plugin is enabled by default in fedora
+plugins = runroot
+
+# timeout of XMLRPC requests by seconds
+;timeout = 43200
+
+# timeout of GSSAPI/SSL authentication by seconds
+;auth_timeout = 60
+
+# use the fast upload feature of koji by default
+use_fast_upload = yes
 
 ## failure handling when making calls to the Koji-Hub {{{2
 
