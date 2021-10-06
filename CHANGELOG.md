@@ -19,18 +19,15 @@ Template
 
 All notable changes to this project (since v4.0.0) will be documented in this file.  The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
-## [4.6.0] WIP
+## [4.6.0] 2021-10-06
 ### Added
 - Fedora 34 support (builders only)
 ### Changed
 - refreshed templates against `koji-1.21.1-1.el7` and `koji-builder-1.22.1-1.fc33`
 - allow httpd to follow symlinks for static content and local product branding
 - `puppetlabs-postgresql` module dependency now allows version 7
-### Deprecated
 ### Removed
 - Fedora 31 support
-### Fixed
-### Security
 
 ## [4.5.0] 2021-03-10
 ### Added
