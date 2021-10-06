@@ -51,7 +51,9 @@ WSGIProcessGroup koji
 Alias /koji-static/ "/usr/share/koji-web/static/"
 
 <Directory "/usr/share/koji-web/static/">
-    Options None
+    # Local branding may use a symlink here to reference product branding from
+    # another package.
+    Options FollowSymLinks
     AllowOverride None
     <IfVersion < 2.4>
         Order allow,deny
