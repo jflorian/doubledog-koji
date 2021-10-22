@@ -19,6 +19,15 @@ Template
 
 All notable changes to this project (since v4.0.0) will be documented in this file.  The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [4.6.1] WIP
+### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
+- `/etc/koji-hub/hub.conf` world-readable with DB connection password
+
 ## [4.6.0] 2021-10-06
 ### Added
 - Fedora 34 support (builders only)
