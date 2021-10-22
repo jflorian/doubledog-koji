@@ -10,7 +10,7 @@
 # === Copyright
 #
 # This file is part of the doubledog-koji Puppet module.
-# Copyright 2016-2019 John Florian
+# Copyright 2016-2021 John Florian
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
@@ -80,6 +80,8 @@ class koji::hub (
             seltype => 'public_content_rw_t',
             ;
         '/etc/koji-hub/hub.conf':
+            group   => 'apache',
+            mode    => '0640',
             content => template('koji/hub/hub.conf.erb'),
             ;
     }
